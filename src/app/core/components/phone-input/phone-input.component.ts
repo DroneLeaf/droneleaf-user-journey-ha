@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { Country, CountryPhoneService } from '../../services/country-phone.service';
 import { AbstractControl, FormControl } from '@angular/forms';
 
@@ -12,6 +12,8 @@ export class PhoneInputComponent  implements OnInit {
   @Input() label: string = 'Phone Number';
   @Input() required: boolean = false;
   @Input() errorMessage: string = '';
+  @ViewChild('dropdownRef') dropdownRef!: ElementRef;
+
 
   countries: Country[] = [];
   filteredCountries: Country[] = [];
@@ -20,6 +22,15 @@ export class PhoneInputComponent  implements OnInit {
   searchQuery: string = '';
 
   constructor(private countryService: CountryPhoneService) {}
+
+  @HostListener('document:click', ['$event'])
+onDocumentClick(event: MouseEvent): void {
+  const clickedInside = this.dropdownRef?.nativeElement.contains(event.target);
+  if (!clickedInside) {
+    this.showDropdown = false;
+  }
+}
+
 
   ngOnInit() {
     this.countryService.getAllCountries().subscribe({

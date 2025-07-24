@@ -6,7 +6,7 @@
   <div class="relative flex items-center gap-2 border rounded-md px-2 py-2 bg-white" [class.border-red-500]="isInvalid"
     [class.border-green-500]="isValid">
     <!-- Country dropdown button -->
-    <div class="relative">
+    <div class="relative" #dropdownRef>
       <button type="button" (click)="toggleDropdown()" class="flex items-center gap-1 text-sm">
         <span>{{ selectedCountry?.flag || '🌐' }}</span>
         <span class="text-xs">▼</span>
@@ -18,7 +18,7 @@
             placeholder="Search country..." class="w-full p-1 text-sm border rounded bg-white"
             [ngModelOptions]="{ standalone: true }" />
         </div>
-        <div class="max-h-60 overflow-y-auto">
+        <div class="max-h-60 overflow-y-auto hide-scrollbar">
           <div *ngFor="let country of filteredCountries" (click)="onCountryChange(country)"
             class="flex items-center p-2 hover:bg-gray-100 cursor-pointer">
             <span class="mr-2">{{ country.flag }}</span>
