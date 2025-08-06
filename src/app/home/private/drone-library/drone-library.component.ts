@@ -8,6 +8,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { DRONES } from 'src/app/core/data/mock-drones';
 import { Drone } from 'src/app/core/models/drone-library.model';
 
@@ -31,6 +32,9 @@ export class DroneLibraryComponent implements OnInit, AfterViewInit {
     'Template Only',
     'In Progress',
   ];
+  filterOptions = ['All Applications', 'Application', 'Something Else'];
+filterControl = new FormControl('');
+
   underlineLeft = '0px';
   underlineWidth = '0px';
   @ViewChild('tabsContainer') tabsContainer!: ElementRef;

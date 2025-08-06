@@ -7,10 +7,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { IonicModule } from '@ionic/angular';
 import { CoreModule } from "src/app/core/core.module";
+import { AddDroneStepperComponent } from '../component/add-drone-stepper/add-drone-stepper.component';
 
 
 @NgModule({
-  declarations: [SidebarComponent,NavbarComponent],
+  declarations: [SidebarComponent,NavbarComponent,AddDroneStepperComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -18,6 +19,6 @@ import { CoreModule } from "src/app/core/core.module";
     IonicModule,
     CoreModule
 ],
-  exports:[SidebarComponent,NavbarComponent]
+  exports:[SidebarComponent,NavbarComponent,AddDroneStepperComponent]
 })
 export class SharedModule { }

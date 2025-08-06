@@ -1,0 +1,104 @@
+<div class="flex flex-col bg-white text-black">
+
+
+  <!-- Main Content Area -->
+  <div class="flex flex-1 flex-col md:flex-row">
+    <!-- Left Form Section -->
+    <div class="flex flex-col flex-1 px-6 py-6">
+      <!-- Top Header -->
+      <div class="flex justify-between items-center  py-4">
+        <img src="../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-14" />
+        <app-help-button></app-help-button>
+      </div>
+      <!-- Section 1: Indoor Flight Environment -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Indoor Flight Environment</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-text-input [control]="environmentForm.get('nameOfEnvironment')" label="Name of Environment"
+            placeholder="Enter Environment Name" [required]="true"></app-text-input>
+          <app-select-input [control]="environmentForm.get('positioningSystemType')" [options]="indoorPositioningTypes"
+            label="Indoor Positioning System Type" [required]="true"></app-select-input>
+        </div>
+      </div>
+
+      <!-- Section 2: Motion Capture -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Motion Capture</h3>
+        <app-select-input [control]="environmentForm.get('positioningSystemMake')" [options]="positioningSystemMakes"
+          label="Indoor Positioning System Make" [required]="true"></app-select-input>
+      </div>
+
+      <!-- Section 3: OptiTrack -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">OptiTrack</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <app-text-input [control]="environmentForm.get('wifiSSID')" label="WiFi SSID" placeholder="Enter SSID"
+            [required]="true"></app-text-input>
+          <app-text-input [control]="environmentForm.get('wifiPassword')" label="WiFi Password"
+            placeholder="Enter Password" type="password" [required]="true"></app-text-input>
+
+          <app-text-input [control]="environmentForm.get('lanSubnet')" label="LAN Subnet" placeholder="Enter Subnet"
+            [required]="true"></app-text-input>
+          <app-text-input [control]="environmentForm.get('optiTrackServerAddress')" label="OptiTrack Server Address"
+            placeholder="Enter Server Address" [required]="true"></app-text-input>
+
+          <app-text-input [control]="environmentForm.get('optiTrackMulticastAddress')"
+            label="OptiTrack Multicast Address" placeholder="Enter Multicast Address" [required]="true"
+            class="md:col-span-2"></app-text-input>
+        </div>
+      </div>
+
+      <!-- Section 4: Area -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Area</h3>
+        <label class="text-sm font-medium mb-2">Along OptiTrack's Axis</label>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <app-text-input [control]="environmentForm.get('axisX')" label="X" placeholder="X: 0.0"
+            [required]="true"></app-text-input>
+          <app-text-input [control]="environmentForm.get('axisY')" label="Y" placeholder="Y: 0.0"
+            [required]="true"></app-text-input>
+          <app-text-input [control]="environmentForm.get('axisZ')" label="Z" placeholder="Z: 0.0"
+            [required]="true"></app-text-input>
+        </div>
+      </div>
+
+<hr>
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4 mt-5">
+        <button type="button"
+          class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
+          (click)="onCancelClick()">
+          Cancel
+        </button>
+
+        <div class="flex gap-4 w-full md:w-auto">
+          <button
+            class="border-1 border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
+            style="border: 1px solid #009169;" (click)="back.emit()">
+            Back
+          </button>
+
+          <button (click)="onContinue()"
+            [ngClass]="{'bg-[#009169]': environmentForm.valid, 'bg-[#80c8b4] opacity-50 cursor-not-allowed': !environmentForm.valid}"
+            class="font-semibold py-2 px-6 rounded-md transition-colors duration-200 text-white">Continue</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Stepper Sidebar -->
+    <div class="w-full md:w-96 bg-[#cce9e1] p-6 flex flex-col justify-around">
+      <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
+      <div class="mt-8">
+        <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
+        <p class="text-[16px] text-gray-600">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-confirm-cancel-model [show]="cancelModalVisible" (confirm)="cancelConfirmed()"
+  (cancel)="cancelDismissed()"></app-confirm-cancel-model>

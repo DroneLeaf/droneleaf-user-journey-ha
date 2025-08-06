@@ -37,6 +37,8 @@ export class PersonalInfoFormComponent implements OnInit {
       { validator: this.passwordMatchValidator }
     );
   }
+
+
   passwordMatchValidator(form: FormGroup) {
     return form.get('password')?.value === form.get('confirmPassword')?.value
       ? null

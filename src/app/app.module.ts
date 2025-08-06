@@ -11,10 +11,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared/shared.module';
 import { HomePageModule } from './home/home.module';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent,LayoutComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AuthModule,HttpClientModule,SharedModule,HomePageModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,AuthModule,HttpClientModule,SharedModule,HomePageModule,CoreModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

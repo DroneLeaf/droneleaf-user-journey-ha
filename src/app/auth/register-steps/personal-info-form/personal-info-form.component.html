@@ -2,7 +2,7 @@
 
   <!-- Logo -->
   <div class="relative sm:absolute top-4 left-4 z-50 w-10 sm:w-16">
-    <img src="../../../assets/logo.png" alt="Logo" class="w-full h-auto" />
+    <img src="../../../../assets//Group.svg" alt="Logo" class="w-full h-auto" />
   </div>
 
   <!-- Main Wrapper -->
@@ -31,7 +31,7 @@
           <h2 class="text-xl sm:text-3xl font-[400]">Your Personal information</h2>
           <p class="text-sm text-gray-500 mt-1">
             Already have an account?
-           <span class="text-[#009169] font-medium cursor-pointer" (click)="goToLogin()">Sign in</span>
+            <span class="text-[#009169] font-bold underline cursor-pointer" (click)="goToLogin()">Sign in</span>
           </p>
         </div>
 
@@ -47,32 +47,60 @@
               placeholder="Enter last name" [required]="true"></app-text-input>
           </div>
           <!-- Phone Number -->
-       <app-phone-input [control]="phoneControl" [label]="'Phone Number*'" [required]="true"></app-phone-input>
+          <app-phone-input [control]="phoneControl" [label]="'Phone Number*'" [required]="true"></app-phone-input>
           <!-- Email -->
           <app-text-input [control]="personalInfoForm.get('email')" label="Email*" placeholder="Enter email"
             [required]="true"></app-text-input>
           <!-- Password -->
-          <app-text-input [control]="personalInfoForm.get('password')" [label]="'Password*'" type="password" placeholder="Enter password"
-            [required]="true"></app-text-input>
+          <app-text-input [control]="personalInfoForm.get('password')" [label]="'Password*'" type="password"
+            placeholder="Enter password" [required]="true"></app-text-input>
           <!-- Confirm Password -->
-          <app-text-input [control]="personalInfoForm.get('confirmPassword')" type="password" [label]="'Confirme Password*'"
-            placeholder="Enter confirme Password" [required]="true"></app-text-input>
+          <app-text-input [control]="personalInfoForm.get('confirmPassword')" type="password"
+            [label]="'Confirme Password*'" placeholder="Enter confirme Password" [required]="true"></app-text-input>
           <!-- Terms and Marketing -->
-          <div class="space-y-2">
-            <label class="flex items-start space-x-2 text-sm">
-              <input type="checkbox" formControlName="terms" class="mt-1 accent-[#009169]" />
-              <span>I agree to all <a href="#" class="text-[#009169] underline">Terms and Conditions</a></span>
+          <div class="space-y-4 text-sm text-black">
+            <!-- Terms & Conditions Checkbox -->
+            <label class="flex items-start gap-3 cursor-pointer select-none">
+              <input type="checkbox" formControlName="terms" class="sr-only"
+                [checked]="personalInfoForm.get('terms')?.value" [checked]="personalInfoForm.get('terms')?.value" />
+              <span
+                class="w-5 h-5 inline-flex items-center justify-center border border-[#009169] rounded transition-all duration-200"
+                [ngClass]="{ 'bg-[#009169]': personalInfoForm.get('terms')?.value }">
+                <svg *ngIf="personalInfoForm.get('terms')?.value" class="w-3 h-3 text-white" fill="none"
+                  stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <span>
+                I agree to all
+                <a href="#" class="text-[#009169] underline">Terms and Conditions</a>
+              </span>
             </label>
             <div *ngIf="terms?.touched && terms?.errors" class="text-red-500 text-xs mt-1">
               You must accept the terms and conditions
             </div>
 
-            <label class="flex items-start space-x-2 text-sm">
-              <input type="checkbox" formControlName="marketing" class="mt-1 accent-[#009169]" />
-              <span>I agree to receive marketing promotions from Drone Leaf Team.</span>
+            <!-- Marketing Checkbox -->
+            <label class="flex items-start gap-3 cursor-pointer select-none">
+              <input type="checkbox" formControlName="marketing" class="sr-only"
+                [checked]="personalInfoForm.get('marketing')?.value"
+                [checked]="personalInfoForm.get('marketing')?.value" />
+              <span
+                class="w-5 h-5 inline-flex items-center justify-center border border-[#009169] rounded transition-all duration-200"
+                [ngClass]="{ 'bg-[#009169]': personalInfoForm.get('marketing')?.value }">
+                <svg *ngIf="personalInfoForm.get('marketing')?.value" class="w-3 h-3 text-white" fill="none"
+                  stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
+                  <path d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+              <span>
+                I agree to receive marketing promotions from Drone Leaf Team.
+              </span>
             </label>
           </div>
-          <app-button type="submit" label="Register" [hasBackButton]="false" [disabled]="personalInfoForm.invalid" [responsive]="true"></app-button>
+
+          <app-button type="submit" label="Register" [hasBackButton]="false" [disabled]="personalInfoForm.invalid"
+            [responsive]="true"></app-button>
         </form>
 
       </div>
@@ -86,12 +114,7 @@
 
   <!-- Help Button -->
   <div class="block relative sm:absolute bottom-6 left-4 z-50 pt-2">
-    <ion-button fill="clear"
-      class="custom-help-button flex items-center gap-3 w-[11.25rem] h-11  py-3 text-sm border-btn rounded-full text-[#009169] hover:bg-[#f0fdfa] transition">
-      <svg fill="#000000" viewBox="-1.7 0 20.4 20.4" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg w-6"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M16.476 10.283A7.917 7.917 0 1 1 8.56 2.366a7.916 7.916 0 0 1 7.916 7.917zm-5.034-2.687a2.845 2.845 0 0 0-.223-1.13A2.877 2.877 0 0 0 9.692 4.92a2.747 2.747 0 0 0-1.116-.227 2.79 2.79 0 0 0-1.129.227 2.903 2.903 0 0 0-1.543 1.546 2.803 2.803 0 0 0-.227 1.128v.02a.792.792 0 0 0 1.583 0v-.02a1.23 1.23 0 0 1 .099-.503 1.32 1.32 0 0 1 .715-.717 1.223 1.223 0 0 1 .502-.098 1.18 1.18 0 0 1 .485.096 1.294 1.294 0 0 1 .418.283 1.307 1.307 0 0 1 .281.427 1.273 1.273 0 0 1 .099.513 1.706 1.706 0 0 1-.05.45 1.546 1.546 0 0 1-.132.335 2.11 2.11 0 0 1-.219.318c-.126.15-.25.293-.365.424-.135.142-.26.28-.374.412a4.113 4.113 0 0 0-.451.639 3.525 3.525 0 0 0-.342.842 3.904 3.904 0 0 0-.12.995v.035a.792.792 0 0 0 1.583 0v-.035a2.324 2.324 0 0 1 .068-.59 1.944 1.944 0 0 1 .187-.463 2.49 2.49 0 0 1 .276-.39c.098-.115.209-.237.329-.363l.018-.02c.129-.144.264-.301.403-.466a3.712 3.712 0 0 0 .384-.556 3.083 3.083 0 0 0 .28-.692 3.275 3.275 0 0 0 .108-.875zM9.58 14.895a.982.982 0 0 0-.294-.707 1.059 1.059 0 0 0-.32-.212l-.004-.001a.968.968 0 0 0-.382-.079 1.017 1.017 0 0 0-.397.08 1.053 1.053 0 0 0-.326.212 1.002 1.002 0 0 0-.215 1.098 1.028 1.028 0 0 0 .216.32 1.027 1.027 0 0 0 .722.295.968.968 0 0 0 .382-.078l.005-.002a1.01 1.01 0 0 0 .534-.534.98.98 0 0 0 .08-.392z"></path></g></svg>
-      <span class="font-medium text-[12px] text-[#9A9A9A]">Need some help?</span>
-    </ion-button>
-
+    <app-help-button></app-help-button>
   </div>
 
 </div>

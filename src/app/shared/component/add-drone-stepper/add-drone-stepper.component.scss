@@ -1,0 +1,36 @@
+.stepper {
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+
+      .checkmark {
+        margin-right: 10px;
+      }
+
+      &.active .checkmark {
+        font-weight: bold;
+        color: green;
+      }
+    }
+  }
+
+  .progress-bar {
+    height: 4px;
+    background: #eee;
+    margin: 1rem 0;
+    .fill {
+      height: 100%;
+      background-color: #1abc9c;
+    }
+  }
+
+  .step-counter {
+    font-weight: bold;
+    text-align: right;
+  }
+}

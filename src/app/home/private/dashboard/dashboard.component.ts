@@ -1,4 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,12 +9,14 @@ import { Component, ElementRef, HostListener, OnInit, QueryList, ViewChildren } 
 })
 export class DashboardComponent  implements OnInit {
 openDropdown: string | null = null;
-   constructor(private eRef: ElementRef) {}
+   constructor(private eRef: ElementRef,private toastService: ToastService,private router:Router) {}
    @ViewChildren('dropdownRef') dropdownRefs!: QueryList<ElementRef>;
+showAddDroneModal = false;
 
     toggleDropdown(droneName: string) {
     this.openDropdown = this.openDropdown === droneName ? null : droneName;
   }
+
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
@@ -25,7 +29,24 @@ openDropdown: string | null = null;
     }
   }
 
-  ngOnInit() {}
+  addDronePage(){
+    this.router.navigate(['/add-drone'])
+  }
+
+ngOnInit() {
+  const shouldShowToast = sessionStorage.getItem('showSuccessToast');
+
+  if (shouldShowToast === 'true') {
+    this.toastService.show({
+      title: 'Successfully Registered!',
+      message: 'Your account has been successfully registered',
+      type: 'success',
+      position: 'top-center',
+    });
+    sessionStorage.removeItem('showSuccessToast');
+  }
+}
+
 
   stats = [
   {

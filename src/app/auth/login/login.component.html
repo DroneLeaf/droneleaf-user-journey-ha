@@ -2,7 +2,7 @@
 
   <!-- Logo Top Left -->
   <div class="absolute top-4 left-4 z-50 w-10 sm:w-16">
-    <img src="../../../assets/logo.png" alt="Logo" class="w-full h-auto" />
+    <img src="../../../assets/Group.svg" alt="Logo" class="w-full h-auto" />
   </div>
 
   <!-- Main Layout -->
@@ -25,39 +25,29 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
 
           <!-- Email Input -->
-          <app-text-input
-            [control]="loginForm.get('email')"
-            label="Email Address*"
-            placeholder="name@email.com"
-            [type]="'email'"
-            [required]="true">
+          <app-text-input [control]="loginForm.get('email')" label="Email Address*" placeholder="name@email.com"
+            [type]="'email'" [required]="true">
           </app-text-input>
 
           <!-- Password Input -->
-          <app-text-input
-            [control]="loginForm.get('password')"
-            label="Password*"
-            placeholder="Enter password"
-            [type]="'password'"
-            [required]="true">
+          <app-text-input [control]="loginForm.get('password')" label="Password*" placeholder="Enter password"
+            [type]="'password'" [required]="true">
           </app-text-input>
 
           <!-- Remember Me + Forgot -->
           <div class="flex items-center justify-between text-sm">
-            <label class="flex items-center space-x-2">
-              <input type="checkbox" class="accent-[#009169]" formControlName="rememberMe" />
-
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" formControlName="rememberMe"
+                class="h-[16px] w-[16px] rounded border border-[#D1DADF] appearance-none checked:bg-[#009169] checked:border-[#009169] checked:bg-[url('/assets/check-white.svg')] checked:bg-no-repeat checked:bg-center checked:bg-[length:12px_12px] transition" />
               <span>Remember me</span>
             </label>
+
             <a href="#" class="text-[#009169] hover:underline">Forgot password?</a>
           </div>
 
+
           <!-- Login Button -->
-          <app-button
-            type="submit"
-            label="Login"
-            [fullWidth]="true"
-            [disabled]="loginForm.invalid">
+          <app-button type="submit" label="Login" [fullWidth]="true" [disabled]="loginForm.invalid">
           </app-button>
         </form>
       </div>
@@ -71,10 +61,6 @@
 
   <!-- Help Button Bottom -->
   <div class="block sm:absolute bottom-6 left-4 z-50 pt-2">
-    <ion-button fill="clear"
-      class="custom-help-button flex bg-slate-200 items-center gap-3 w-[11.25rem] h-11 px-6 py-3 text-sm border-2 rounded-full text-[#009169] hover:bg-[#f0fdfa] transition">
-      <ion-icon name="help-circle" class="text-xl"></ion-icon>
-      <span class="font-medium text-[12px] text-[#9A9A9A]">Need some help?</span>
-    </ion-button>
+<app-help-button></app-help-button>
   </div>
 </div>

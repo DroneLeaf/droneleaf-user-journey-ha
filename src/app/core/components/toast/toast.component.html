@@ -1,0 +1,37 @@
+<div
+  *ngIf="toast"
+  class="fixed z-50 w-[320px] bg-white border border-gray-200 rounded-xl shadow-md p-4 flex items-start gap-3"
+  [ngClass]="positionClasses"
+>
+
+  <!-- Icon -->
+  <div class="text-green-600 text-xl pt-3">
+    <ng-container [ngSwitch]="toast.type">
+      <span *ngSwitchCase="'success'"><svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="0.390625" y="0.957031" width="28.6685" height="28.6685" rx="14.3342" fill="#ECECEC"/>
+<mask id="mask0_424_11944" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="3" y="4" width="23" height="23">
+<rect x="3.97656" y="4.54102" width="21.5014" height="21.5014" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_424_11944)">
+<path d="M13.4703 19.412L19.7863 13.096L18.5321 11.8418L13.4703 16.9035L10.917 14.3502L9.66275 15.6045L13.4703 19.412ZM14.7245 24.2498C13.4852 24.2498 12.3206 24.0145 11.2306 23.5439C10.1406 23.0738 9.19241 22.4357 8.3861 21.6294C7.5798 20.8231 6.94163 19.8749 6.47159 18.7849C6.00095 17.6949 5.76562 16.5302 5.76562 15.2909C5.76562 14.0516 6.00095 12.887 6.47159 11.797C6.94163 10.707 7.5798 9.75881 8.3861 8.95251C9.19241 8.14621 10.1406 7.50774 11.2306 7.0371C12.3206 6.56705 13.4852 6.33203 14.7245 6.33203C15.9638 6.33203 17.1285 6.56705 18.2185 7.0371C19.3085 7.50774 20.2567 8.14621 21.063 8.95251C21.8693 9.75881 22.5074 10.707 22.9775 11.797C23.4481 12.887 23.6834 14.0516 23.6834 15.2909C23.6834 16.5302 23.4481 17.6949 22.9775 18.7849C22.5074 19.8749 21.8693 20.8231 21.063 21.6294C20.2567 22.4357 19.3085 23.0738 18.2185 23.5439C17.1285 24.0145 15.9638 24.2498 14.7245 24.2498Z" fill="#29C602"/>
+</g>
+</svg>
+</span>
+      <span *ngSwitchCase="'error'">❌</span>
+      <span *ngSwitchDefault>ℹ️</span>
+    </ng-container>
+  </div>
+
+  <!-- Content -->
+  <div class="flex-1">
+    <h4 class="font-semibold text-[#3A3B3E] mb-1">{{ toast.title }}</h4>
+    <p class="text-sm text-[#6D6767]">{{ toast.message }}</p>
+  </div>
+
+  <!-- Close -->
+  <button class="text-gray-400 hover:text-gray-600" (click)="close()"><svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.74525 1.85547L1.57812 9.02259" stroke="#3A3B3E" stroke-width="1.79178" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M1.57812 1.85547L8.74525 9.02259" stroke="#3A3B3E" stroke-width="1.79178" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</button>
+</div>

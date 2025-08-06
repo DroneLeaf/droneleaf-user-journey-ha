@@ -1,13 +1,13 @@
 <div class="bg-white relative text-black">
   <div class="relative sm:absolute top-4 left-4 z-50 w-14 sm:w-16">
-    <img src="../../../assets/logo.png" alt="Logo" class="w-full h-auto" />
+    <img src="../../../assets/Group.svg" alt="Logo" class="w-full h-auto" />
   </div>
   <div class="flex flex-col lg:flex-row min-h-screen">
 
     <!-- Left Side: Form -->
     <div class="flex-1 flex items-center justify-center p-4">
       <div class="w-full max-w-xl">
-        <h2 class="text-center text-2xl font-semibold mb-2">How would you like to proceed?</h2>
+        <h2 class="text-center text-2xl mb-2">How would you like to proceed?</h2>
         <p class="text-center text-gray-500 mb-6">We'll be sure to fit the experience to your needs.</p>
 
         <div class="flex flex-col items-center gap-4 w-full">
@@ -15,20 +15,25 @@
           <div
             class="w-full max-w-[599px] h-[190px] border border-[#009169] rounded-lg p-4 sm:p-6 cursor-pointer transition-all duration-200 hover:shadow-lg text-center"
             [ngClass]="{
-    'ring-2 ring-[#009169] bg-gray-100': selectedType === 'private'
+    'border border-[#009169] bg-[rgba(0,145,105,0.05)] ring-1 ring-[#009169]': selectedType === 'private',
+    'border border-[#D1DADF]': selectedType !== 'private'
   }" (click)="selectType('private')" style="border-width: 1px; opacity: 1;">
 
             <!-- Default Image (Non-Active) -->
-            <img *ngIf="selectedType !== 'private'" src="../../../assets/personal.png" alt="Private"
+            <img *ngIf="selectedType !== 'private'" src="../../../assets/private-unactive.svg" alt="Private"
               class="mx-auto mb-2 sm:mb-3 h-10 sm:h-12 object-contain" />
 
             <!-- Green Image (Active) -->
-            <img *ngIf="selectedType === 'private'" src="../../../assets/private-green.png" alt="Private Active"
+            <img *ngIf="selectedType === 'private'" src="../../../assets/private-active.svg" alt="Private Active"
               class="mx-auto mb-2 sm:mb-3 h-10 sm:h-12 object-contain" />
 
-            <h3 class="font-roboto font-bold text-base sm:text-lg leading-tight tracking-normal text-center">
+            <h3 class="font-roboto text-base sm:text-lg leading-tight tracking-normal text-center" [ngClass]="{
+      'font-bold': selectedType === 'private',
+      'font-normal': selectedType !== 'private'
+    }">
               Private Account
             </h3>
+
             <p
               class="font-roboto font-normal text-sm sm:text-base leading-tight tracking-normal text-gray-500 text-center mt-1">
               Manage your own drone projects with a personal account
@@ -39,20 +44,25 @@
           <div
             class="w-full max-w-[599px] h-[190px] border border-[#009169] rounded-lg p-4 sm:p-6 cursor-pointer transition-all duration-200 hover:shadow-lg text-center"
             [ngClass]="{
-    'ring-2 ring-[#009169] bg-gray-100': selectedType === 'business'
+    'border border-[#009169] bg-[rgba(0,145,105,0.05)] ring-1 ring-[#009169]': selectedType === 'business',
+    'border border-[#D1DADF]': selectedType !== 'business'
   }" (click)="selectType('business')" style="border-width: 1px; opacity: 1;">
 
             <!-- Default Image (Non-Active) -->
-            <img *ngIf="selectedType !== 'business'" src="../../../assets/Group.png" alt="Business"
+            <img *ngIf="selectedType !== 'business'" src="../../../assets/business-unactive.svg" alt="Business"
               class="mx-auto mb-2 sm:mb-3 h-10 sm:h-12 object-contain" />
 
             <!-- Green Image (Active) -->
-            <img *ngIf="selectedType === 'business'" src="../../../assets/Group-green.png" alt="Business Active"
+            <img *ngIf="selectedType === 'business'" src="../../../assets/business-active.svg" alt="Business Active"
               class="mx-auto mb-2 sm:mb-3 h-10 sm:h-12 object-contain" />
 
-            <h3 class="font-roboto font-bold text-base sm:text-lg leading-tight tracking-normal text-center">
+            <h3 class="font-roboto text-base sm:text-lg leading-tight tracking-normal text-center" [ngClass]="{
+      'font-bold': selectedType === 'business',
+      'font-normal': selectedType !== 'business'
+    }">
               Business Account
             </h3>
+
             <p
               class="font-roboto font-normal text-sm sm:text-base leading-tight tracking-normal text-gray-500 text-center mt-1">
               Coordinate teams and fleets under a centralized business account

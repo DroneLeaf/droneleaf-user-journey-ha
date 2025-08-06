@@ -14,33 +14,50 @@
   <!-- Header -->
   <div>
     <div class="text-2xl font-bold mb-[9rem] mt-3 items-center gap-2 mx-auto">
-      <img src="../../../assets/logo.png" class="mx-auto" alt="" />
+      <img src="../../../assets/main-logo.svg" class="mx-auto" alt="" />
       <span class="text-4xl mx-4 font-sans">DroneLeaf</span>
       <p class="text-[12px] text-center font-light">Unlimited Autonomy</p>
     </div>
 
     <!-- Navigation -->
-    <nav class="flex flex-col gap-4">
-      <a *ngFor="let item of sidebarItems" [routerLink]="item.link" routerLinkActive="bg-[#99D3C3] text-[#003224]"
-        #rla="routerLinkActive"
-        class="flex items-center gap-3 px-4 py-2 rounded hover:bg-[#0d3f3d] hover:text-white transition"
-        (click)="handleMenuClick()">
-        <img [src]="rla.isActive ? item.activeIconPath : item.iconPath" alt="icon" class="w-[17px] h-[17px]" />
-        <span [ngClass]="{
+<nav class="flex flex-col gap-4">
+  <a
+    *ngFor="let item of sidebarItems"
+    [routerLink]="item.link"
+    routerLinkActive="bg-[#99D3C3] text-[#003224]"
+    #rla="routerLinkActive"
+    class="flex items-center gap-3 px-4 py-2 rounded transition"
+    [ngClass]="{
+      'hover:bg-[#ffffff] hover:text-[#003224]': rla.isActive,
+      'hover:bg-[#0d3f3d] hover:text-white': !rla.isActive
+    }"
+    (click)="handleMenuClick()"
+  >
+    <img
+      [src]="rla.isActive ? item.activeIconPath : item.iconPath"
+      alt="icon"
+      class="w-[17px] h-[17px]"
+    />
+    <span
+      [ngClass]="{
         'font-semibold text-[#003224]': rla.isActive
-      }">
-          {{ item.label }}
-        </span>
-      </a>
-    </nav>
+      }"
+    >
+      {{ item.label }}
+    </span>
+  </a>
+</nav>
+
 
 
   </div>
 
   <!-- Logout -->
   <div>
-    <a (click)="logout()"
-      class="flex items-center gap-2 p-2 mt-8 rounded text-red-300 hover:text-white hover:bg-red-600 cursor-pointer">
+  <a
+  (click)="logout()"
+  class="flex items-center gap-3 px-4 py-2 rounded transition hover:bg-[#0d3f3d] hover:text-white text-white cursor-pointer"
+>
       <svg class="w-4 h-4" fill="none" viewBox="0 0 17 16" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M5.64021 8.04732C5.64021 7.77398 5.86688 7.54732 6.14021 7.54732H9.79354V1.90732C9.78688 1.58732 9.53354 1.33398 9.21354 1.33398C5.28688 1.33398 2.54688 4.07398 2.54688 8.00065C2.54688 11.9273 5.28688 14.6673 9.21354 14.6673C9.52688 14.6673 9.78688 14.414 9.78688 14.094V8.54065H6.14021C5.86021 8.54732 5.64021 8.32065 5.64021 8.04732Z"
@@ -55,3 +72,29 @@
 
   </div>
 </aside>
+
+
+<!-- Logout Confirmation Modal -->
+<div
+  *ngIf="showLogoutConfirm"
+  class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
+>
+  <div class="bg-white rounded-lg p-6 w-[90%] max-w-sm text-center shadow-lg">
+    <h2 class="text-lg font-semibold text-gray-800 mb-4">Logout Confirmation</h2>
+    <p class="text-sm text-gray-600 mb-6">Are you sure you want to log out?</p>
+    <div class="flex justify-center gap-4">
+      <button
+        class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+        (click)="confirmLogout()"
+      >
+        Yes
+      </button>
+      <button
+        class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+        (click)="cancelLogout()"
+      >
+        No
+      </button>
+    </div>
+  </div>
+</div>

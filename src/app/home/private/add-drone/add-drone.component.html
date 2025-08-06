@@ -1,0 +1,51 @@
+<!-- OUTER MODAL BACKDROP with spacing outside + fade animation -->
+<div class="fixed inset-0 z-50 bg-black bg-opacity-30 backdrop-blur-sm p-5 flex items-center justify-center
+         transition-opacity duration-300 ease-out animate-fadeIn">
+  <!-- WHITE MODAL BOX (inner container) with slide animation -->
+  <div class="w-full max-w-[110rem] h-full bg-white shadow-xl rounded-xl overflow-hidden flex flex-col
+           transform transition-all duration-300 ease-out animate-slideUp">
+    <!-- Step Layout -->
+    <div class="flex flex-col md:flex-row flex-1">
+      <!-- Left Main Area -->
+      <div class="flex flex-col flex-1 px-6 py-6 overflow-y-auto">
+        <ng-container [ngSwitch]="currentStepIndex">
+          <app-step-one *ngSwitchCase="0" [steps]="steps" [currentStepIndex]="currentStepIndex"
+            (next)="goToStep(1, $event)" (cancel)="handleStepCancel()"></app-step-one>
+
+          <app-step-two *ngSwitchCase="1" [steps]="steps" [currentStepIndex]="currentStepIndex"
+            [droneOption]="selectedDroneOption" (next)="goToStep($event)" (cancel)="handleStepCancel()"
+            (back)="goToStep(0)"></app-step-two>
+
+          <app-step-three *ngSwitchCase="2" [steps]="steps" [currentStepIndex]="currentStepIndex" (next)="goToStep(3)"
+            (cancel)="handleStepCancel()" (back)="goToStep(1)"></app-step-three>
+
+          <app-step-four *ngSwitchCase="3" [steps]="steps" [currentStepIndex]="currentStepIndex" (next)="goToStep(4)"
+            (cancel)="handleStepCancel()" (back)="goToStep(2)"></app-step-four>
+
+          <app-select-drone-step *ngSwitchCase="4" [steps]="steps" [currentStepIndex]="currentStepIndex"
+            (next)="goToStep(5, $event)" (cancel)="handleStepCancel()" (back)="goToStep(3)"></app-select-drone-step>
+
+          <ng-container *ngSwitchCase="5">
+            <app-custome-drone *ngIf="selectedDroneOption === 'custom'" [steps]="steps"
+              [currentStepIndex]="currentStepIndex" (next)="goToStep(6)" (cancel)="handleStepCancel()"
+              (back)="goToStep(4)"></app-custome-drone>
+          </ng-container>
+
+          <app-choose-your-drone-method *ngSwitchCase="6" [steps]="steps" [currentStepIndex]="currentStepIndex"
+            (next)="handleChooseMethod($event)" (cancel)="handleStepCancel()" (back)="goToStep(5)">
+          </app-choose-your-drone-method>
+
+          <app-tier-one-screen *ngSwitchCase="7" [steps]="steps" [currentStepIndex]="currentStepIndex"
+            (next)="goToStep(8)" (cancel)="handleStepCancel()" (back)="goToStep(6)">
+          </app-tier-one-screen>
+
+
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Cancel Modal -->
+<app-confirm-cancel-model [show]="cancelModalVisible" (confirm)="cancelConfirmed()"
+  (cancel)="cancelDismissed()"></app-confirm-cancel-model>

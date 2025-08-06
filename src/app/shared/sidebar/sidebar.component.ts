@@ -128,8 +128,20 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  logout() {
-    localStorage.clear();
-    window.location.href = '/auth/account-type';
-  }
+showLogoutConfirm = false;
+
+logout() {
+  this.showLogoutConfirm = true;
+}
+
+confirmLogout() {
+  localStorage.clear();
+  window.location.href = '/auth/account-type';
+}
+
+cancelLogout() {
+  this.showLogoutConfirm = false;
+}
+
+
 }

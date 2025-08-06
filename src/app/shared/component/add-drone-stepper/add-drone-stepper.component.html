@@ -1,0 +1,31 @@
+<ul class="space-y-4">
+  <li *ngFor="let step of steps; let i = index" class="flex justify-between items-center">
+    <!-- Step Title -->
+    <span class="text-sm" [ngClass]="{
+        'font-semibold text-gray-800': i === currentStepIndex,
+        'text-gray-600': i !== currentStepIndex
+      }">
+      {{ step.title }}
+    </span>
+
+    <!-- Icon -->
+     <span class="flex items-center">
+       <ion-icon [name]="step.completed ? 'checkmark-circle' : 'ellipse-outline'" [ngClass]="{
+           'text-[#009169]': i === currentStepIndex,
+           'text-[#1BAF5D]': i !== currentStepIndex
+         }" class="text-lg"></ion-icon>
+             <svg width="21" height="20" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+   <path d="M12.75 21V18.875L18.05 13.575L20.175 15.7L14.875 21H12.75ZM4.75 16C4.19772 16 3.75 15.5523 3.75 15C3.75 14.4477 4.19772 14 4.75 14H9.75C10.3023 14 10.75 14.4477 10.75 15C10.75 15.5523 10.3023 16 9.75 16H4.75ZM20.875 15L18.75 12.875L19.475 12.15C19.6583 11.9667 19.8917 11.875 20.175 11.875C20.4583 11.875 20.6917 11.9667 20.875 12.15L21.6 12.875C21.7833 13.0583 21.875 13.2917 21.875 13.575C21.875 13.8583 21.7833 14.0917 21.6 14.275L20.875 15ZM4.75 12C4.19771 12 3.75 11.5523 3.75 11C3.75 10.4477 4.19772 10 4.75 10H13.75C14.3023 10 14.75 10.4477 14.75 11C14.75 11.5523 14.3023 12 13.75 12H4.75ZM4.75 8C4.19771 8 3.75 7.55228 3.75 7C3.75 6.44772 4.19772 6 4.75 6H13.75C14.3023 6 14.75 6.44772 14.75 7C14.75 7.55228 14.3023 8 13.75 8H4.75Z" fill="#3A3B3E"/>
+   </svg>
+     </span>
+  </li>
+</ul>
+
+
+<!-- Progress bar -->
+<div class="mt-6">
+  <div class="h-1 bg-gray-300 rounded w-full">
+    <div class="h-1 bg-[#009169] rounded" [style.width.%]="(currentStepIndex + 1) / steps.length * 100"></div>
+  </div>
+  <div class="text-xs text-right mt-1 text-gray-600">{{ currentStepIndex + 1 }}/{{ steps.length }}</div>
+</div>

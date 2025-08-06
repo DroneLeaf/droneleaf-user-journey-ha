@@ -17,6 +17,7 @@ export class TextInputComponent implements OnInit {
   @Input() required: boolean = false;
   @Input() clearInput: boolean = false;
   @Input() maxlength: number | undefined | any = undefined;
+@Input() textarea: boolean = false;
 
   private componentId: string = '';
 

@@ -9,8 +9,14 @@
     <div class="relative" #dropdownRef>
       <button type="button" (click)="toggleDropdown()" class="flex items-center gap-1 text-sm">
         <span>{{ selectedCountry?.flag || '🌐' }}</span>
-        <span class="text-xs">▼</span>
+        <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"
+          class="transition-transform duration-200 ease-in-out" [ngClass]="{ 'rotate-180': showDropdown }">
+          <path
+            d="M1 1.44159C1 1.55453 1.04708 1.66748 1.14191 1.75336L5.65782 5.87074C5.84684 6.04309 6.1533 6.04309 6.34232 5.87074L10.8582 1.75336C11.0473 1.58101 11.0473 1.3016 10.8582 1.12926C10.6692 0.956914 10.3628 0.956914 10.1737 1.12926L5.99976 4.93488L1.82579 1.12926C1.63676 0.956914 1.3303 0.956914 1.14128 1.12926C1.04709 1.21572 1 1.32866 1 1.44159Z"
+            fill="#3A3B3E" stroke="#3A3B3E" stroke-width="0.745578" />
+        </svg>
       </button>
+
 
       <div *ngIf="showDropdown" class="absolute z-50 mt-1 w-64 bg-white shadow-lg rounded-md border border-gray-200">
         <div class="p-2 border-b">
