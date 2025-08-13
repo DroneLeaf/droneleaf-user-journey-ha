@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-company-detail',
@@ -15,7 +16,7 @@ export class CompanyDetailComponent implements OnInit {
 
   finalForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private location: Location,private router: Router,private authService:AuthService) {}
+  constructor(private fb: FormBuilder, private location: Location,private router: Router,private authService:AuthService, private toastService:ToastService) {}
 
   goBack() {
     this.location.back();
@@ -40,6 +41,18 @@ export class CompanyDetailComponent implements OnInit {
       }
       otherCtrl?.updateValueAndValidity();
     });
+
+            const navigation = this.router.getCurrentNavigation();
+    const showToast = navigation?.extras?.state?.['showToast'];
+
+    if (showToast) {
+      this.toastService.show({
+        title: 'Successfully Registered!',
+        message: 'Your account has been successfully registered',
+        type: 'success',
+        position: 'top-right',
+      });
+    }
   }
 
   get f() {
@@ -62,6 +75,9 @@ goToBusniessDashboard() {
   onSubmit(): void {
     if (this.finalForm.valid) {
       this.formSubmitted.emit();
+              sessionStorage.setItem('showSuccessToast', 'true');
+
+    this.router.navigate(['/business-dashboard']);
     } else {
       this.finalForm.markAllAsTouched();
     }

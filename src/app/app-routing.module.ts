@@ -6,6 +6,7 @@ import { DashboardComponent } from './home/private/dashboard/dashboard.component
 import { DroneLibraryComponent } from './home/private/drone-library/drone-library.component';
 import { BusinessDashboardComponent } from './home/business/business-dashboard/business-dashboard.component';
 import { AddDroneComponent } from './home/private/add-drone/add-drone.component';
+import { DroneLinraryComponent } from './home/business/drone-linrary/drone-linrary.component';
 
 const routes: Routes = [
   // ✅ Auth & Registration Routes
@@ -31,7 +32,10 @@ const routes: Routes = [
         path: 'business-dashboard',
         component: BusinessDashboardComponent,
       },
-
+      {
+        path:'business-drone-library',
+        component:DroneLinraryComponent
+      },
       {
         path: '',
         redirectTo: 'dashboard',

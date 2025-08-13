@@ -81,14 +81,14 @@ export class SidebarComponent implements OnInit {
       {
         label: 'Business Dashboard',
         link: '/business-dashboard',
-        iconPath: '../../../assets/svgs/private/home-2.svg',
-        activeIconPath:''
+           iconPath: '../../../assets/svgs/private/home-2.svg',
+        activeIconPath:'../../../assets/svgs/private/home-active.png'
       },
       {
         label: 'Drone Library',
-        link: '/teams',
-        iconPath: '../../../assets/svgs/private/folder-open.svg',
-        activeIconPath:''
+        link: '/business-drone-library',
+         iconPath: '../../../assets/svgs/private/folder-open.svg',
+        activeIconPath:'../../../assets/svgs/private/folder-open-active.png'
       },
       {
         label: 'Mission Management',

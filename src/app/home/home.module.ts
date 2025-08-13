@@ -20,6 +20,8 @@ import { SelectDroneStepComponent } from './private/add-drone/select-drone-step/
 import { CustomeDroneComponent } from './private/add-drone/custome-drone/custome-drone.component';
 import { ChooseYourDroneMethodComponent } from './private/add-drone/choose-your-drone-method/choose-your-drone-method.component';
 import { TierOneScreenComponent } from './private/add-drone/tier-one-screen/tier-one-screen.component';
+import { BusinessDashboardComponent } from './business/business-dashboard/business-dashboard.component';
+import { DroneLinraryComponent } from './business/drone-linrary/drone-linrary.component';
 
 @NgModule({
   imports: [
@@ -46,7 +48,9 @@ import { TierOneScreenComponent } from './private/add-drone/tier-one-screen/tier
     SelectDroneStepComponent,
     CustomeDroneComponent,
     ChooseYourDroneMethodComponent,
-    TierOneScreenComponent
+    TierOneScreenComponent,
+    BusinessDashboardComponent,
+    DroneLinraryComponent
   ],
   exports: [
     AddDroneComponent,

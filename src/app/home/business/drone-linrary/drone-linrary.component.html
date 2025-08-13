@@ -1,0 +1,133 @@
+<div class="p-4 text-black">
+  <div class="flex justify-between items-center mb-6">
+    <!-- Title -->
+    <h1 class="text-2xl font-semibold text-gray-800">*Name of Organization* Drone Library</h1>
+
+    <!-- Add Drone Button -->
+    <button
+      class="flex items-center justify-center text-white bg-[#009169] px-4 py-3 rounded-md gap-2 text-sm font-medium hover:bg-emerald-700 transition"
+      style="width: 150px; height: 40px;">
+      <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M8.89323 1.33398C5.2199 1.33398 2.22656 4.32732 2.22656 8.00065C2.22656 11.674 5.2199 14.6673 8.89323 14.6673C12.5666 14.6673 15.5599 11.674 15.5599 8.00065C15.5599 4.32732 12.5666 1.33398 8.89323 1.33398ZM11.5599 8.50065H9.39323V10.6673C9.39323 10.9407 9.16656 11.1673 8.89323 11.1673C8.6199 11.1673 8.39323 10.9407 8.39323 10.6673V8.50065H6.22656C5.95323 8.50065 5.72656 8.27398 5.72656 8.00065C5.72656 7.72732 5.95323 7.50065 6.22656 7.50065H8.39323V5.33398C8.39323 5.06065 8.6199 4.83398 8.89323 4.83398C9.16656 4.83398 9.39323 5.06065 9.39323 5.33398V7.50065H11.5599C11.8332 7.50065 12.0599 7.72732 12.0599 8.00065C12.0599 8.27398 11.8332 8.50065 11.5599 8.50065Z"
+          fill="white" />
+      </svg>
+      Add Drone
+    </button>
+  </div>
+
+  <!-- Tabs Container - Fixed Version -->
+  <div class="relative mb-6"> <!-- Added relative here -->
+    <!-- Tabs Navigation -->
+    <div #tabsContainer class="flex justify-between border-b border-gray-200 overflow-x-auto no-scrollbar">
+      <button *ngFor="let tab of tabs; let i = index" (click)="selectTab(i)"
+        class="relative px-4 pb-3 text-sm transition-colors duration-200 whitespace-nowrap" [ngClass]="{
+    'text-emerald-600 font-bold': selectedTabIndex === i,
+    'text-gray-500 font-medium hover:text-emerald-600': selectedTabIndex !== i
+  }">
+        {{ tab || 'All' }}
+      </button>
+
+    </div>
+
+    <!-- Animated Underline - Fixed -->
+    <div class="absolute bottom-0 h-0.5 bg-emerald-600 rounded-full transition-all duration-300 ease-out"
+      [style.left]="underlineLeft" [style.width]="underlineWidth"
+      [style.transform]="'translateX(' + underlineOffset + 'px)'">
+    </div>
+  </div>
+
+
+
+
+
+  <div class="flex flex-col md:flex-row justify-between items-center gap-2 mb-4">
+    <!-- Search Box -->
+    <div class="flex flex-grow items-center bg-white border border-gray-300 rounded-md px-3 py-2">
+      <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="#D1DADF" stroke-width="2" viewBox="0 0 24 24"
+        stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+
+      <input [(ngModel)]="searchText" (input)="applyFilter()" type="text"
+        placeholder="Type to find what you are looking for..."
+        class="flex-grow bg-transparent outline-none text-sm placeholder-gray-400" />
+
+      <!-- Mic Icon (Optional) -->
+      <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M11.8888 7.50073C12.0241 7.50073 12.1413 7.5502 12.2403 7.64914C12.3392 7.74809 12.3887 7.86525 12.3887 8.00065C12.3887 8.51098 12.3236 9.0083 12.1934 9.49259C12.0632 9.97689 11.8783 10.4351 11.6388 10.8674C11.4045 11.2944 11.1206 11.6902 10.7874 12.0547C10.4541 12.414 10.0844 12.729 9.67817 12.9998C9.27199 13.2706 8.83196 13.4919 8.35808 13.6638C7.8894 13.8304 7.3999 13.9346 6.88957 13.9762V15.4994C6.88957 15.6348 6.84009 15.752 6.74115 15.8509C6.64221 15.9499 6.52504 15.9993 6.38965 15.9993C6.25425 15.9993 6.13708 15.9499 6.03814 15.8509C5.9392 15.752 5.88973 15.6348 5.88973 15.4994V13.9762C5.3794 13.9346 4.88729 13.8304 4.41341 13.6638C3.94473 13.4919 3.5047 13.2706 3.09331 12.9998C2.68713 12.729 2.31739 12.414 1.98412 12.0547C1.65084 11.6902 1.36703 11.2944 1.13269 10.8674C0.898355 10.4351 0.716093 9.97949 0.585906 9.50041C0.455719 9.01611 0.390625 8.51619 0.390625 8.00065C0.390625 7.86525 0.440096 7.74809 0.539038 7.64914C0.637981 7.5502 0.755149 7.50073 0.890543 7.50073C1.02594 7.50073 1.14311 7.5502 1.24205 7.64914C1.34099 7.74809 1.39046 7.86525 1.39046 8.00065C1.39046 8.4537 1.45035 8.89373 1.57012 9.32075C1.68989 9.74255 1.85653 10.1383 2.07004 10.5081C2.28875 10.8778 2.55173 11.2163 2.85897 11.5235C3.16621 11.8308 3.5047 12.0937 3.87443 12.3124C4.24416 12.5312 4.63993 12.7004 5.06174 12.8202C5.48875 12.9399 5.93139 12.9998 6.38965 12.9998C6.84791 12.9998 7.28794 12.9399 7.70974 12.8202C8.13676 12.7004 8.53513 12.5312 8.90486 12.3124C9.27459 12.0885 9.61308 11.8255 9.92032 11.5235C10.2276 11.2163 10.4879 10.8778 10.7014 10.5081C10.9202 10.1331 11.0894 9.73474 11.2092 9.31294C11.3289 8.89113 11.3888 8.4537 11.3888 8.00065C11.3888 7.86525 11.4383 7.74809 11.5372 7.64914C11.6362 7.5502 11.7534 7.50073 11.8888 7.50073ZM6.38965 0.00195312C6.80104 0.00195312 7.18639 0.0826691 7.54571 0.244101C7.91023 0.400326 8.22789 0.616436 8.49868 0.892433C8.77467 1.16322 8.99079 1.48088 9.14701 1.8454C9.30844 2.20472 9.38916 2.59007 9.38916 3.00146V8.00065C9.38916 8.41204 9.30844 8.8 9.14701 9.16452C8.99079 9.52384 8.77467 9.8415 8.49868 10.1175C8.22789 10.3883 7.91023 10.6044 7.54571 10.7658C7.18639 10.922 6.80104 11.0002 6.38965 11.0002C5.98346 11.0002 5.59811 10.9194 5.23359 10.758C4.87427 10.5966 4.55661 10.3805 4.28062 10.1097C4.00983 9.83368 3.79372 9.51603 3.63228 9.15671C3.47085 8.79219 3.39014 8.40683 3.39014 8.00065V3.00146C3.39014 2.59007 3.46825 2.20472 3.62447 1.8454C3.7859 1.48088 4.00202 1.16322 4.2728 0.892433C4.5488 0.616436 4.86646 0.400326 5.22577 0.244101C5.5903 0.0826691 5.97826 0.00195312 6.38965 0.00195312Z"
+          fill="#222222" />
+      </svg>
+
+    </div>
+
+    <app-select-input [control]="filterControl"  [options]="filterOptions" class="mt-2"
+      [placeholder]="'Select Option'" [icon]="'custom-chevron'" (ngModelChange)="applyFilter()">
+    </app-select-input>
+
+
+  </div>
+
+
+  <!-- Table -->
+  <div class="overflow-hidden border border-[#D1DADF] rounded-t-[8px]">
+<table class="min-w-full text-sm bg-white">
+  <!-- HEADER -->
+  <thead class="bg-[#FAFAFC] text-left text-[#81878D] tracking-wider">
+    <tr>
+      <th class="px-4 py-5">Name</th>
+      <th class="px-4 py-5">Date Created</th>
+      <th class="px-4 py-5">Last Used / By</th>
+      <th class="px-4 py-5">Application</th>
+      <th class="px-4 py-5">Status</th>
+      <th class="px-4 py-5 flex justify-end"></th>
+    </tr>
+  </thead>
+
+  <!-- BODY -->
+  <tbody>
+    <tr *ngFor="let drone of filteredDrones" class="border-t border-[#D1DADF] hover:bg-gray-50 transition">
+      <td class="px-4 py-5 text-gray-800">{{ drone.name }}</td>
+      <td class="px-4 py-5 text-gray-800">{{ drone.dateCreated | date:'yyyy-MM-dd' }}</td>
+
+      <!-- Date + Name -->
+      <td class="px-4 py-5 text-gray-800">
+        {{ drone.lastUsed | date:'yyyy-MM-dd' }}<span *ngIf="drone.lastUsedBy"> - {{ drone.lastUsedBy }}</span>
+      </td>
+
+      <td class="px-4 py-5 text-gray-800">{{ drone.application }}</td>
+      <td class="px-4 py-5">
+        <span class="px-2 py-1 rounded text-xs font-medium" [ngClass]="statusClass(drone.status)">
+          {{ drone.status }}
+        </span>
+      </td>
+      <td #dropdownRef class="relative px-4 py-3 text-right cursor-pointer" (click)="toggleDropdown(drone.name)">
+        <button>
+          <svg width="21" height="5" viewBox="0 0 21 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="2.38" cy="2.5" rx="1.99" ry="2" fill="#3A3B3E" />
+            <ellipse cx="10.36" cy="2.5" rx="1.99" ry="2" fill="#3A3B3E" />
+            <ellipse cx="18.34" cy="2.5" rx="1.99" ry="2" fill="#3A3B3E" />
+          </svg>
+        </button>
+
+        <!-- Dropdown -->
+        <div *ngIf="openDropdown === drone.name"
+          class="dropdown absolute left-12 top-1/2 -translate-x-[70%] bg-white border border-gray-200 rounded-md z-50">
+          <ul class="text-sm text-gray-700">
+            <li><a class="block px-4 py-2 hover:bg-gray-100">View</a></li>
+            <li><a class="block px-4 py-2 hover:bg-gray-100">Edit</a></li>
+            <li><a class="block px-4 py-2 text-red-500 hover:bg-red-50">Delete</a></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  </div>
+
+
+
+</div>

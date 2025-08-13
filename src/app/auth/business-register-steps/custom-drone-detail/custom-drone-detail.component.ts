@@ -1,3 +1,4 @@
+import { ToastService } from './../../../core/services/toast.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
@@ -13,7 +14,7 @@ export class CustomDroneDetailComponent  implements OnInit {
  @Output() goBack = new EventEmitter<void>();
   finalForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private location: Location,private router:Router) {}
+  constructor(private fb: FormBuilder, private location: Location,private router:Router,private toastService:ToastService) {}
 
 
 
@@ -39,6 +40,7 @@ onSubmit() {
   if (this.finalForm.valid) {
     console.log('✅ Final form submitted:', this.finalForm.value);
     this.formSubmitted.emit(); // ✅ emit the correct event name
+
   } else {
     this.finalForm.markAllAsTouched();
   }
