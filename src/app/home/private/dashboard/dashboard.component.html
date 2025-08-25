@@ -9,7 +9,7 @@
         <!-- Left Text Block -->
         <div class="text-center md:text-left sm:mt-6 mx-5">
           <h2 class="text-xl sm:text-2xl font-light text-gray-800">
-            Welcome Back, <span class="text-black font-bold">John!</span>
+            Welcome Back, <span class="text-black font-bold">{{ fullName }}!</span>
           </h2>
           <p
             class="mt-5 text-sm sm:text-base text-gray-500 mx-auto text-justify"
@@ -41,7 +41,7 @@
       <div *ngFor="let stat of stats" class="bg-white p-6 rounded-2xl">
         <h3 class="text-gray-500 text-sm">{{ stat.title }}</h3>
         <h2 class="text-3xl font-bold text-black">{{ stat.value }}</h2>
-        <p class="{{ stat.color }} text-[12px] mt-1">
+        <p class="{{ stat.color }} text-[12px] mt-4">
           {{ stat.percent }}
         </p>
         <span class="text-gray-400">{{ stat.since }}</span>

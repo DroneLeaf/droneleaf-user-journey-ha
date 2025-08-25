@@ -7,13 +7,26 @@ import { LayoutService } from 'src/app/core/services/layout.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent  implements OnInit {
+  fullName: string = '';
+  email:string='';
+  @Output() menuToggle = new EventEmitter<void>();
     @Output() toggle = new EventEmitter<void>();
 
 
 
   constructor(private layoutService: LayoutService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+     const savedInfo = localStorage.getItem('register.personalInfo');
+    if (savedInfo) {
+      const info = JSON.parse(savedInfo);
+      const first = info.firstName || '';
+      const last = info.lastName || '';
+      const email=info.email || '';
+      this.email=email;
+      this.fullName = `${first} ${last}`.trim();
+    }
+  }
    dropdownOpen = false;
 
   toggleDropdown() {

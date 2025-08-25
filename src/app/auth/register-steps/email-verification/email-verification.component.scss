@@ -12,3 +12,13 @@
   border: 1px solid #FF0000; /* Red border for invalid input */
   box-shadow: 0 0 0 1px rgba(255, 0, 0, 0.2); /* Red ring */
 }
+::ng-deep ion-input.otp-box input:placeholder-shown::after {
+  content: "•";
+  color: #ccc;
+  font-size: 2rem;
+  line-height: 1;
+}
+.otp-box input:empty::before {
+  content: "•";
+  color: #ccc;
+}

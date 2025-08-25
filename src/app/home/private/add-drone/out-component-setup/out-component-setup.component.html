@@ -42,15 +42,26 @@
         </div>
 
         <div class="col-span-12 md:col-span-6">
-          <label class="text-sm font-medium mb-2 block">GPS module spatial offset*</label>
+          <label class="text-sm font-medium block">GPS module spatial offset*</label>
 
           <div class="flex gap-2 border rounded-md overflow-hidden">
-            <input type="text" [value]="'X: ' + axisX"
-              class="px-3 py-2 w-1/3 border-0 focus:ring-0 focus:outline-none bg-white">
-            <input type="text" [value]="'Y: ' + axisY"
-              class="px-3 py-2 w-1/3  border-gray-300 focus:ring-0 focus:outline-none bg-white">
-            <input type="text" [value]="'Z: ' + axisZ"
-              class="px-3 py-2 w-1/3  border-gray-300 focus:ring-0 focus:outline-none bg-white">
+            <div class="flex items-center w-1/3 bg-white border-r">
+              <span class="pl-2 font-semibold">X:</span>
+              <input type="number" [(ngModel)]="axisX" name="axisX"
+                class="flex-1 px-2 py-2 border-0 focus:ring-0 focus:outline-none bg-white" />
+            </div>
+
+            <div class="flex items-center w-1/3 bg-white border-r">
+              <span class="pl-2 font-semibold">Y:</span>
+              <input type="number" [(ngModel)]="axisY" name="axisY"
+                class="flex-1 px-2 py-2 border-0 focus:ring-0 focus:outline-none bg-white" />
+            </div>
+
+            <div class="flex items-center w-1/3 bg-white">
+              <span class="pl-2 font-semibold">Z:</span>
+              <input type="number" [(ngModel)]="axisZ" name="axisZ"
+                class="flex-1 px-2 py-2 border-0 focus:ring-0 focus:outline-none bg-white" />
+            </div>
           </div>
         </div>
 
@@ -62,16 +73,28 @@
         </div>
 
         <div class="col-span-12 md:col-span-6">
-          <label class="text-sm font-medium mb-2 block">Distance sensor offset*</label>
+          <label class="text-sm font-medium  block">Distance sensor offset*</label>
 
           <div class="flex gap-2 border rounded-md overflow-hidden">
-            <input type="text" [value]="'X: ' + axisX"
-              class="px-3 py-2 w-1/3 border-0 focus:ring-0 focus:outline-none bg-white">
-            <input type="text" [value]="'Y: ' + axisY"
-              class="px-3 py-2 w-1/3  border-gray-300 focus:ring-0 focus:outline-none bg-white">
-            <input type="text" [value]="'Z: ' + axisZ"
-              class="px-3 py-2 w-1/3  border-gray-300 focus:ring-0 focus:outline-none bg-white">
+            <div class="flex items-center w-1/3 bg-white border-r">
+              <span class="pl-2 font-semibold">X:</span>
+              <input type="number" [(ngModel)]="axisX" name="axisX"
+                class="flex-1 px-2 py-2 border-0 focus:ring-0 focus:outline-none bg-white" />
+            </div>
+
+            <div class="flex items-center w-1/3 bg-white border-r">
+              <span class="pl-2 font-semibold">Y:</span>
+              <input type="number" [(ngModel)]="axisY" name="axisY"
+                class="flex-1 px-2 py-2 border-0 focus:ring-0 focus:outline-none bg-white" />
+            </div>
+
+            <div class="flex items-center w-1/3 bg-white">
+              <span class="pl-2 font-semibold">Z:</span>
+              <input type="number" [(ngModel)]="axisZ" name="axisZ"
+                class="flex-1 px-2 py-2 border-0 focus:ring-0 focus:outline-none bg-white" />
+            </div>
           </div>
+
         </div>
       </form>
     </div>

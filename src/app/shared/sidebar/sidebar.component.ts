@@ -6,7 +6,7 @@ interface SidebarItem {
   label: string;
   link: string;
   iconPath: string;
-  activeIconPath:string;
+  activeIconPath: string;
 }
 
 @Component({
@@ -20,17 +20,16 @@ export class SidebarComponent implements OnInit {
   sidebarItems: SidebarItem[] = [];
   userRole: 'private' | 'business' | null = null;
 
-  constructor(
-    public layoutService: LayoutService,
-    private router: Router
-  ) {}
+  constructor(public layoutService: LayoutService, private router: Router) {}
 
   ngOnInit(): void {
     this.userRole = localStorage.getItem('userRole') as 'private' | 'business';
     this.setSidebarItems();
 
     this.layoutService.isMobile$.subscribe((val) => (this.isMobile = val));
-    this.layoutService.isSidebarOpen$.subscribe((val) => (this.isSidebarOpen = val));
+    this.layoutService.isSidebarOpen$.subscribe(
+      (val) => (this.isSidebarOpen = val)
+    );
 
     // Optional: auto-close sidebar on route change (mobile only)
     this.router.events.subscribe((event) => {
@@ -46,7 +45,7 @@ export class SidebarComponent implements OnInit {
         label: 'Notifications',
         link: '/notifications',
         iconPath: '../../../assets/svgs/private/notification.png',
-        activeIconPath:''
+        activeIconPath: '',
       },
     ];
 
@@ -55,25 +54,25 @@ export class SidebarComponent implements OnInit {
         label: 'Home',
         link: '/dashboard',
         iconPath: '../../../assets/svgs/private/home-2.svg',
-        activeIconPath:'../../../assets/svgs/private/home-active.png'
+        activeIconPath: '../../../assets/svgs/private/home-active.png',
       },
       {
         label: 'Drone Library',
         link: '/drone-library',
         iconPath: '../../../assets/svgs/private/folder-open.svg',
-        activeIconPath:'../../../assets/svgs/private/folder-open-active.png'
+        activeIconPath: '../../../assets/svgs/private/folder-open-active.png',
       },
       {
         label: 'Mission Management',
         link: '/missions',
         iconPath: '../../../assets/svgs/private/directbox-notif.svg',
-        activeIconPath:''
+        activeIconPath: '',
       },
       {
         label: 'AI Dojo',
         link: '/reports',
         iconPath: '../../../assets/svgs/private/main-component.png',
-        activeIconPath:''
+        activeIconPath: '',
       },
     ];
 
@@ -81,38 +80,38 @@ export class SidebarComponent implements OnInit {
       {
         label: 'Business Dashboard',
         link: '/business-dashboard',
-           iconPath: '../../../assets/svgs/private/home-2.svg',
-        activeIconPath:'../../../assets/svgs/private/home-active.png'
+        iconPath: '../../../assets/svgs/private/home-2.svg',
+        activeIconPath: '../../../assets/svgs/private/home-active.png',
       },
       {
         label: 'Drone Library',
         link: '/business-drone-library',
-         iconPath: '../../../assets/svgs/private/folder-open.svg',
-        activeIconPath:'../../../assets/svgs/private/folder-open-active.png'
+        iconPath: '../../../assets/svgs/private/folder-open.svg',
+        activeIconPath: '../../../assets/svgs/private/folder-open-active.png',
       },
       {
         label: 'Mission Management',
         link: '/fleet',
         iconPath: '../../../assets/svgs/private/directbox-notif.svg',
-        activeIconPath:''
+        activeIconPath: '',
       },
       {
         label: 'AI Dojo',
         link: '/settings',
         iconPath: '../../../assets/svgs/private/main-component.png',
-        activeIconPath:''
+        activeIconPath: '',
       },
       {
         label: 'User Profile',
         link: '/settings',
         iconPath: '../../../assets/svgs/private/profile-2user.png',
-        activeIconPath:''
+        activeIconPath: '',
       },
       {
         label: 'User Management',
         link: '/settings',
         iconPath: '../../../assets/svgs/business/people.svg',
-        activeIconPath:''
+        activeIconPath: '',
       },
     ];
 
@@ -128,20 +127,21 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-showLogoutConfirm = false;
+  showLogoutConfirm = false;
 
-logout() {
-  this.showLogoutConfirm = true;
-}
+  logout() {
+    this.showLogoutConfirm = true;
+  }
 
-confirmLogout() {
-  localStorage.clear();
-  window.location.href = '/auth/account-type';
-}
+  confirmLogout() {
+    localStorage.clear();
+    localStorage.removeItem('register.personalInfo');
+    localStorage.removeItem('register.customDroneDetails');
+    localStorage.removeItem('register.emailVerification');
+    window.location.href = '/auth/account-type';
+  }
 
-cancelLogout() {
-  this.showLogoutConfirm = false;
-}
-
-
+  cancelLogout() {
+    this.showLogoutConfirm = false;
+  }
 }

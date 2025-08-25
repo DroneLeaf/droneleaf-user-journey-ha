@@ -27,7 +27,10 @@
             <h3 class="text-lg font-semibold mb-4">Motion Capture</h3>
             <app-select-input [control]="environmentForm.get('positioningSystemMake')"
               [options]="positioningSystemMakes" placeholder="Select an answer" label="Indoor Positioning System Make"
-              [required]="true"></app-select-input>
+              [required]="true">
+            </app-select-input>
+
+
           </div>
         </div>
 
@@ -64,19 +67,26 @@
             <h3 class="text-lg font-semibold mb-2">Area</h3>
             <label class="text-sm font-medium mb-2 block">Along OptiTrack's Axis*</label>
 
-            <div class="flex items-center border rounded-md overflow-hidden">
-              <!-- X -->
-              <input type="text" [value]="'X: ' + axisX"
-                class="px-3 py-2 w-1/3 border-0 focus:ring-0 focus:outline-none bg-white">
+            <div class="flex gap-2 border rounded-md overflow-hidden">
+              <div class="flex items-center w-1/3 bg-white border-r">
+                <span class="pl-2 font-semibold">X:</span>
+                <input type="number" [(ngModel)]="axisX" name="axisX"
+                  class="flex-1 px-2 py-2 border-0 focus:ring-0 focus:outline-none bg-white" />
+              </div>
 
-              <!-- Y -->
-              <input type="text" [value]="'Y: ' + axisY"
-                class="px-3 py-2 w-1/3 border-gray-300 focus:ring-0 focus:outline-none bg-white">
+              <div class="flex items-center w-1/3 bg-white border-r">
+                <span class="pl-2 font-semibold">Y:</span>
+                <input type="number" [(ngModel)]="axisY" name="axisY"
+                  class="flex-1 px-2 py-2 border-0 focus:ring-0 focus:outline-none bg-white" />
+              </div>
 
-              <!-- Z -->
-              <input type="text" [value]="'Z: ' + axisZ"
-                class="px-3 py-2 w-1/3 border-gray-300 focus:ring-0 focus:outline-none bg-white">
+              <div class="flex items-center w-1/3 bg-white">
+                <span class="pl-2 font-semibold">Z:</span>
+                <input type="number" [(ngModel)]="axisZ" name="axisZ"
+                  class="flex-1 px-2 py-2 border-0 focus:ring-0 focus:outline-none bg-white" />
+              </div>
             </div>
+
           </div>
         </div>
 

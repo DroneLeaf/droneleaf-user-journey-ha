@@ -26,7 +26,12 @@ export class StepFourComponent implements OnInit {
   environmentForm!: FormGroup;
 
   indoorPositioningTypes = ['OptiTrack', 'Vicon', 'Qualisys'];
-  positioningSystemMakes = ['Make 1', 'Make 2', 'Make 3'];
+  positioningSystemMakes = [
+  { label: 'OptiTrack', value: 'OptiTrack', disabled: false },
+  { label: 'Nokov', value: 'Nokov', disabled: true },
+  { label: 'Vikon', value: 'Vikon', disabled: true }
+];
+
 
   constructor(
     private fb: FormBuilder,

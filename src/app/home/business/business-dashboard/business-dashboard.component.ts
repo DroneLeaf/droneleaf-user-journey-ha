@@ -7,6 +7,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
   styleUrls: ['./business-dashboard.component.scss'],
 })
 export class BusinessDashboardComponent  implements OnInit {
+  fullName: string = '';
 openDropdown: string | null = null;
   constructor(private toastService: ToastService) { }
 showAddDroneModal = false;
@@ -22,6 +23,14 @@ showAddDroneModal = false;
     });
     sessionStorage.removeItem('showSuccessToast');
   }
+
+      const savedInfo = localStorage.getItem('business.info');
+    if (savedInfo) {
+      const info = JSON.parse(savedInfo);
+      const first = info.firstName || '';
+      const last = info.lastName || '';
+      this.fullName = `${first} ${last}`.trim();
+    }
 }
 
    toggleDropdown(droneName: string) {

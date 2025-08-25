@@ -9,14 +9,17 @@ import { Router } from '@angular/router';
   templateUrl: './custom-drone-detail.component.html',
   styleUrls: ['./custom-drone-detail.component.scss'],
 })
-export class CustomDroneDetailComponent  implements OnInit {
-@Output() formSubmitted = new EventEmitter<void>();
- @Output() goBack = new EventEmitter<void>();
+export class CustomDroneDetailComponent implements OnInit {
+  @Output() formSubmitted = new EventEmitter<void>();
+  @Output() goBack = new EventEmitter<void>();
   finalForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private location: Location,private router:Router,private toastService:ToastService) {}
-
-
+  constructor(
+    private fb: FormBuilder,
+    private location: Location,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.finalForm = this.fb.group({
@@ -26,26 +29,35 @@ export class CustomDroneDetailComponent  implements OnInit {
       experienceLevel: [''],
       reason: [''],
     });
+
+    const saved = localStorage.getItem('business.customDrone');
+    if (saved) {
+      this.finalForm.patchValue(JSON.parse(saved));
+    }
   }
 
   get f() {
     return this.finalForm.controls;
   }
 
-  goToLogin(){
+  goToLogin() {
     this.router.navigate(['auth/login']);
   }
 
-onSubmit() {
-  if (this.finalForm.valid) {
-    console.log('✅ Final form submitted:', this.finalForm.value);
-    this.formSubmitted.emit(); // ✅ emit the correct event name
+  onSubmit() {
+    if (this.finalForm.valid) {
+      // ✅ Save to localStorage
+      localStorage.setItem(
+        'business.customDrone',
+        JSON.stringify(this.finalForm.value)
+      );
 
-  } else {
-    this.finalForm.markAllAsTouched();
+      console.log('✅ Final form submitted:', this.finalForm.value);
+      this.formSubmitted.emit();
+    } else {
+      this.finalForm.markAllAsTouched();
+    }
   }
-}
-
 
   primaryUseOptions = ['Inspection', 'Monitoring ', 'Surveillance'];
 
@@ -64,5 +76,4 @@ onSubmit() {
     'Professional',
     'Commercial operator',
   ];
-
 }

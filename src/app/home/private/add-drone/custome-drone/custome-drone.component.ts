@@ -20,7 +20,7 @@ export class CustomeDroneComponent implements OnInit {
   cancelModalVisible = false;
   form!: FormGroup;
 
-  applicationOptions: string[] = ['Agri', 'Survey'];
+  applicationOptions: string[] = ['Inspection', 'Surveillance','Anti-drone','Education','Workshop','Research','Entertainment'];
 
   constructor(
     private fb: FormBuilder,

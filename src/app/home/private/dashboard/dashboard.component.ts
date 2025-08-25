@@ -15,6 +15,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  fullName: string = '';
   openDropdown: string | null = null;
   constructor(
     private eRef: ElementRef,
@@ -54,6 +55,14 @@ export class DashboardComponent implements OnInit {
         position: 'top-center',
       });
       sessionStorage.removeItem('showSuccessToast');
+    }
+
+    const savedInfo = localStorage.getItem('register.personalInfo');
+    if (savedInfo) {
+      const info = JSON.parse(savedInfo);
+      const first = info.firstName || '';
+      const last = info.lastName || '';
+      this.fullName = `${first} ${last}`.trim();
     }
   }
 

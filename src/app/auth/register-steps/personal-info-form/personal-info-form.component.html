@@ -53,10 +53,13 @@
             [required]="true"></app-text-input>
           <!-- Password -->
           <app-text-input [control]="personalInfoForm.get('password')" [label]="'Password*'" type="password"
-            placeholder="Enter password" [required]="true"></app-text-input>
-          <!-- Confirm Password -->
+            placeholder="Enter password" [required]="true">
+          </app-text-input>
+
           <app-text-input [control]="personalInfoForm.get('confirmPassword')" type="password"
-            [label]="'Confirme Password*'" placeholder="Enter confirme Password" [required]="true"></app-text-input>
+            [label]="'Confirm Password*'" placeholder="Re-enter password" [required]="true">
+          </app-text-input>
+
           <!-- Terms and Marketing -->
           <div class="space-y-4 text-sm text-black">
             <!-- Terms & Conditions Checkbox -->

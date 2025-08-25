@@ -42,9 +42,10 @@ export class TextInputComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
 
-  get isInvalid(): boolean {
-    return this.control ? this.control.invalid && this.control.touched : false;
-  }
+get isInvalid(): boolean {
+  return this.control ? this.control.invalid && (this.control.touched || this.control.dirty) : false;
+}
+
 
   get isValid(): boolean {
     return this.control
@@ -82,45 +83,34 @@ export class TextInputComponent implements OnInit {
     if (this.control && this.control.errors) {
       const errors = this.control.errors;
 
-      // Handle common validation errors
+      // Default Angular validators
       if (errors['required']) {
         return `${this.label || 'This field'} is required.`;
       }
-
       if (errors['email']) {
         return 'Please enter a valid email address.';
       }
-
       if (errors['minlength']) {
-        const requiredLength = errors['minlength'].requiredLength;
-        const actualLength = errors['minlength'].actualLength;
-        return `Minimum length is ${requiredLength} characters. Current length: ${actualLength}.`;
+        return `Minimum length is ${errors['minlength'].requiredLength} characters. Current length: ${errors['minlength'].actualLength}.`;
       }
-
       if (errors['maxlength']) {
-        const requiredLength = errors['maxlength'].requiredLength;
-        const actualLength = errors['maxlength'].actualLength;
-        return `Maximum length is ${requiredLength} characters. Current length: ${actualLength}.`;
+        return `Maximum length is ${errors['maxlength'].requiredLength} characters. Current length: ${errors['maxlength'].actualLength}.`;
       }
-
       if (errors['pattern']) {
         return 'Please enter a valid format.';
       }
 
-      if (errors['min']) {
-        return `Value must be at least ${errors['min'].min}.`;
-      }
+      // 🚀 Custom Password Errors
+      if (errors['uppercase']) return errors['uppercase'];
+      if (errors['lowercase']) return errors['lowercase'];
+      if (errors['digit']) return errors['digit'];
+      if (errors['specialChar']) return errors['specialChar'];
+      if (errors['personalInfo']) return errors['personalInfo'];
+      if (errors['sequence']) return errors['sequence'];
+      if (errors['repeated']) return errors['repeated'];
+      if (errors['mismatch']) return 'Passwords do not match.';
 
-      if (errors['max']) {
-        return `Value must be no more than ${errors['max'].max}.`;
-      }
-
-      // Handle custom validation errors
-      if (errors['custom']) {
-        return errors['custom'];
-      }
-
-      // Generic error message for unknown errors
+      // Catch-all
       const errorKeys = Object.keys(errors);
       if (errorKeys.length > 0) {
         return `Invalid ${this.label?.toLowerCase() || 'input'}.`;

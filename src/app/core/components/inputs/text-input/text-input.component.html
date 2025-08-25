@@ -20,41 +20,42 @@
     </ng-template>
 
     <!-- ℹ Info icon with tooltip (controlled by showTooltip) -->
-    <div class="absolute right-3 top-1/2 transform -translate-y-1/2 z-50" *ngIf="showTooltip && tooltipText">
-      <div class="relative">
-        <!-- Info Icon -->
-        <img src="../../../../../assets/svgs/private/info-icon.svg" class="w-5 h-5 text-gray-500 cursor-pointer peer"
-          alt="info icon">
+<div class="absolute right-3 top-1/2 transform -translate-y-1/2 z-50" *ngIf="showTooltip && tooltipText">
+  <div class="relative inline-block group">
+    <!-- Info Icon -->
+    <img
+      src="../../../../../assets/svgs/private/info-icon.svg"
+      class="w-5 h-5 text-gray-500 cursor-pointer"
+      alt="info icon"
+    />
 
-        <!-- Tooltip (visible only when hovering icon) -->
-        <div class="absolute left-full ml-3 top-1/2 -translate-y-1/2 w-[360px] bg-white border border-gray-300 rounded-lg shadow-lg flex
-             opacity-0 peer-hover:opacity-100 transition duration-200 ease-in-out pointer-events-none">
+    <!-- Tooltip -->
+    <div
+      class="absolute left-full ml-1 top-1/2 -translate-y-1/2
+             w-[360px] bg-white border border-gray-300 rounded-lg shadow-lg flex
+             opacity-0 transition duration-200 ease-in-out
+             pointer-events-none
+             group-hover:opacity-100 group-hover:pointer-events-auto"
+    >
+      <!-- Arrow -->
+      <div
+        class="absolute -left-2 top-1/2 -translate-y-1/2
+               w-4 h-4 bg-white border-l border-b border-gray-300 rotate-45"
+      ></div>
 
-          <!-- Arrow -->
-          <div
-            class="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-l border-b border-gray-300 rotate-45">
-          </div>
-
-          <!-- Tooltip Content -->
-          <div class="p-3 text-sm text-gray-700 flex text-justify gap-5">
-            {{ tooltipText }}
-            <img *ngIf="tooltipImage" [src]="tooltipImage" alt="tooltip" class="mt-2 w-20 h-auto" />
-          </div>
-        </div>
+      <!-- Tooltip Content -->
+      <div class="p-3 text-sm text-gray-700 flex text-justify gap-5">
+        {{ tooltipText }}
+        <img *ngIf="tooltipImage" [src]="tooltipImage" alt="tooltip" class="mt-2 w-20 h-auto" />
       </div>
     </div>
+  </div>
+</div>
 
 
 
-    <!-- Password visibility toggle -->
-    <svg *ngIf="type === 'password'" (click)="togglePasswordVisibility()" xmlns="http://www.w3.org/2000/svg"
-      [attr.fill]="showPassword ? 'currentColor' : 'none'"
-      class="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 cursor-pointer z-10"
-      viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.477 0 8.268 2.943 9.542 7-1.274 4.057-5.065 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-    </svg>
+
+
 
     <!-- ✅ Validation status icons -->
     <div class="absolute right-8 top-1/2 transform -translate-y-1/2" *ngIf="control?.touched">

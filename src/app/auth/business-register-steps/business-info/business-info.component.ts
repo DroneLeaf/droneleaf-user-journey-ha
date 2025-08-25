@@ -80,6 +80,11 @@ export class BusinessInfoComponent implements OnInit {
     this.search.valueChanges.subscribe((query: any) => {
       this.onSearchChange(query);
     });
+
+      const saved = localStorage.getItem('business.info');
+  if (saved) {
+    this.personalInfoForm.patchValue(JSON.parse(saved));
+  }
   }
 
   get phoneControl(): FormControl {
@@ -148,11 +153,14 @@ export class BusinessInfoComponent implements OnInit {
     return this.personalInfoForm.get('terms');
   }
 
-  onSubmit() {
-    if (this.personalInfoForm.valid) {
-      this.formSubmitted.emit();
-    } else {
-      this.personalInfoForm.markAllAsTouched();
-    }
+onSubmit() {
+  if (this.personalInfoForm.valid) {
+    // ✅ Save form in localStorage
+    localStorage.setItem('business.info', JSON.stringify(this.personalInfoForm.value));
+
+    this.formSubmitted.emit();
+  } else {
+    this.personalInfoForm.markAllAsTouched();
   }
+}
 }

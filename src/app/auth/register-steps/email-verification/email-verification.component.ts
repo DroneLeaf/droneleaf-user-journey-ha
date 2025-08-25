@@ -27,13 +27,13 @@ export class EmailVerificationComponent implements OnInit {
   @Output() verified = new EventEmitter<void>();
   @Output() goBack = new EventEmitter<void>();
   otpForm!: FormGroup;
-  @Input() step: number = 2;           // default for private
-@Input() totalSteps: number = 3;     // default for private
-@Input() context: 'private' | 'business' = 'private';
+  @Input() step: number = 2; // default for private
+  @Input() totalSteps: number = 3; // default for private
+  @Input() context: 'private' | 'business' = 'private';
 
   @ViewChildren('otpInput') otpInputs!: QueryList<IonInput>;
 
-  constructor(private fb: FormBuilder,private router:Router) {}
+  constructor(private fb: FormBuilder, private router: Router) {}
 
   ngOnInit(): void {
     this.otpForm = this.fb.group({
@@ -84,42 +84,52 @@ export class EmailVerificationComponent implements OnInit {
 
   onOtpBlur(index: number): void {
     this.focusedIndex = null;
-}
+    this.codeArray.at(index).markAsTouched();
+  }
 
-
-  goToLogin(){
+  goToLogin() {
     this.router.navigate(['/auth/login']);
   }
 
-onOtpIonInput(event: any, index: number): void {
-  const input = event.target as HTMLInputElement;
-  let value = input.value;
+  onOtpIonInput(event: any, index: number): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value;
 
-  // Block non-numeric input completely
-  if (!/^\d*$/.test(value)) {
-    this.codeArray.at(index).setValue('');
-    input.value = '';
-    return;
+    // Block non-numeric input completely
+    if (!/^\d*$/.test(value)) {
+      this.codeArray.at(index).setValue('');
+      input.value = '';
+      return;
+    }
+
+    // If user pasted or entered multiple digits, take only the first one
+    if (value.length > 1) {
+      value = value.charAt(0);
+      input.value = value;
+    }
+
+    // ✅ Always update + trigger immediate revalidation
+    const ctrl = this.codeArray.at(index);
+    ctrl.setValue(value);
+    ctrl.markAsTouched();
+    ctrl.markAsDirty();
+    ctrl.updateValueAndValidity({ emitEvent: false }); // 👈 forces sync revalidation
+
+    // ✅ If delete and field empty → go to previous
+    if (!value && index > 0 && event.inputType === 'deleteContentBackward') {
+      setTimeout(() => {
+        this.otpInputs.get(index - 1)?.setFocus();
+      }, 10);
+      return;
+    }
+
+    // ✅ Move to next if filled
+    if (value && index < this.codeArray.length - 1) {
+      setTimeout(() => {
+        this.otpInputs.get(index + 1)?.setFocus();
+      }, 10);
+    }
   }
-
-  // If user pasted or entered multiple digits, take only the first one
-  if (value.length > 1) {
-    value = value.charAt(0);
-    this.codeArray.at(index).setValue(value);
-    input.value = value;
-  }
-
-  // Update the form control
-  this.codeArray.at(index).setValue(value);
-  this.codeArray.at(index).markAsTouched();
-
-  // Move to next field if current field has a value
-  if (value && index < this.codeArray.length - 1) {
-    setTimeout(() => {
-      this.otpInputs.get(index + 1)?.setFocus();
-    }, 10);
-  }
-}
 
   onVerify() {
     if (this.otpForm.valid) {
@@ -127,7 +137,9 @@ onOtpIonInput(event: any, index: number): void {
     } else {
       this.otpForm.markAllAsTouched();
       // Focus on the first empty field
-      const firstEmptyIndex = this.codeFormControls.findIndex(ctrl => !ctrl.value);
+      const firstEmptyIndex = this.codeFormControls.findIndex(
+        (ctrl) => !ctrl.value
+      );
       if (firstEmptyIndex >= 0) {
         this.otpInputs.get(firstEmptyIndex)?.setFocus();
       }

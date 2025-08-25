@@ -46,6 +46,11 @@ export class CustomDroneDetailsComponent implements OnInit {
         position: 'top-right',
       });
     }
+
+     const saved = localStorage.getItem('register.customDroneDetails');
+  if (saved) {
+    this.finalForm.patchValue(JSON.parse(saved));
+  }
   }
 
   get f() {
@@ -54,12 +59,14 @@ export class CustomDroneDetailsComponent implements OnInit {
 
 onSubmit() {
   if (this.finalForm.valid) {
+    localStorage.setItem('register.customDroneDetails', JSON.stringify(this.finalForm.value));
+
     this.auth.login('private');
     sessionStorage.setItem('showSuccessToast', 'true');
-
     this.router.navigate(['/dashboard']);
   }
 }
+
 
 
   primaryUseOptions = ['Inspection', 'Monitoring ', 'Surveillance'];

@@ -16,7 +16,13 @@ export class CompanyDetailComponent implements OnInit {
 
   finalForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private location: Location,private router: Router,private authService:AuthService, private toastService:ToastService) {}
+  constructor(
+    private fb: FormBuilder,
+    private location: Location,
+    private router: Router,
+    private authService: AuthService,
+    private toastService: ToastService
+  ) {}
 
   goBack() {
     this.location.back();
@@ -42,7 +48,7 @@ export class CompanyDetailComponent implements OnInit {
       otherCtrl?.updateValueAndValidity();
     });
 
-            const navigation = this.router.getCurrentNavigation();
+    const navigation = this.router.getCurrentNavigation();
     const showToast = navigation?.extras?.state?.['showToast'];
 
     if (showToast) {
@@ -53,31 +59,39 @@ export class CompanyDetailComponent implements OnInit {
         position: 'top-right',
       });
     }
+
+    // ✅ Restore if exists
+    const saved = localStorage.getItem('business.company');
+    if (saved) {
+      this.finalForm.patchValue(JSON.parse(saved));
+    }
   }
 
   get f() {
     return this.finalForm.controls;
   }
 
-goToBusniessDashboard() {
-  // ✅ Assume business registered successfully
-  this.authService.login('business'); // 🔥 Login & set role properly
-  this.router.navigate(['/business-dashboard']);
-}
+  goToBusniessDashboard() {
+    // ✅ Assume business registered successfully
+    this.authService.login('business'); // 🔥 Login & set role properly
+    this.router.navigate(['/business-dashboard']);
+  }
 
-
-
-  goToLogin(){
-   this.router.navigate(['auth/login']);
-
+  goToLogin() {
+    this.router.navigate(['auth/login']);
   }
 
   onSubmit(): void {
     if (this.finalForm.valid) {
-      this.formSubmitted.emit();
-              sessionStorage.setItem('showSuccessToast', 'true');
+      // ✅ Save company details
+      localStorage.setItem(
+        'business.company',
+        JSON.stringify(this.finalForm.value)
+      );
 
-    this.router.navigate(['/business-dashboard']);
+      this.formSubmitted.emit();
+      sessionStorage.setItem('showSuccessToast', 'true');
+      this.router.navigate(['/business-dashboard']);
     } else {
       this.finalForm.markAllAsTouched();
     }
