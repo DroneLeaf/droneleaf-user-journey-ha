@@ -26,12 +26,26 @@ export type StepType =
   | 'template_selection'
   | 'select_drone'
   | 'custom_drone'
+  | 'organization_flow'
+  | 'marketplaceTemplate_flow'
+  | 'droneMarketplace_flow'
   | 'drone_method'
   | 'tier_one'
   | 'template_type'
   | 'create_template'
   | 'template_form'
-  | 'motor_test';
+  | 'motor_test'
+  | 'set_up_remote_control'
+    | 'create_remote_flow'
+    | 'test_remote_control'
+  | 'use_existing_remote'
+  | 'existing_template_flow'
+  | 'create_remote_flow'
+  | 'use_existing_remote'
+  | 'no_flow_start'
+  | 'no_flow_environment'
+  | 'no_flow_indoors_setup'
+  | 'no_flow_outdoors_setup';
 
 export interface StepNode {
   type: StepType;

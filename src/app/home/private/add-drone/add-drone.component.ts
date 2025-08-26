@@ -62,29 +62,41 @@ export class AddDroneComponent implements OnInit {
     switch (this.currentStep) {
       case 'initial':
         return 0;
+      // YES flow
       case 'environment':
-        return 0;
+        return 1;
       case 'indoors_setup':
       case 'outdoors_setup':
-        return 1;
-      case 'template_selection':
         return 2;
-      case 'select_drone':
+      case 'template_selection':
+      case 'existing_template_flow':
         return 3;
-      case 'custom_drone':
+      case 'select_drone':
         return 4;
-      case 'drone_method':
+      case 'custom_drone':
+      case 'organization_flow':
+      case 'marketplaceTemplate_flow':
+      case 'droneMarketplace_flow':
         return 5;
-      case 'tier_one':
+      case 'drone_method':
         return 6;
-      case 'template_type':
+      case 'tier_one':
         return 7;
-      case 'create_template':
+      case 'template_type':
         return 8;
-      case 'template_form':
+      case 'create_template':
         return 9;
-      case 'motor_test':
+      case 'template_form':
         return 10;
+      case 'motor_test':
+        return 11;
+
+      case 'no_flow_start':
+        return 1;
+      case 'no_flow_indoors_setup':
+      case 'no_flow_outdoors_setup':
+        return 2;
+
       default:
         return 0;
     }

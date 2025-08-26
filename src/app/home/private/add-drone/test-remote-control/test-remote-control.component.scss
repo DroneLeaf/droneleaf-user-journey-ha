@@ -1,0 +1,30 @@
+.circle-wrapper {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 40px auto;
+  cursor: pointer;
+}
+.circle-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  border-radius: 50%;
+}
+.circle-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: #008c6a;
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}

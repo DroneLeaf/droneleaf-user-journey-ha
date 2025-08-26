@@ -27,6 +27,11 @@ import { DroneLinraryComponent } from './business/drone-linrary/drone-linrary.co
 import { CreateNewTemplateStepComponent } from './private/add-drone/create-new-template-step/create-new-template-step.component';
 import { CreateNewTemplateFormStepComponent } from './private/add-drone/create-new-template-form-step/create-new-template-form-step.component';
 import { OutComponentSetupComponent } from './private/add-drone/out-component-setup/out-component-setup.component';
+import { OrganizationDroneSetupComponent } from './private/add-drone/organization-drone-setup/organization-drone-setup.component';
+import { SetupRemoteControlComponent } from './private/add-drone/setup-remote-control/setup-remote-control.component';
+import { CreateRemoteFlowComponent } from './private/add-drone/create-remote-flow/create-remote-flow.component';
+import { TestRemoteControlComponent } from './private/add-drone/test-remote-control/test-remote-control.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   imports: [
@@ -40,6 +45,13 @@ import { OutComponentSetupComponent } from './private/add-drone/out-component-se
     MatIconModule,
     CoreModule,
     ReactiveFormsModule,
+    NgCircleProgressModule.forRoot({
+      responsive: true,
+      showTitle: false,
+      showUnits: false,
+      showSubtitle: false,
+      startFromZero: false,
+    }),
   ],
   declarations: [
     HomePage,
@@ -60,7 +72,11 @@ import { OutComponentSetupComponent } from './private/add-drone/out-component-se
     CreateNewTemplateStepComponent,
     CreateNewTemplateFormStepComponent,
     DroneMoterTestComponent,
-    OutComponentSetupComponent
+    OutComponentSetupComponent,
+    OrganizationDroneSetupComponent,
+    SetupRemoteControlComponent,
+    CreateRemoteFlowComponent,
+    TestRemoteControlComponent,
   ],
   exports: [
     AddDroneComponent,
@@ -72,7 +88,7 @@ import { OutComponentSetupComponent } from './private/add-drone/out-component-se
     CustomeDroneComponent,
     ChooseYourDroneMethodComponent,
     TierOneScreenComponent,
-    ExistingAndNewTemplateStepComponent
+    ExistingAndNewTemplateStepComponent,
   ],
 })
 export class HomePageModule {}
