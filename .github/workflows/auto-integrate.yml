@@ -1,0 +1,210 @@
+name: Auto-integrate to DroneLeaf/DroneLeaf_WebClient
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+concurrency:
+  group: auto-integrate-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  sync-and-pr:
+    name: Sync mapped files to target repo and open PR
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+
+    # GITHUB_TOKEN is used to read this repo; a PAT is required for the private target repo
+    permissions:
+      contents: read
+      pull-requests: read
+
+    env:
+      OWNER: ${{ github.repository_owner }} # override if target repo lives under a different owner
+      TARGET_REPO: DroneLeaf_WebClient
+      TARGET_BASE: env/prod
+      SOURCE_BRANCH: ${{ github.ref_name }}
+      TARGET_BRANCH: auto-integrate-br/${{ github.ref_name }}
+
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ensure copy settings file exists
+        run: |
+          test -f .github/copy_settings.yaml || {
+            echo "❌ .github/copy_settings.yaml not found" >&2; exit 1;
+          }
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install Python deps
+        run: python -m pip install --upgrade pip pyyaml
+
+      - name: Clone target repo and create/update branch from base
+        env:
+          GH_PAT: ${{ secrets.TOKEN }}
+        run: |
+          set -euo pipefail
+          : "${OWNER:?}"
+          : "${TARGET_REPO:?}"
+          : "${TARGET_BASE:?}"
+          : "${TARGET_BRANCH:?}"
+
+          # Clone the target repo at the base branch
+          git clone --no-tags --single-branch \
+            --branch "${TARGET_BASE}" \
+            "https://x-access-token:${GH_PAT}@github.com/${OWNER}/${TARGET_REPO}.git" target_repo
+
+          cd target_repo
+          # Create/update the working branch based on the base branch
+          git checkout -B "${TARGET_BRANCH}" "origin/${TARGET_BASE}"
+
+      - name: Apply copy map from .github/copy_settings.yaml
+        run: |
+          set -euo pipefail
+          python << 'PY'
+          import os, sys, shutil, yaml, pathlib
+
+          SRC_ROOT = pathlib.Path(os.getenv('GITHUB_WORKSPACE', '.')).resolve()
+          TGT_ROOT = pathlib.Path('target_repo').resolve()
+          CFG_PATH = SRC_ROOT / '.github' / 'copy_settings.yaml'
+
+          print(f"Reading copy settings from {CFG_PATH}")
+          with open(CFG_PATH, 'r', encoding='utf-8') as f:
+              cfg = yaml.safe_load(f) or {}
+
+          mappings = cfg.get('mappings') or cfg.get('map') or []
+          if not isinstance(mappings, list) or not mappings:
+              print('No mappings found in copy_settings.yaml (expected key: mappings:).', file=sys.stderr)
+              sys.exit(1)
+
+          # Utility: ensure dest parent exists
+          def ensure_parent(p: pathlib.Path):
+              p.parent.mkdir(parents=True, exist_ok=True)
+
+          # Copy logic
+          for i, entry in enumerate(mappings, 1):
+              src_rel = entry.get('from') or entry.get('src')
+              dst_rel = entry.get('to') or entry.get('dest')
+              mode = (entry.get('type') or entry.get('mode') or '').lower()
+              recursive = entry.get('recursive', True)
+
+              if not src_rel or not dst_rel:
+                  print(f"Mapping #{i} missing 'from'/'to'.", file=sys.stderr)
+                  sys.exit(1)
+
+              src = (SRC_ROOT / src_rel).resolve()
+              dst = (TGT_ROOT / dst_rel).resolve()
+
+              if not str(src).startswith(str(SRC_ROOT)):
+                  print(f"Source path escapes repo: {src}", file=sys.stderr)
+                  sys.exit(1)
+              if not str(dst).startswith(str(TGT_ROOT)):
+                  print(f"Destination path escapes target: {dst}", file=sys.stderr)
+                  sys.exit(1)
+
+              if not src.exists():
+                  print(f"Source does not exist: {src}", file=sys.stderr)
+                  sys.exit(1)
+
+              # Infer mode if omitted
+              if not mode:
+                  mode = 'dir' if src.is_dir() else 'file'
+
+              print(f"[{i}] {mode}: {src_rel} -> {dst_rel} (recursive={recursive})")
+
+              if mode == 'file':
+                  ensure_parent(dst)
+                  # Remove existing file if present to avoid stale content
+                  if dst.exists() and dst.is_file():
+                      dst.unlink()
+                  shutil.copy2(src, dst)
+              elif mode == 'dir':
+                  if dst.exists():
+                      # Remove existing destination to get a clean mirror
+                      if dst.is_dir():
+                          shutil.rmtree(dst)
+                      else:
+                          dst.unlink()
+                  if recursive:
+                      shutil.copytree(src, dst)
+                  else:
+                      # non-recursive: copy only immediate children files
+                      dst.mkdir(parents=True, exist_ok=True)
+                      for item in src.iterdir():
+                          if item.is_file():
+                              shutil.copy2(item, dst / item.name)
+              else:
+                  print(f"Unsupported type in mapping #{i}: {mode}", file=sys.stderr)
+                  sys.exit(1)
+
+          print('Copy operations completed.')
+          PY
+
+      - name: Commit and push changes to target branch
+        env:
+          GH_PAT: ${{ secrets.TOKEN }}
+        run: |
+          set -euo pipefail
+          cd target_repo
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "Auto integrate from ${{ github.repository }}@${{ env.SOURCE_BRANCH }} (commit: ${{ github.sha }})"
+            git push -u origin "${TARGET_BRANCH}" --force-with-lease
+            echo "NO_CHANGES=false" >> "$GITHUB_ENV"
+          else
+            echo "No changes detected; skipping PR creation."
+            echo "NO_CHANGES=true" >> "$GITHUB_ENV"
+          fi
+
+      - name: Create or update PR in target repo
+        if: env.NO_CHANGES != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.TOKEN }}
+        run: |
+          set -euo pipefail
+          : "${OWNER:?}${TARGET_REPO:?}${TARGET_BASE:?}${TARGET_BRANCH:?}"
+          cd target_repo
+
+          # If a PR already exists for this head->base, add a comment; else create it
+          PR_NUMBER=$(gh pr list \
+            --repo "${OWNER}/${TARGET_REPO}" \
+            --head "${TARGET_BRANCH}" \
+            --base "${TARGET_BASE}" \
+            --json number --jq '.[0].number') || true
+
+          PR_TITLE="Auto integrate: ${SOURCE_BRANCH} → ${TARGET_BASE}"
+          PR_BODY=$(cat <<'EOB'
+          This PR was auto-created by the **Auto-integrate** workflow.
+
+          - **Source repo/branch:** ${{ github.repository }}@${{ env.SOURCE_BRANCH }}
+          - **Source commit:** ${{ github.sha }}
+          - **Target base:** ${{ env.TARGET_BASE }}
+          - **Target head:** ${{ env.TARGET_BRANCH }}
+
+          Changes were copied according to `.github/copy_settings.yaml` in the source repository.
+          EOB
+          )
+
+          if [ -z "$PR_NUMBER" ]; then
+            gh pr create \
+              --repo "${OWNER}/${TARGET_REPO}" \
+              --base "${TARGET_BASE}" \
+              --head "${TARGET_BRANCH}" \
+              --title "$PR_TITLE" \
+              --body  "$PR_BODY"
+          else
+            gh pr comment "${PR_NUMBER}" \
+              --repo "${OWNER}/${TARGET_REPO}" \
+              --body "Updated from source commit ${{ github.sha }}"
+          fi

@@ -1,0 +1,148 @@
+# Configuration file for auto-integrate workflow
+# This file defines which files/directories to copy from this repo to the target repo
+
+mappings:
+  - from: "src/assets"
+    to: "src/assets"
+    type: "dir"
+    recursive: true
+
+  - from: "src/app/auth"
+    to: "src/app/auth"
+    type: "dir"
+    recursive: true
+
+  - from: "src/app/home/business"
+    to: "src/app/home/business"
+    type: "dir"
+    recursive: true
+
+  - from: "src/app/home/private"
+    to: "src/app/home/private"
+    type: "dir"
+    recursive: true
+
+  # home routing module
+  - from: "src/app/home/home-routing.module.ts"
+    to: "src/app/home/home-routing.module.ts"
+    type: "file"
+
+  # home module
+  - from: "src/app/home/home.module.ts"
+    to: "src/app/home/home.module.ts"
+    type: "file"
+
+  # home page html
+  - from: "src/app/home/home.page.html"
+    to: "src/app/home/home.page.html"
+    type: "file"
+
+  # home page scss
+  - from: "src/app/home/home.page.scss"
+    to: "src/app/home/home.page.scss"
+    type: "file"
+
+  # home page spec ts
+  - from: "src/app/home/home.page.spec.ts"
+    to: "src/app/home/home.page.spec.ts"
+    type: "file"
+
+  # home page ts
+  - from: "src/app/home/home.page.ts"
+    to: "src/app/home/home.page.ts"
+    type: "file"
+
+  # layout folder
+  - from: "src/app/layout"
+    to: "src/app/layout"
+    type: "dir"
+    recursive: true
+
+  # shared folder
+  - from: "src/app/shared"
+    to: "src/app/shared"
+    type: "dir"
+    recursive: true
+
+  # core new components
+  # core button
+  - from: "src/app/core/components/button"
+    to: "src/app/core/components/button"
+    type: "dir"
+    recursive: true
+
+  # core confirm-cancel-model
+  - from: "src/app/core/components/confirm-cancel-model"
+    to: "src/app/core/components/confirm-cancel-model"
+    type: "dir"
+    recursive: true
+
+  # core help button
+  - from: "src/app/core/components/help-button"
+    to: "src/app/core/components/help-button"
+    type: "dir"
+    recursive: true
+
+  # core input
+  - from: "src/app/core/components/input"
+    to: "src/app/core/components/input"
+    type: "dir"
+    recursive: true
+
+  # core inputs
+  - from: "src/app/core/components/inputs"
+    to: "src/app/core/components/inputs"
+    type: "dir"
+    recursive: true
+
+  # core phone-input
+  - from: "src/app/core/components/phone-input"
+    to: "src/app/core/components/phone-input"
+    type: "dir"
+    recursive: true
+
+  # core select-input
+  - from: "src/app/core/components/select-input"
+    to: "src/app/core/components/select-input"
+    type: "dir"
+    recursive: true
+
+  # core toast
+  - from: "src/app/core/components/toast"
+    to: "src/app/core/components/toast"
+    type: "dir"
+    recursive: true
+
+  # core data
+  - from: "src/app/core/data"
+    to: "src/app/core/data"
+    type: "dir"
+    recursive: true
+
+  # core guards
+  - from: "src/app/core/guards"
+    to: "src/app/core/guards"
+    type: "dir"
+    recursive: true
+
+  # core models
+  - from: "src/app/core/models"
+    to: "src/app/core/models"
+    type: "dir"
+    recursive: true
+
+  # core services
+  - from: "src/app/core/services"
+    to: "src/app/core/services"
+    type: "dir"
+    recursive: true
+
+  # core contributed file
+  - from: "src/app/core/core.module.contributed.ts"
+    to: "src/app/core/core.module.contributed.ts"
+    type: "file"
+# Mapping structure:
+# - from: source path relative to this repo root
+#   to: destination path relative to target repo root
+#   type: "file" or "dir"
+#   recursive: true/false (only for directories, defaults to true)
