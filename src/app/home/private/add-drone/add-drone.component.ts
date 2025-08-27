@@ -60,45 +60,33 @@ export class AddDroneComponent implements OnInit {
   /** Helper to get the current step index based on step type */
   getCurrentStepIndex(): number {
     switch (this.currentStep) {
-      case 'initial':
-        return 0;
-      // YES flow
-      case 'environment':
-        return 1;
+      case 'initial': return 0;
+      case 'environment': return 1;
       case 'indoors_setup':
-      case 'outdoors_setup':
-        return 2;
+      case 'outdoors_setup': return 2;
       case 'template_selection':
-      case 'existing_template_flow':
-        return 3;
-      case 'select_drone':
-        return 4;
+      case 'existing_template_flow': return 3;
+      case 'select_drone': return 4;
       case 'custom_drone':
       case 'organization_flow':
       case 'marketplaceTemplate_flow':
-      case 'droneMarketplace_flow':
-        return 5;
-      case 'drone_method':
-        return 6;
-      case 'tier_one':
-        return 7;
-      case 'template_type':
-        return 8;
-      case 'create_template':
-        return 9;
-      case 'template_form':
-        return 10;
-      case 'motor_test':
-        return 11;
-
-      case 'no_flow_start':
-        return 1;
+      case 'droneMarketplace_flow': return 5;
+      case 'drone_method': return 6;
+      case 'tier_one': return 7;
+      case 'template_type': return 8;
+      case 'create_template': return 9;
+      case 'template_form': return 10;
+      case 'motor_test': return 11;
+      // All remote control related steps mapped to last step
+      case 'set_up_remote_control':
+      case 'create_remote_flow':
+      case 'test_remote_control':
+      case 'use_existing_remote': return 12;
+      // NO flow steps (if you want to show them in the same stepper)
+      case 'no_flow_start': return 1;
       case 'no_flow_indoors_setup':
-      case 'no_flow_outdoors_setup':
-        return 2;
-
-      default:
-        return 0;
+      case 'no_flow_outdoors_setup': return 2;
+      default: return 0;
     }
   }
 

@@ -24,13 +24,13 @@ export class TestRemoteControlComponent implements OnInit {
 
  stepsFlow: any = [
   { title: 'Throttle (Up)', value: null, active: false },
+  { title: 'Throttle (Down)', value: null, active: false },
+  { title: 'Yaw (Right)', value: null, active: false },
   { title: 'Yaw (Left)', value: null, active: false },
-  { title: 'Pitch (Forward)', value: null, active: false },
+  { title: 'Pitch (Up)', value: null, active: false },
+  { title: 'Pitch (Down)', value: null, active: false },
   { title: 'Roll (Right)', value: null, active: false },
-  { title: 'Trim (Up)', value: null, active: false },
-  { title: 'Trim (Down)', value: null, active: false },
-  { title: 'Trim (Left)', value: null, active: false },
-  { title: 'Trim (Right)', value: null, active: false },
+  { title: 'Roll (Left)', value: null, active: false },
 ];
 
 leftBoxes = this.stepsFlow.slice(0, 4);   // Group 1

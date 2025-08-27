@@ -26,7 +26,7 @@
               class="w-52 h-24 rounded-lg border shadow-md flex flex-col justify-center items-center">
               <ng-container *ngIf="box.value; else emptyLeft">
                 <h4 class="font-semibold">{{ box.title }}</h4>
-                <p class="font-bold text-xl">{{ box.value }} μs</p>
+                <p> <span class="font-bold text-xl">{{ box.value }}</span> μs</p>
                 <p class="text-green-600 text-sm">Success</p>
               </ng-container>
               <ng-template #emptyLeft>
@@ -38,15 +38,17 @@
           <!-- CIRCLE WRAPPER -->
           <div class="circle-wrapper" (click)="onStart()">
 
-            <!-- OUTER CIRCLE -->
-            <svg class="circle-svg" [attr.width]="220" [attr.height]="220">
-              <circle cx="110" cy="110" r="90" stroke="#e5f4f0" stroke-width="60" fill="none" />
-            </svg>
-
-            <!-- MIDDLE CIRCLE -->
-            <svg class="circle-svg" [attr.width]="200" [attr.height]="200">
-              <circle cx="100" cy="100" r="75" stroke="#e0f4ef" stroke-width="50" fill="none" />
-            </svg>
+            <!-- OUTER & MIDDLE CIRCLES: Only show when not done -->
+            <ng-container *ngIf="!done">
+              <!-- OUTER CIRCLE -->
+              <svg class="circle-svg" [attr.width]="220" [attr.height]="220">
+                <circle cx="110" cy="110" r="90" stroke="#e5f4f0" stroke-width="60" fill="none" />
+              </svg>
+              <!-- MIDDLE CIRCLE -->
+              <svg class="circle-svg" [attr.width]="200" [attr.height]="200">
+                <circle cx="100" cy="100" r="75" stroke="#e0f4ef" stroke-width="50" fill="none" />
+              </svg>
+            </ng-container>
 
             <!-- INNER PROGRESS CIRCLE -->
             <!-- INNER EMPTY CIRCLE (Start screen) -->
@@ -55,14 +57,23 @@
             </svg>
 
             <!-- INNER PROGRESS CIRCLE (During loading or done) -->
-            <svg *ngIf="loading || done" class="circle-svg" [attr.width]="160" [attr.height]="160">
+            <!-- INNER PROGRESS CIRCLE (During loading) -->
+            <svg *ngIf="loading && !done" class="circle-svg" [attr.width]="160" [attr.height]="160">
               <circle cx="80" cy="80" r="60" stroke-width="40" fill="none" [attr.stroke]="
-      progress > 50 ? '#1BAF5D' :
-      progress > 30 ? '#FFC700' :
-      '#EF5350'
-    " stroke-linecap="round" [attr.stroke-dasharray]="2 * Math.PI * 60"
+            progress > 50 ? '#1BAF5D' :
+            progress > 30 ? '#FFC700' :
+            '#EF5350'
+          " stroke-linecap="round" [attr.stroke-dasharray]="2 * Math.PI * 60"
                 [attr.stroke-dashoffset]="(2 * Math.PI * 60) * ((100 - progress) / 100)" />
               <circle cx="80" cy="80" r="60" stroke="#ceeae3" stroke-width="40" fill="none" opacity="0.2" />
+            </svg>
+
+            <!-- INNER COMPLETE CIRCLE (When done) -->
+            <svg *ngIf="done" class="circle-svg" [attr.width]="160" [attr.height]="160">
+              <!-- Green ring -->
+              <circle cx="80" cy="80" r="60" stroke="#1BAF5D" stroke-width="40" fill="none" />
+              <!-- Dark center -->
+              <circle cx="80" cy="80" r="40" fill="#3A3B3E" />
             </svg>
 
 
@@ -76,7 +87,7 @@
                 <span class="text-gray-400 cursor-not-allowed">Done</span>
               </ng-container>
               <ng-container *ngIf="done">
-                Done
+                Complete
               </ng-container>
             </div>
 
@@ -89,7 +100,7 @@
               class="w-52 h-24 rounded-lg border shadow-md flex flex-col justify-center items-center">
               <ng-container *ngIf="box.value; else emptyRight">
                 <h4 class="font-semibold">{{ box.title }}</h4>
-                <p class="font-bold text-xl">{{ box.value }} μs</p>
+                <p> <span class="font-bold text-xl">{{ box.value }}</span> μs</p>
                 <p class="text-green-600 text-sm">Success</p>
               </ng-container>
               <ng-template #emptyRight>
@@ -106,11 +117,11 @@
             When you’re ready, press Start to begin.
           </ng-container>
           <ng-container *ngIf="loading">
-            Step {{ currentStepIndex + 1 }}: {{ stepsFlow[currentStepIndex].title }} <br>
+            Step {{ testingStepIndex + 1 }}: {{ stepsFlow[testingStepIndex].title }} <br>
             Move the stick and wait for calibration...
           </ng-container>
           <ng-container *ngIf="done">
-            ✅ All steps completed!
+          <p class="font-bold">You have completed the RC testing please <br> proceed to the next step by clicking on continue</p>
           </ng-container>
         </p>
 
