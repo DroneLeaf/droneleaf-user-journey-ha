@@ -1,0 +1,189 @@
+<div class="flex flex-col md:flex-row h-[96vh] text-black">
+  <!-- Main Left -->
+  <div class="flex-1 px-6 md:px-6 pt-8 pb-4 flex flex-col justify-between">
+    <!-- Top Header -->
+    <div class="flex justify-between items-center py-4">
+      <img src="../../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-14" />
+      <app-help-button></app-help-button>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col ">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+        Get Ready for RC Testing
+      </h2>
+      <p class="text-gray-600 w-3/4 mb-6">
+        <ng-container *ngIf="!started; else afterStart">
+          This workflow assumes PPM or SBUS RC is used. During calibration, you would be prompted to change your RC
+          Transmitter settings, so get it powered-up and ready! Make sure the RC Transmitter is bound with the Receiver
+          installed on the drone.
+        </ng-container>
+      </p>
+
+      <ng-template #afterStart>
+        <p class="text-gray-600 w-3/4 mb-6">
+          We’ll guide you through moving each stick on your transmitter to calibrate
+          throttle, yaw, pitch, and roll.
+        </p>
+      </ng-template>
+
+
+      <!-- Placeholder test instructions -->
+      <div class="p-6 rounded-lg">
+        <div class="flex justify-between items-center">
+
+          <!-- LEFT BOXES (Appear only when done) -->
+          <div class="flex flex-col gap-4" *ngIf="showAllBoxes">
+            <div *ngFor="let box of leftBoxes"
+              class="w-52 h-24 rounded-lg border shadow-md flex flex-col justify-center items-center">
+              <ng-container *ngIf="box.value; else emptyLeft">
+                <h4 class="font-semibold">{{ box.title }}</h4>
+                <p> <span class="font-bold text-xl">{{ box.value }}</span> μs</p>
+                <p class="text-green-600 text-sm">Success</p>
+              </ng-container>
+              <ng-template #emptyLeft>
+
+              </ng-template>
+            </div>
+          </div>
+
+          <!-- CIRCLE WRAPPER -->
+          <div class="circle-wrapper" (click)="onStart()">
+
+            <!-- OUTER & MIDDLE CIRCLES: Only show when not done -->
+            <ng-container *ngIf="!done">
+              <!-- OUTER CIRCLE -->
+              <svg class="circle-svg" [attr.width]="220" [attr.height]="220">
+                <circle cx="110" cy="110" r="90" stroke="#e5f4f0" stroke-width="60" fill="none" />
+              </svg>
+              <!-- MIDDLE CIRCLE -->
+              <svg class="circle-svg" [attr.width]="200" [attr.height]="200">
+                <circle cx="100" cy="100" r="75" stroke="#e0f4ef" stroke-width="50" fill="none" />
+              </svg>
+            </ng-container>
+
+            <!-- INNER PROGRESS CIRCLE -->
+            <!-- INNER EMPTY CIRCLE (Start screen) -->
+            <svg *ngIf="!loading && !done" class="circle-svg" [attr.width]="160" [attr.height]="160">
+              <circle cx="80" cy="80" r="60" stroke="#ceeae3" stroke-width="40" fill="none" />
+            </svg>
+
+            <!-- INNER PROGRESS CIRCLE (During loading or done) -->
+            <!-- INNER PROGRESS CIRCLE (During loading) -->
+            <svg *ngIf="loading && !done" class="circle-svg" [attr.width]="160" [attr.height]="160">
+              <circle cx="80" cy="80" r="60" stroke-width="40" fill="none" [attr.stroke]="
+            progress > 50 ? '#1BAF5D' :
+            progress > 30 ? '#FFC700' :
+            '#EF5350'
+          " stroke-linecap="round" [attr.stroke-dasharray]="2 * Math.PI * 60"
+                [attr.stroke-dashoffset]="(2 * Math.PI * 60) * ((100 - progress) / 100)" />
+              <circle cx="80" cy="80" r="60" stroke="#ceeae3" stroke-width="40" fill="none" opacity="0.2" />
+            </svg>
+
+            <!-- INNER COMPLETE CIRCLE (When done) -->
+            <svg *ngIf="done" class="circle-svg" [attr.width]="160" [attr.height]="160">
+              <!-- Green ring -->
+              <circle cx="80" cy="80" r="60" stroke="#1BAF5D" stroke-width="40" fill="none" />
+              <!-- Dark center -->
+              <circle cx="80" cy="80" r="40" fill="#3A3B3E" />
+            </svg>
+
+
+            <!-- TEXT -->
+            <!-- TEXT -->
+            <div class="circle-text">
+              <ng-container *ngIf="!loading && !done">
+                Start
+              </ng-container>
+              <ng-container *ngIf="loading && !done">
+                <span class="text-gray-400 cursor-not-allowed">Done</span>
+              </ng-container>
+              <ng-container *ngIf="done">
+                Complete
+              </ng-container>
+            </div>
+
+          </div>
+
+
+          <!-- RIGHT BOXES (Appear only when done) -->
+          <div class="flex flex-col gap-4" *ngIf="showAllBoxes">
+            <div *ngFor="let box of rightBoxes"
+              class="w-52 h-24 rounded-lg border shadow-md flex flex-col justify-center items-center">
+              <ng-container *ngIf="box.value; else emptyRight">
+                <h4 class="font-semibold">{{ box.title }}</h4>
+                <p> <span class="font-bold text-xl">{{ box.value }}</span> μs</p>
+                <p class="text-green-600 text-sm">Success</p>
+              </ng-container>
+              <ng-template #emptyRight>
+
+              </ng-template>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Instruction -->
+        <p class="instruction mt-6 text-center">
+          <ng-container *ngIf="!loading && !done">
+            <p class="font-bold"> When you’re ready, press Start to begin.</p>
+          </ng-container>
+          <ng-container *ngIf="loading">
+            Step {{ testingStepIndex + 1 }}: {{ stepsFlow[testingStepIndex].title }} <br>
+            <p class="text-center">
+              Assign throttle to <span class="font-bold">Channel 3</span> in your transmitter. <br>
+              Configure your transmitter so that moving the stick north in positive value. <br>
+              Move the throttle stick all the way <span class="font-bold">NORTH</span> , press <span
+                class="font-bold">Done</span> to confirm!
+
+            </p>
+          </ng-container>
+          <ng-container *ngIf="done">
+            <p class="font-bold">You have completed the RC testing please <br> proceed to the next step by clicking on
+              continue</p>
+          </ng-container>
+        </p>
+
+      </div>
+
+    </div>
+
+    <hr />
+
+    <!-- Bottom Buttons -->
+    <div class="pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <button type="button"
+        class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
+        (click)="onCancelClick()">
+        Cancel
+      </button>
+
+      <div class="flex gap-4 w-full md:w-auto">
+        <button
+          class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
+          style="border: 1px solid #009169;" (click)="back.emit()">
+          Back
+        </button>
+        <button class="bg-[#009169] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#007e57] w-full md:w-auto"
+          (click)="next.emit()">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Sidebar Stepper -->
+  <div class="w-full md:w-96 bg-[#cce9e1] p-6 flex flex-col justify-between">
+    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
+
+    <div class="mt-8">
+      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
+        Add A Drone
+      </h4>
+      <p class="text-[16px] text-gray-600">
+        This step ensures your Remote Control is properly configured before
+        finalizing the setup.
+      </p>
+    </div>
+  </div>
+</div>

@@ -27,6 +27,16 @@ import { DroneLinraryComponent } from './business/drone-linrary/drone-linrary.co
 import { CreateNewTemplateStepComponent } from './private/add-drone/create-new-template-step/create-new-template-step.component';
 import { CreateNewTemplateFormStepComponent } from './private/add-drone/create-new-template-form-step/create-new-template-form-step.component';
 import { OutComponentSetupComponent } from './private/add-drone/out-component-setup/out-component-setup.component';
+import { OrganizationDroneSetupComponent } from './private/add-drone/organization-drone-setup/organization-drone-setup.component';
+import { SetupRemoteControlComponent } from './private/add-drone/setup-remote-control/setup-remote-control.component';
+import { CreateRemoteFlowComponent } from './private/add-drone/create-remote-flow/create-remote-flow.component';
+import { TestRemoteControlComponent } from './private/add-drone/test-remote-control/test-remote-control.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { SetupKillSwtichComponent } from './private/add-drone/setup-kill-swtich/setup-kill-swtich.component';
+import { SetupFunctionalSwitchComponent } from './private/add-drone/setup-functional-switch/setup-functional-switch.component';
+import { LicenseNowLaterComponent } from './private/add-drone/license-now-later/license-now-later.component';
+import { LicenseNowComponent } from './private/add-drone/license-now/license-now.component';
+import { LicenceFlightSetupComponent } from './private/add-drone/licence-flight-setup/licence-flight-setup.component';
 
 @NgModule({
   imports: [
@@ -40,6 +50,13 @@ import { OutComponentSetupComponent } from './private/add-drone/out-component-se
     MatIconModule,
     CoreModule,
     ReactiveFormsModule,
+    NgCircleProgressModule.forRoot({
+      responsive: true,
+      showTitle: false,
+      showUnits: false,
+      showSubtitle: false,
+      startFromZero: false,
+    }),
   ],
   declarations: [
     HomePage,
@@ -60,7 +77,16 @@ import { OutComponentSetupComponent } from './private/add-drone/out-component-se
     CreateNewTemplateStepComponent,
     CreateNewTemplateFormStepComponent,
     DroneMoterTestComponent,
-    OutComponentSetupComponent
+    OutComponentSetupComponent,
+    OrganizationDroneSetupComponent,
+    SetupRemoteControlComponent,
+    CreateRemoteFlowComponent,
+    TestRemoteControlComponent,
+    SetupKillSwtichComponent,
+    SetupFunctionalSwitchComponent,
+    LicenseNowLaterComponent,
+    LicenseNowComponent,
+    LicenceFlightSetupComponent
   ],
   exports: [
     AddDroneComponent,
@@ -72,7 +98,7 @@ import { OutComponentSetupComponent } from './private/add-drone/out-component-se
     CustomeDroneComponent,
     ChooseYourDroneMethodComponent,
     TierOneScreenComponent,
-    ExistingAndNewTemplateStepComponent
+    ExistingAndNewTemplateStepComponent,
   ],
 })
 export class HomePageModule {}
