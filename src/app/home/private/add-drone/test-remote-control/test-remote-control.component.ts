@@ -9,7 +9,7 @@ import { Step } from 'src/app/core/models/add-drone-stepper.model';
 export class TestRemoteControlComponent implements OnInit {
   @Input() steps!: Step[];
   @Input() currentStepIndex!: number;
-
+  started = false;
   @Output() cancel = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
@@ -23,14 +23,14 @@ export class TestRemoteControlComponent implements OnInit {
   ngOnInit() {}
 
  stepsFlow: any = [
-  { title: 'Throttle (Up)', value: null, active: false },
-  { title: 'Throttle (Down)', value: null, active: false },
-  { title: 'Yaw (Right)', value: null, active: false },
-  { title: 'Yaw (Left)', value: null, active: false },
-  { title: 'Pitch (Up)', value: null, active: false },
-  { title: 'Pitch (Down)', value: null, active: false },
-  { title: 'Roll (Right)', value: null, active: false },
-  { title: 'Roll (Left)', value: null, active: false },
+  { title: 'Throttle (North)', value: null, active: false },
+  { title: 'Throttle (South)', value: null, active: false },
+  { title: 'Yaw (East)', value: null, active: false },
+  { title: 'Yaw (West)', value: null, active: false },
+  { title: 'Pitch (North)', value: null, active: false },
+  { title: 'Pitch (South)', value: null, active: false },
+  { title: 'Roll (East)', value: null, active: false },
+  { title: 'Roll (West)', value: null, active: false },
 ];
 
 leftBoxes = this.stepsFlow.slice(0, 4);   // Group 1
@@ -43,6 +43,7 @@ showAllBoxes = false;
   }
 
   onStart() {
+    this.started = true;
     if (this.loading || this.done) return;
     this.startLoader();
   }

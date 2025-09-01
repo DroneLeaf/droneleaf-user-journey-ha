@@ -34,7 +34,13 @@ export class AddDroneComponent implements OnInit {
     { title: 'Step Twelve', completed: false },
     { title: 'Step Thirteen', completed: false },
     { title: 'Step Fourteen', completed: false },
+    { title: 'Kill Switch Setup', completed: false },
+    { title: 'Functional Switch Setup', completed: false },
+    { title: 'License your drone now or later', completed: false },
+    { title: 'License  drone now', completed: false },
+    { title: 'License Flight SetUp', completed: false },
   ];
+
 
   constructor(
     private router: Router,
@@ -82,6 +88,11 @@ export class AddDroneComponent implements OnInit {
       case 'create_remote_flow':
       case 'test_remote_control':
       case 'use_existing_remote': return 12;
+      case 'set_up_kill_switch': return 13;
+      case 'setup_functional_switch': return 14;
+      case 'license-now-or-later': return 15
+      case 'license-now': return 16;
+      case 'licence-flight-setup': return 17;
       // NO flow steps (if you want to show them in the same stepper)
       case 'no_flow_start': return 1;
       case 'no_flow_indoors_setup':

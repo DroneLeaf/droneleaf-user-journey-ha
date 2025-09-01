@@ -174,7 +174,7 @@
         <ng-container *ngIf="currentStep === 'set_up_remote_control'">
           <app-setup-remote-control [steps]="steps" [currentStepIndex]="getCurrentStepIndex()" (next)="
       navigateTo(
-        $event === 'new_remote' ? 'create_remote_flow' : 'use_existing_remote',
+        $event === 'new_remote' ? 'test_remote_control' : 'use_existing_remote',
         $event
       )
     " (cancel)="handleStepCancel()" (back)="goBack()">
@@ -191,10 +191,42 @@
 
         <ng-container *ngIf="currentStep === 'test_remote_control'">
           <app-test-remote-control [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
-            (next)="navigateTo('use_existing_remote')" (cancel)="handleStepCancel()" (back)="goBack()">
+            (next)="navigateTo('set_up_kill_switch')" (cancel)="handleStepCancel()" (back)="goBack()">
           </app-test-remote-control>
         </ng-container>
 
+        <!-- ✅ NEW STEP: Kill Switch Setup -->
+        <ng-container *ngIf="currentStep === 'set_up_kill_switch'">
+          <app-setup-kill-swtich [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('setup_functional_switch')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-setup-kill-swtich>
+        </ng-container>
+
+        <!-- ✅ NEW STEP: Functional Switch Setup -->
+        <ng-container *ngIf="currentStep === 'setup_functional_switch'">
+          <app-setup-functional-switch [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('license-now-or-later')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-setup-functional-switch>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 'license-now-or-later'">
+          <app-license-now-later [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('license-now')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-license-now-later>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 'license-now'">
+          <app-license-now [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('licence-flight-setup')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-license-now>
+        </ng-container>
+
+        <!-- licence-flight-setup -->
+        <ng-container *ngIf="currentStep === 'licence-flight-setup'">
+          <app-licence-flight-setup [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('use_existing_remote')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-licence-flight-setup>
+        </ng-container>
         <!-- USE EXISTING REMOTE -->
         <ng-container *ngIf="currentStep === 'use_existing_remote'">
           <!-- <app-use-existing-remote

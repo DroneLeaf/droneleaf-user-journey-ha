@@ -45,7 +45,13 @@ export type StepType =
   | 'no_flow_start'
   | 'no_flow_environment'
   | 'no_flow_indoors_setup'
-  | 'no_flow_outdoors_setup';
+  | 'no_flow_outdoors_setup'
+  | 'set_up_kill_switch'
+  | 'setup_functional_switch'
+  | 'license-now-or-later'
+  | 'license-now'
+  | 'licence-flight-setup';
+
 
 export interface StepNode {
   type: StepType;

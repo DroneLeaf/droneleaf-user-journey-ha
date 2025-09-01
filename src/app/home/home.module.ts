@@ -32,6 +32,11 @@ import { SetupRemoteControlComponent } from './private/add-drone/setup-remote-co
 import { CreateRemoteFlowComponent } from './private/add-drone/create-remote-flow/create-remote-flow.component';
 import { TestRemoteControlComponent } from './private/add-drone/test-remote-control/test-remote-control.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { SetupKillSwtichComponent } from './private/add-drone/setup-kill-swtich/setup-kill-swtich.component';
+import { SetupFunctionalSwitchComponent } from './private/add-drone/setup-functional-switch/setup-functional-switch.component';
+import { LicenseNowLaterComponent } from './private/add-drone/license-now-later/license-now-later.component';
+import { LicenseNowComponent } from './private/add-drone/license-now/license-now.component';
+import { LicenceFlightSetupComponent } from './private/add-drone/licence-flight-setup/licence-flight-setup.component';
 
 @NgModule({
   imports: [
@@ -77,6 +82,11 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     SetupRemoteControlComponent,
     CreateRemoteFlowComponent,
     TestRemoteControlComponent,
+    SetupKillSwtichComponent,
+    SetupFunctionalSwitchComponent,
+    LicenseNowLaterComponent,
+    LicenseNowComponent,
+    LicenceFlightSetupComponent
   ],
   exports: [
     AddDroneComponent,

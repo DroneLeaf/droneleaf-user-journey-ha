@@ -13,8 +13,20 @@
         Get Ready for RC Testing
       </h2>
       <p class="text-gray-600 w-3/4 mb-6">
-        We’ll guide you through moving each stick on your transmitter to calibrate throttle, yaw, pitch, and roll.
+        <ng-container *ngIf="!started; else afterStart">
+          This workflow assumes PPM or SBUS RC is used. During calibration, you would be prompted to change your RC
+          Transmitter settings, so get it powered-up and ready! Make sure the RC Transmitter is bound with the Receiver
+          installed on the drone.
+        </ng-container>
       </p>
+
+      <ng-template #afterStart>
+        <p class="text-gray-600 w-3/4 mb-6">
+          We’ll guide you through moving each stick on your transmitter to calibrate
+          throttle, yaw, pitch, and roll.
+        </p>
+      </ng-template>
+
 
       <!-- Placeholder test instructions -->
       <div class="p-6 rounded-lg">
@@ -114,14 +126,21 @@
         <!-- Instruction -->
         <p class="instruction mt-6 text-center">
           <ng-container *ngIf="!loading && !done">
-            When you’re ready, press Start to begin.
+            <p class="font-bold"> When you’re ready, press Start to begin.</p>
           </ng-container>
           <ng-container *ngIf="loading">
             Step {{ testingStepIndex + 1 }}: {{ stepsFlow[testingStepIndex].title }} <br>
-            Move the stick and wait for calibration...
+            <p class="text-center">
+              Assign throttle to <span class="font-bold">Channel 3</span> in your transmitter. <br>
+              Configure your transmitter so that moving the stick north in positive value. <br>
+              Move the throttle stick all the way <span class="font-bold">NORTH</span> , press <span
+                class="font-bold">Done</span> to confirm!
+
+            </p>
           </ng-container>
           <ng-container *ngIf="done">
-          <p class="font-bold">You have completed the RC testing please <br> proceed to the next step by clicking on continue</p>
+            <p class="font-bold">You have completed the RC testing please <br> proceed to the next step by clicking on
+              continue</p>
           </ng-container>
         </p>
 
