@@ -5,16 +5,52 @@ on:
     types: [closed]
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      source_branch:
+        description: 'Source branch to sync from'
+        required: true
+        default: 'main'
+        type: string
+      reason:
+        description: 'Reason for manual sync'
+        required: false
+        type: string
 
 concurrency:
   group: auto-integrate-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
+  check-permissions:
+    name: Check user permissions for manual trigger
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    outputs:
+      authorized: ${{ steps.check.outputs.authorized }}
+    steps:
+      - name: Check if user is authorized
+        id: check
+        run: |
+          # List of authorized users (replace with actual GitHub usernames)
+          AUTHORIZED_USERS="nokhba-omaralblooshi ahmed-hashim-pro"
+          
+          if echo "$AUTHORIZED_USERS" | grep -q "${{ github.actor }}"; then
+            echo "User ${{ github.actor }} is authorized"
+            echo "authorized=true" >> $GITHUB_OUTPUT
+          else
+            echo "User ${{ github.actor }} is not authorized to run this workflow manually"
+            echo "authorized=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
   sync-and-pr:
     name: Sync mapped files to target repo and open PR
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    needs: [check-permissions]
+    if: |
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true) ||
+      (github.event_name == 'workflow_dispatch' && needs.check-permissions.outputs.authorized == 'true')
 
     # GITHUB_TOKEN is used to read this repo; a PAT is required for the private target repo
     permissions:
@@ -25,7 +61,7 @@ jobs:
       OWNER: ${{ github.repository_owner }} # override if target repo lives under a different owner
       TARGET_REPO: DroneLeaf_WebClient
       TARGET_BASE: auto-migration-br
-      SOURCE_BRANCH: ${{ github.ref_name }}
+      SOURCE_BRANCH: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.source_branch || github.ref_name }}
       TARGET_BRANCH: auto-migration-br
 
     steps:
@@ -304,7 +340,19 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add -A
-            git commit -m "Auto integrate from ${{ github.repository }}@${{ env.SOURCE_BRANCH }} (commit: ${{ github.sha }})"
+            
+            # Create commit message based on trigger type
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              COMMIT_MSG="Manual sync from ${{ github.repository }}@${{ env.SOURCE_BRANCH }} by ${{ github.actor }}"
+              if [ -n "${{ github.event.inputs.reason }}" ]; then
+                COMMIT_MSG="${COMMIT_MSG} - Reason: ${{ github.event.inputs.reason }}"
+              fi
+              COMMIT_MSG="${COMMIT_MSG} (commit: ${{ github.sha }})"
+            else
+              COMMIT_MSG="Auto integrate from ${{ github.repository }}@${{ env.SOURCE_BRANCH }} (commit: ${{ github.sha }})"
+            fi
+            
+            git commit -m "${COMMIT_MSG}"
             git push -u origin "${TARGET_BRANCH}" --force-with-lease
             echo "NO_CHANGES=false" >> "$GITHUB_ENV"
           else
