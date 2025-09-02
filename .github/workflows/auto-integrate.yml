@@ -33,7 +33,7 @@ jobs:
         id: check
         run: |
           # List of authorized users (replace with actual GitHub usernames)
-          AUTHORIZED_USERS="nokhba-omaralblooshi ahmed-hashim-pro"
+          AUTHORIZED_USERS="omaralblooshi100067891 ahmed-hashim-pro"
           
           if echo "$AUTHORIZED_USERS" | grep -q "${{ github.actor }}"; then
             echo "User ${{ github.actor }} is authorized"
