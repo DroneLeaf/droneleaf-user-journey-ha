@@ -1,7 +1,7 @@
-<!-- OUTERMOST: Full screen height -->
-<div class="flex h-[96vh] bg-white text-black">
+<!-- OUTERMOST -->
+<div class="flex h-screen bg-white text-black">
   <!-- ✅ LEFT SIDE -->
-  <div class="flex flex-col justify-between flex-1 px-6 py-6">
+  <div class="flex flex-col flex-1 px-6 py-6">
     <!-- ✅ Top Bar -->
     <div class="flex justify-between items-center">
       <img
@@ -12,15 +12,11 @@
       <app-help-button></app-help-button>
     </div>
 
-    <!-- ✅ Centered Content (with auto margin-top & bottom) -->
-    <div class="py-4">
+    <!-- ✅ Scrollable Content -->
+    <div class="flex-1 overflow-y-auto py-4 pb-5">
       <div class="mx-auto p-4 space-y-6">
-        <!-- Step 1: Perform Motor Start Up Check -->
-        <!-- ✅ Step 1: Perform Motor Start Up Check -->
-        <div
-          class="bg-white shadow rounded-lg p-4 sm:p-6 border"
-          *ngIf="step >= 1"
-        >
+        <!-- ✅ Step 1: Motor Startup Check -->
+        <div class="bg-white shadow rounded-lg p-4 sm:p-6 border" *ngIf="step >= 1">
           <h2 class="text-lg font-semibold">Perform Motor Start Up Check</h2>
           <p class="text-sm text-gray-600">
             Verify minimum ESC command for Motor Operation.
@@ -34,10 +30,7 @@
           <div
             class="mt-3 flex items-start bg-[#fff6d6] border border-[#FFC700] rounded-md p-3 text-sm"
           >
-            <!-- Icon -->
             <span class="text-yellow-600 mr-2 text-lg">⚠️</span>
-
-            <!-- Content -->
             <div>
               <p class="font-bold text-black">Safety Alert</p>
               <p class="text-gray-800">
@@ -73,8 +66,7 @@
             </div>
           </div>
 
-          <!-- ✅ Single Button (Step 1 aur Step 2 dono control karega) -->
-          <!-- Update the button in step 1 -->
+          <!-- Step 1 Button -->
           <div class="mt-4 flex justify-end">
             <button
               (click)="handleMotorButtonClick()"
@@ -91,17 +83,68 @@
           </div>
         </div>
 
+        <!-- ✅ Step 2: ESC Rotation Attempt -->
         <div
           class="bg-white shadow rounded-lg p-4 sm:p-6 border"
-          *ngIf="step >= 2"
+          *ngIf="step >= 2 && propellersRemoved === true"
         >
           <h2 class="text-lg font-semibold">Start ESC Rotation Attempt</h2>
           <p class="text-sm text-gray-600">
-            We will now try to rotate the motors at minimal power. Please watch
-            the motors closely and tell us if any of them start to spin.
+            Use the slider below to gradually increase the ESC command value.
+            Watch the motors closely and confirm when they start spinning.
           </p>
 
-          <!-- ✅ Proper alignment wrapper -->
+          <!-- Slider + Value -->
+          <div class="mt-4">
+            <label for="escSlider" class="font-semibold text-gray-800"
+              >Current Value:
+              <span class="font-bold">{{ escValue }}</span></label
+            >
+            <input
+              id="escSlider"
+              type="range"
+              min="1000"
+              max="1200"
+              step="1"
+              [(ngModel)]="escValue"
+              class="w-full mt-2 accent-[#009169]"
+            />
+            <div
+              class="flex justify-between text-sm text-gray-600 mt-1 select-none"
+            >
+              <span>1000</span>
+              <span>1025</span>
+              <span>1050</span>
+              <span>1075</span>
+              <span>1100</span>
+              <span>1125</span>
+              <span>1150</span>
+              <span>1175</span>
+              <span>1200</span>
+            </div>
+          </div>
+
+          <!-- Confirm Button -->
+          <div class="mt-6">
+            <button
+              (click)="confirmMotorStatus()"
+              class="w-full bg-gray-800 text-white font-semibold py-3 rounded-md hover:bg-gray-900 transition-colors duration-200"
+            >
+              Confirm Motor Status
+            </button>
+          </div>
+        </div>
+
+        <!-- ✅ Step 3: Result Options -->
+        <div
+          class="bg-white shadow rounded-lg p-4 sm:p-6 border"
+          *ngIf="step === 3"
+        >
+          <h2 class="text-lg font-semibold">Confirm Motor Status</h2>
+          <p class="text-sm text-gray-600 mb-4">
+            Select the option that matches what you observed:
+          </p>
+
           <div class="flex items-start gap-6 mt-4">
             <!-- Left: Drone Image -->
             <img
@@ -116,46 +159,46 @@
                 Did the motors start spinning?
               </h2>
 
-              <div class="flex items-center gap-6 flex-wrap text-gray-700">
-                <label class="flex items-center gap-2">
+              <div
+                class="flex items-center gap-6 flex-wrap text-gray-700"
+              >
+                <label class="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     name="motors"
                     [checked]="motorTestResult === 'yes'"
-                    (change)="onSelectMotorResult('yes')"
+                    (change)="onMotorResultClick('yes')"
                   />
                   <span>Yes, all the motors started spinning</span>
                 </label>
 
-                <label class="flex items-center gap-2">
+                <label class="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     name="motors"
                     [checked]="motorTestResult === 'no'"
-                    (change)="onSelectMotorResult('no')"
+                    (change)="onMotorResultClick('no')"
                   />
                   <span>No, nothing moved</span>
                 </label>
 
-                <label class="flex items-center gap-2">
+                <label class="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
                     name="motors"
                     [checked]="motorTestResult === 'some'"
-                    (change)="onSelectMotorResult('some')"
+                    (change)="onMotorResultClick('some')"
                   />
                   <span>Some motors started spinning</span>
                 </label>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Step 3 Results -->
-        <div *ngIf="step === 3">
+          <!-- Success Message -->
           <div
             *ngIf="motorTestResult === 'yes'"
-            class="bg-[#ccf8e0] border border-[#1BAF5D] text-green-800 rounded-lg p-4"
+            class="mt-6 bg-[#ccf8e0] border border-[#1BAF5D] text-green-800 rounded-lg p-4"
           >
             <h3 class="font-semibold">Motors are spinning!</h3>
             <p class="text-sm">
@@ -163,39 +206,13 @@
               been confirmed!
             </p>
           </div>
-
-          <!-- Step 2 Results (No case ke liye show karna hai yahin par) -->
-          <div *ngIf="motorTestResult === 'no'">
-            <div
-              class="bg-[#ffedec] border border-[#EF5350] text-red-800 rounded-lg p-4 mt-4"
-            >
-              <h3 class="font-semibold">⚠️ Motor Startup Incomplete</h3>
-              <p class="text-sm">
-                Some motors failed to spin. Before proceeding, please inspect
-                your hardware. Once inspection is done, please re-run the motor
-                test.
-              </p>
-            </div>
-          </div>
-
-          <div
-            *ngIf="motorTestResult === 'some'"
-            class="bg-gray-100 border border-gray-300 text-gray-800 rounded-lg p-4"
-          >
-            <h3 class="font-semibold">Partial Motor Startup Detected ⚠️</h3>
-            <p class="text-sm">
-              Some motors started spinning while others did not. Please review
-              your setup and retry after inspection.
-            </p>
-          </div>
         </div>
       </div>
     </div>
 
-    <hr />
     <!-- ✅ Bottom Buttons -->
     <div
-      class="flex flex-col md:flex-row justify-between items-center gap-4 mt-5"
+      class="flex flex-col md:flex-row justify-between items-center gap-4 p-5 border-t bg-white"
     >
       <button
         type="button"
@@ -216,13 +233,11 @@
 
         <button
           [disabled]="!(step === 3 && motorTestResult === 'yes')"
+          class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
           [ngClass]="{
             'bg-[#009169]': step === 3 && motorTestResult === 'yes',
-            'bg-[#80c8b4] opacity-50 cursor-not-allowed': !(
-              step === 3 && motorTestResult === 'yes'
-            )
+            'bg-[#80c8b4] opacity-50 cursor-not-allowed': !(step === 3 && motorTestResult === 'yes')
           }"
-          class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
           (click)="continue()"
         >
           Continue
@@ -232,17 +247,22 @@
   </div>
 
   <!-- ✅ Right Stepper Sidebar -->
-  <div class="w-96 bg-[#cce9e1] p-6 flex flex-col justify-around">
+  <div
+    class="w-96 bg-[#cce9e1] p-6 flex flex-col justify-start overflow-y-auto"
+  >
     <app-add-drone-stepper
       [steps]="steps"
       [currentStepIndex]="currentStepIndex"
     >
     </app-add-drone-stepper>
+
     <div class="mt-8">
-      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
+      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
+        Add A Drone
+      </h4>
       <p class="text-[16px] text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+        eiusmod tempor incididunt ut labore et dolore magna aliqua.
       </p>
     </div>
   </div>
