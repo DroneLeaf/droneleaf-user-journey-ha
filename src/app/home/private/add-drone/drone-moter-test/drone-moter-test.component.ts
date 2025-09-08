@@ -11,10 +11,10 @@ export class DroneMoterTestComponent implements OnInit {
   @Output() cancel = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
   @Output() back = new EventEmitter<void>();
-
+  escValue: number = 1000;
   @Input() steps!: Step[];
   @Input() currentStepIndex!: any;
-
+  showMessage = false;
   cancelModalVisible = false;
 
   step: number = 1;
@@ -33,6 +33,44 @@ export class DroneMoterTestComponent implements OnInit {
     }
   }
 
+  setMotorStatus(status: 'none' | 'some' | 'all') {
+    if (status === 'none') {
+      this.escValue = 1025;
+      this.motorTestResult = 'no';
+    } else if (status === 'some') {
+      this.escValue = 1050;
+      this.motorTestResult = 'some';
+    } else if (status === 'all') {
+      this.escValue = Math.floor(Math.random() * (1200 - 1100 + 1)) + 1100;
+      this.showMessage = true;
+    }
+
+    this.step = 3;
+    this.saveState();
+  }
+
+
+  onMotorResultClick(result: 'yes' | 'no' | 'some') {
+    this.motorTestResult = result;
+
+    if (result === 'yes') {
+      // ✅ Validation handled here, Continue button will enable automatically
+      this.saveState();
+      return;
+    }
+
+    // ❌ / ⚠️ case → Increase slider value and stay in step 2
+    const stepSize = 25;
+    if (this.escValue < 1200) {
+      this.escValue = Math.min(this.escValue + stepSize, 1200);
+    }
+
+    // Back to Step 2 so user retries
+    this.step = 2;
+    this.motorTestResult = null;
+    this.saveState();
+  }
+
   // ✅ Save current state
   private saveState() {
     this.wizardStateService.saveStepData(this.currentStepIndex, {
@@ -49,6 +87,13 @@ export class DroneMoterTestComponent implements OnInit {
     }
   }
 
+
+  confirmMotorStatus() {
+    // After confirming, go to step 3 and show result selection
+    this.step = 3;
+    this.motorTestResult = null; // reset any old result
+    this.saveState();
+  }
   // Change this method in drone-moter-test.component.ts
   onSelectMotorResult(result: 'yes' | 'no' | 'some') {
     this.motorTestResult = result;
@@ -61,13 +106,16 @@ export class DroneMoterTestComponent implements OnInit {
     if (this.step === 1 && this.propellersRemoved) {
       this.step = 2;
       this.motorTestResult = null;
+      this.escValue = 1000; // ✅ Reset slider to starting value every time Step 2 opens
     } else if (this.step === 3 && this.motorTestResult === 'no') {
-      // When on step 3 with "no" result and user clicks retry
-      this.motorTestResult = null; // reset result
-      this.step = 2; // go back to step 2
+      this.motorTestResult = null;
+      this.step = 2;
+      this.escValue = 1000; // ✅ Reset again when retrying
     }
     this.saveState();
   }
+
+
 
   isMotorBtnDisabled(): boolean {
     if (this.step === 1) {

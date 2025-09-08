@@ -159,8 +159,15 @@
         <!-- TEMPLATE FORM -->
         <ng-container *ngIf="currentStep === 'template_form'">
           <app-create-new-template-form-step [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
-            (next)="navigateTo('motor_test')" (cancel)="handleStepCancel()" (back)="goBack()">
+            (next)="navigateTo('calibration_overview')" (cancel)="handleStepCancel()" (back)="goBack()">
           </app-create-new-template-form-step>
+        </ng-container>
+
+        <!--  Calibration Overview -->
+        <ng-container *ngIf="currentStep === 'calibration_overview'">
+          <app-calibration-overview [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('motor_test')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-calibration-overview>
         </ng-container>
 
         <!-- MOTOR TEST -->
@@ -205,8 +212,14 @@
         <!-- ✅ NEW STEP: Functional Switch Setup -->
         <ng-container *ngIf="currentStep === 'setup_functional_switch'">
           <app-setup-functional-switch [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
-            (next)="navigateTo('license-now-or-later')" (cancel)="handleStepCancel()" (back)="goBack()">
+            (next)="navigateTo('rc-setup-switch-b')" (cancel)="handleStepCancel()" (back)="goBack()">
           </app-setup-functional-switch>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 'rc-setup-switch-b'">
+          <app-rc-setup-switch-b [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('license-now-or-later')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-rc-setup-switch-b>
         </ng-container>
 
         <ng-container *ngIf="currentStep === 'license-now-or-later'">

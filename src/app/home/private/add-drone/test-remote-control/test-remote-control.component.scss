@@ -2,16 +2,19 @@
   position: relative;
   width: 220px;
   height: 220px;
-  margin: 40px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 }
 .circle-svg {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-90deg);
+  transform: translate(-50%, -50%) rotate(90deg); // 🔥 bottom start
   border-radius: 50%;
 }
+
 .circle-text {
   position: absolute;
   top: 50%;
@@ -27,4 +30,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+}
+
+
+.invisible {
+  visibility: hidden;
 }

@@ -18,6 +18,7 @@ export class TestRemoteControlComponent implements OnInit {
   done: boolean = false;
   testingStepIndex: number = 0;
   cancelModalVisible = false;
+box: any;
   constructor() {}
 
   ngOnInit() {}
@@ -48,36 +49,38 @@ showAllBoxes = false;
     this.startLoader();
   }
 
-startLoader() {
-  this.loading = true;
-  this.done = false;
-  this.progress = 100;
+  startLoader() {
+    this.loading = true;
+    this.done = false;
+    this.progress = 100;
 
-  const interval = setInterval(() => {
-    if (this.progress > 0) {
-      this.progress -= 1; // 100 → 0
-    } else {
-      clearInterval(interval);
-      this.loading = false;
-
-      // ✅ Mark current step as done
-      this.stepsFlow[this.testingStepIndex].value = 200;
-      this.stepsFlow[this.testingStepIndex].active = true;
-
-      // ✅ Jaise hi pehla step complete hota hai → sab boxes appear ho
-      if (!this.showAllBoxes) {
-        this.showAllBoxes = true;
-      }
-
-      // ✅ Next step or done
-      if (this.testingStepIndex < this.stepsFlow.length - 1) {
-        this.testingStepIndex++;
+    const interval = setInterval(() => {
+      if (this.progress > 0) {
+        this.progress -= 1; // 100 → 0
       } else {
-        this.done = true;
+        clearInterval(interval);
+        this.loading = false;
+
+
+        const randomVal = Math.floor(Math.random() * (2000 - 1000 + 1)) + 1000;
+        this.stepsFlow[this.testingStepIndex].value = randomVal;
+        this.stepsFlow[this.testingStepIndex].active = true;
+
+
+        if (this.testingStepIndex < this.stepsFlow.length - 1) {
+          this.testingStepIndex++;
+        } else {
+          this.done = true;
+        }
       }
-    }
-  }, 50);
-}
+    }, 50);
+  }
+
+
+  get allStepsCompleted(): boolean {
+    return this.stepsFlow.every((step: { active: any; }) => step.active);
+  }
+
   onCancelClick() {
     this.cancelModalVisible = true;
   }
