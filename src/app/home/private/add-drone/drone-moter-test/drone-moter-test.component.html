@@ -4,11 +4,7 @@
   <div class="flex flex-col flex-1 px-6 py-6">
     <!-- ✅ Top Bar -->
     <div class="flex justify-between items-center">
-      <img
-        src="../../../../../assets/svgs/private/Group 1597881310.svg"
-        alt="DroneLeaf Logo"
-        class="h-16"
-      />
+      <img src="../../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-16" />
       <app-help-button></app-help-button>
     </div>
 
@@ -27,9 +23,7 @@
           </p>
 
           <!-- Alert -->
-          <div
-            class="mt-3 flex items-start bg-[#fff6d6] border border-[#FFC700] rounded-md p-3 text-sm"
-          >
+          <div class="mt-3 flex items-start bg-[#fff6d6] border border-[#FFC700] rounded-md p-3 text-sm">
             <span class="text-yellow-600 mr-2 text-lg">⚠️</span>
             <div>
               <p class="font-bold text-black">Safety Alert</p>
@@ -45,22 +39,14 @@
             <p class="font-bold">Step 1: Have you removed all propellers?</p>
             <div class="mt-2 flex gap-5 flex-wrap">
               <label class="flex items-center space-x-2">
-                <input
-                  type="radio"
-                  name="propellers"
-                  [checked]="propellersRemoved === true"
-                  (change)="handlePropellersSelection(true)"
-                />
+                <input type="radio" name="propellers" [checked]="propellersRemoved === true"
+                  (change)="handlePropellersSelection(true)" />
                 <span>Yes, propellers are removed</span>
               </label>
 
               <label class="flex items-center space-x-2">
-                <input
-                  type="radio"
-                  name="propellers"
-                  [checked]="propellersRemoved === false"
-                  (change)="handlePropellersSelection(false)"
-                />
+                <input type="radio" name="propellers" [checked]="propellersRemoved === false"
+                  (change)="handlePropellersSelection(false)" />
                 <span>No, I need to do that</span>
               </label>
             </div>
@@ -68,26 +54,20 @@
 
           <!-- Step 1 Button -->
           <div class="mt-4 flex justify-end">
-            <button
-              (click)="handleMotorButtonClick()"
-              [disabled]="isMotorBtnDisabled()"
+            <button (click)="handleMotorButtonClick()" [disabled]="isMotorBtnDisabled()"
               class="w-full sm:w-auto px-6 py-2 rounded-lg font-medium transition-colors duration-200"
-              [ngClass]="motorBtnClasses()"
-            >
+              [ngClass]="motorBtnClasses()">
               {{
-                motorTestResult === "no"
-                  ? "Retry Motor Test"
-                  : "Start Motor Test"
+              motorTestResult === "no"
+              ? "Retry Motor Test"
+              : "Start Motor Test"
               }}
             </button>
           </div>
         </div>
 
         <!-- ✅ Step 2: ESC Rotation Attempt -->
-        <div
-          class="bg-white shadow rounded-lg p-4 sm:p-6 border"
-          *ngIf="step >= 2 && propellersRemoved === true"
-        >
+        <div class="bg-white shadow rounded-lg p-4 sm:p-6 border" *ngIf="step >= 2 && propellersRemoved === true">
           <h2 class="text-lg font-semibold">Start ESC Rotation Attempt</h2>
           <p class="text-sm text-gray-600">
             Use the slider below to gradually increase the ESC command value.
@@ -95,23 +75,13 @@
           </p>
 
           <!-- Slider + Value -->
+
           <div class="mt-4">
-            <label for="escSlider" class="font-semibold text-gray-800"
-              >Current Value:
-              <span class="font-bold">{{ escValue }}</span></label
-            >
-            <input
-              id="escSlider"
-              type="range"
-              min="1000"
-              max="1200"
-              step="1"
-              [(ngModel)]="escValue"
-              class="w-full mt-2 accent-[#009169]"
-            />
-            <div
-              class="flex justify-between text-sm text-gray-600 mt-1 select-none"
-            >
+            <label for="escSlider" class="font-semibold text-gray-800">Current Value:
+              <span class="font-bold">{{ escValue }}</span></label>
+            <input id="escSlider" type="range" min="1000" max="1200" step="1" [value]="escValue"
+              class="w-full mt-2 accent-[#009169]" disabled />
+            <div class="flex justify-between text-sm text-gray-600 mt-1 select-none">
               <span>1000</span>
               <span>1025</span>
               <span>1050</span>
@@ -124,122 +94,58 @@
             </div>
           </div>
 
-          <!-- Confirm Button -->
-          <div class="mt-6">
-            <button
-              (click)="confirmMotorStatus()"
-              class="w-full bg-gray-800 text-white font-semibold py-3 rounded-md hover:bg-gray-900 transition-colors duration-200"
-            >
-              Confirm Motor Status
+          <!-- Buttons -->
+          <div class="mt-6 flex justify-between gap-4">
+            <button (click)="setMotorStatus('none')"
+              class="w-full bg-gray-800 text-white font-semibold py-3 rounded-md hover:bg-gray-900 transition-colors duration-200">
+              None of the motors are spinning
+            </button>
+
+            <button (click)="setMotorStatus('some')"
+              class="w-full bg-gray-800 text-white font-semibold py-3 rounded-md hover:bg-gray-900 transition-colors duration-200">
+              Some of the motors are spinning
+            </button>
+
+            <button (click)="setMotorStatus('all')"
+              class="w-full bg-gray-800 text-white font-semibold py-3 rounded-md hover:bg-gray-900 transition-colors duration-200">
+              All the motors are spinning
             </button>
           </div>
-        </div>
 
-        <!-- ✅ Step 3: Result Options -->
-        <div
-          class="bg-white shadow rounded-lg p-4 sm:p-6 border"
-          *ngIf="step === 3"
-        >
-          <h2 class="text-lg font-semibold">Confirm Motor Status</h2>
-          <p class="text-sm text-gray-600 mb-4">
-            Select the option that matches what you observed:
-          </p>
-
-          <div class="flex items-start gap-6 mt-4">
-            <!-- Left: Drone Image -->
-            <img
-              src="../../../../../assets/drone-motor-test.svg"
-              alt="Drone Motor Test"
-              class="h-20 w-20 object-contain"
-            />
-
-            <!-- Right: Question + Radios -->
-            <div class="flex flex-col gap-3">
-              <h2 class="text-md font-semibold text-gray-800">
-                Did the motors start spinning?
-              </h2>
-
-              <div
-                class="flex items-center gap-6 flex-wrap text-gray-700"
-              >
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="motors"
-                    [checked]="motorTestResult === 'yes'"
-                    (change)="onMotorResultClick('yes')"
-                  />
-                  <span>Yes, all the motors started spinning</span>
-                </label>
-
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="motors"
-                    [checked]="motorTestResult === 'no'"
-                    (change)="onMotorResultClick('no')"
-                  />
-                  <span>No, nothing moved</span>
-                </label>
-
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="radio"
-                    name="motors"
-                    [checked]="motorTestResult === 'some'"
-                    (change)="onMotorResultClick('some')"
-                  />
-                  <span>Some motors started spinning</span>
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- Success Message -->
           <div
-            *ngIf="motorTestResult === 'yes'"
-            class="mt-6 bg-[#ccf8e0] border border-[#1BAF5D] text-green-800 rounded-lg p-4"
-          >
-            <h3 class="font-semibold">Motors are spinning!</h3>
-            <p class="text-sm">
-              You’ve completed a big milestone. Your ESC minimum command has
-              been confirmed!
-            </p>
-          </div>
+          *ngIf="showMessage"
+          class="mt-4 p-3 rounded-md bg-green-100 text-green-800 font-medium"
+        >
+          Motors are spinning! Your ESC minimum command has been confirmed!
         </div>
+
+        </div>
+
+
       </div>
     </div>
 
     <!-- ✅ Bottom Buttons -->
-    <div
-      class="flex flex-col md:flex-row justify-between items-center gap-4 p-5 border-t bg-white"
-    >
-      <button
-        type="button"
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 p-5 border-t bg-white">
+      <button type="button"
         class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
-        (click)="onCancelClick()"
-      >
+        (click)="onCancelClick()">
         Cancel
       </button>
 
       <div class="flex gap-4 w-full md:w-auto">
         <button
           class="border-1 border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
-          style="border: 1px solid #009169"
-          (click)="back.emit()"
-        >
+          style="border: 1px solid #009169" (click)="back.emit()">
           Back
         </button>
 
-        <button
-          [disabled]="!(step === 3 && motorTestResult === 'yes')"
+        <button [disabled]="!(step === 3 && motorTestResult === 'yes')"
           class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
           [ngClass]="{
             'bg-[#009169]': step === 3 && motorTestResult === 'yes',
             'bg-[#80c8b4] opacity-50 cursor-not-allowed': !(step === 3 && motorTestResult === 'yes')
-          }"
-          (click)="continue()"
-        >
+          }" (click)="continue()">
           Continue
         </button>
       </div>
@@ -247,13 +153,8 @@
   </div>
 
   <!-- ✅ Right Stepper Sidebar -->
-  <div
-    class="w-96 bg-[#cce9e1] p-6 flex flex-col justify-start overflow-y-auto"
-  >
-    <app-add-drone-stepper
-      [steps]="steps"
-      [currentStepIndex]="currentStepIndex"
-    >
+  <div class="w-96 bg-[#cce9e1] p-6 flex flex-col justify-start overflow-y-auto">
+    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex">
     </app-add-drone-stepper>
 
     <div class="mt-8">
@@ -268,8 +169,5 @@
   </div>
 </div>
 
-<app-confirm-cancel-model
-  [show]="cancelModalVisible"
-  (confirm)="cancelConfirmed()"
-  (cancel)="cancelDismissed()"
-></app-confirm-cancel-model>
+<app-confirm-cancel-model [show]="cancelModalVisible" (confirm)="cancelConfirmed()"
+  (cancel)="cancelDismissed()"></app-confirm-cancel-model>

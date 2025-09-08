@@ -14,7 +14,7 @@ export class DroneMoterTestComponent implements OnInit {
   escValue: number = 1000;
   @Input() steps!: Step[];
   @Input() currentStepIndex!: any;
-
+  showMessage = false;
   cancelModalVisible = false;
 
   step: number = 1;
@@ -32,6 +32,23 @@ export class DroneMoterTestComponent implements OnInit {
       this.motorTestResult = saved.motorTestResult ?? null;
     }
   }
+
+  setMotorStatus(status: 'none' | 'some' | 'all') {
+    if (status === 'none') {
+      this.escValue = 1025;
+      this.motorTestResult = 'no';
+    } else if (status === 'some') {
+      this.escValue = 1050;
+      this.motorTestResult = 'some';
+    } else if (status === 'all') {
+      this.escValue = Math.floor(Math.random() * (1200 - 1100 + 1)) + 1100;
+      this.showMessage = true;
+    }
+
+    this.step = 3;
+    this.saveState();
+  }
+
 
   onMotorResultClick(result: 'yes' | 'no' | 'some') {
     this.motorTestResult = result;
