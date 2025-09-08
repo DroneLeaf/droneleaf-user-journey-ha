@@ -9,92 +9,190 @@
 
     <!-- Main Content Area -->
 
-    <div class="space-y-6">
+    <div class="">
       <!-- Heading -->
       <h2 class="text-xl font-semibold">Set Up Your RC Kill-Switch</h2>
       <p class="text-gray-600">This feature lets you instantly cut motor power in emergencies.</p>
 
       <!-- Safety Notice -->
-      <div class="p-4 bg-[#fff6d6] border border-[#FFC700] rounded">
-        <p class="font-semibold text-yellow-800">⚠️ Important Safety Notice</p>
-        <p class="text-sm text-yellow-700 ml-6">
-          Always use a <strong>latching (two-position)</strong> switch, not a momentary one.
-          Disengaging the kill-switch will immediately reactivate the motors.
-        </p>
+      <div class="p-4 bg-[#fff6d6] border my-3 border-[#FFC700] rounded">
+        <p class="font-semibold">⚠️ Important Safety Notice</p>
+
+        <ul class="list-disc ml-6 space-y-1">
+          <li class="text-sm">Remove all propellers before connecting power or testing switches.</li>
+          <li class="text-sm">Use a clear workspace; keep loose items & people away.</li>
+          <li class="text-sm">A latching kill-switch prevents motors from re-arming the moment you let go. Avoid
+            momentary switches for this function.</li>
+        </ul>
+
+
       </div>
 
-      <!-- Step 1 -->
-      <div class="p-4 border rounded">
-        <div class="flex items-center justify-between">
-          <p class="font-medium">Step 1: Flip Kill-Switch ON</p>
+      <div class="space-y-6 border border-[#D1DADF] p-5 rounded-md">
+        <!-- Heading -->
+        <h2 class="text-lg font-semibold">
+          Verify the Kill-switch (Channel 7)
+        </h2>
+        <p class="text-gray-600">
+          We'll confirm the switch cuts motor power (ON) and then returns to safe (OFF).
+        </p>
 
-          <div>
-            <!-- Button sirf tab tak jab tak step 1 done na ho -->
-            <button *ngIf="!stepOneDone" (click)="markStepOneDone()" class="px-4 py-2 bg-[#009169] text-white rounded">
-              Done
+        <!-- Top Section: Switch Panels + Steps -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+          <!-- ON / OFF Panels -->
+          <div class="border border-gray-200 rounded-md p-5 space-y-4">
+            <!-- Title + Description -->
+            <div>
+              <p class="text-gray-600 text-sm">
+                Flip your transmitter’s kill-switch. The panel below reflects the live state.
+              </p>
+            </div>
+
+            <!-- ON / OFF Panels -->
+            <div class="grid grid-cols-2 gap-4">
+              <!-- ON -->
+              <div
+                class="flex items-center justify-center border rounded-lg h-36 cursor-pointer text-xl font-extrabold transition"
+                [ngClass]="{
+                  'bg-[#f2f9f7] border-[#009169] text-[#009169]': currentState === 'ON',
+                  'bg-white border-gray-300 text-gray-700': currentState !== 'ON'
+                }" (click)="setSwitch('ON')">
+                ON
+              </div>
+
+              <!-- OFF -->
+              <div
+                class="flex items-center justify-center border rounded-lg h--36 cursor-pointer text-xl font-extrabold transition"
+                [ngClass]="{
+                  'bg-[#f2f9f7] border-[#009169] text-[#009169]': currentState === 'OFF',
+                  'bg-white border-gray-300 text-gray-700': currentState !== 'OFF'
+                }" (click)="setSwitch('OFF')">
+                OFF
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Steps -->
+          <!-- Steps -->
+          <div class="space-y-4">
+            <!-- Step 1 -->
+            <div class="p-3 border rounded-md transition" [class.border-green-500]="stepEngageActive || stepEngageDone">
+              <div class="flex items-center gap-3">
+                <!-- Number / Tick -->
+                <div class="w-7 h-7 flex items-center justify-center rounded-full text-sm font-semibold" [ngClass]="{
+          'bg-green-500 text-white': stepEngageActive,
+          'bg-gray-200 text-gray-600': !stepEngageActive && !stepEngageDone
+        }">
+                  <ng-container *ngIf="!stepEngageDone; else tick1">1</ng-container>
+                  <ng-template #tick1><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M8 0C3.592 0 0 3.592 0 8C0 12.408 3.592 16 8 16C12.408 16 16 12.408 16 8C16 3.592 12.408 0 8 0ZM11.824 6.16L7.288 10.696C7.176 10.808 7.024 10.872 6.864 10.872C6.704 10.872 6.552 10.808 6.44 10.696L4.176 8.432C3.944 8.2 3.944 7.816 4.176 7.584C4.408 7.352 4.792 7.352 5.024 7.584L6.864 9.424L10.976 5.312C11.208 5.08 11.592 5.08 11.824 5.312C12.056 5.544 12.056 5.92 11.824 6.16Z"
+                        fill="#009169" />
+                    </svg></ng-template>
+                </div>
+
+                <div>
+                  <p class="font-medium">Engage the kill-switch (ON)</p>
+                  <p class="text-sm text-gray-600">
+                    Flip the transmitter's kill-switch to ON. The ON <br> panel will light up when detected.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="p-3 border rounded-md transition"
+              [class.border-green-500]="stepReleaseActive || stepReleaseDone">
+              <div class="flex items-center gap-3">
+                <!-- Number / Tick -->
+                <div class="w-7 h-7 flex items-center justify-center rounded-full text-sm font-semibold" [ngClass]="{
+          'bg-green-500 text-white': stepReleaseActive,
+          'bg-gray-200 text-gray-600': !stepReleaseActive && !stepReleaseDone
+        }">
+                  <ng-container *ngIf="!stepReleaseDone; else tick2">2</ng-container>
+                  <ng-template #tick2><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M8 0C3.592 0 0 3.592 0 8C0 12.408 3.592 16 8 16C12.408 16 16 12.408 16 8C16 3.592 12.408 0 8 0ZM11.824 6.16L7.288 10.696C7.176 10.808 7.024 10.872 6.864 10.872C6.704 10.872 6.552 10.808 6.44 10.696L4.176 8.432C3.944 8.2 3.944 7.816 4.176 7.584C4.408 7.352 4.792 7.352 5.024 7.584L6.864 9.424L10.976 5.312C11.208 5.08 11.592 5.08 11.824 5.312C12.056 5.544 12.056 5.92 11.824 6.16Z"
+                        fill="#009169" />
+                    </svg></ng-template>
+                </div>
+
+                <div>
+                  <p class="font-medium">Release the kill-switch (OFF)</p>
+                  <p class="text-sm text-gray-600">
+                    Flip the switch back to OFF. The OFF panel will <br> light up when detected.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="p-3 border rounded-md transition" [class.border-green-500]="stepFinishActive || stepFinishDone">
+              <div class="flex items-center gap-3">
+                <!-- Number / Tick -->
+                <div class="w-7 h-7 flex items-center justify-center rounded-full text-sm font-semibold" [ngClass]="{
+          'bg-[#009169] text-white': stepFinishActive,
+          'bg-gray-200 text-gray-600': !stepFinishActive && !stepFinishDone
+        }">
+                  <ng-container *ngIf="!stepFinishDone; else tick3">3</ng-container>
+                  <ng-template #tick3><svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M8 0C3.592 0 0 3.592 0 8C0 12.408 3.592 16 8 16C12.408 16 16 12.408 16 8C16 3.592 12.408 0 8 0ZM11.824 6.16L7.288 10.696C7.176 10.808 7.024 10.872 6.864 10.872C6.704 10.872 6.552 10.808 6.44 10.696L4.176 8.432C3.944 8.2 3.944 7.816 4.176 7.584C4.408 7.352 4.792 7.352 5.024 7.584L6.864 9.424L10.976 5.312C11.208 5.08 11.592 5.08 11.824 5.312C12.056 5.544 12.056 5.92 11.824 6.16Z"
+                        fill="#009169" />
+                    </svg>
+                  </ng-template>
+                </div>
+
+                <div>
+                  <p class="font-medium">Finish</p>
+                  <p class="text-sm text-gray-600">
+                    Kill-switch verified. You may proceed.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="grid grid-cols-12 gap-4 items-start">
+          <!-- Logs Box (6 col) -->
+          <div class="col-span-6 p-4 bg-[#F8FAFB] border border-[#D1DADF] rounded-md text-sm space-y-1 min-h-[100px]">
+            <ng-container *ngIf="logs.length > 0; else noLogs">
+              <p class="text-[#90A2B9]" *ngFor="let log of logs">{{ log }}</p>
+            </ng-container>
+            <ng-template #noLogs>
+              <p class="text-[#90A2B9]">Logs will appear here...</p>
+            </ng-template>
+          </div>
+
+          <!-- Action Button (6 col) -->
+          <div class="col-span-6 flex items-start">
+            <button class="px-5 py-2 rounded font-semibold transition" [ngClass]="{
+                'bg-[#009169] text-white hover:bg-[#007e57]': actionButton === 'Start Verification',
+                'bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-not-allowed': actionButton !== 'Start Verification'
+              }" (click)="
+                actionButton === 'Start Verification'
+                  ? startVerification()
+                  : actionButton === 'Retest'
+                  ? retest()
+                  : null
+              " [disabled]="actionButton !== 'Start Verification' && actionButton !== 'Retest'">
+              {{ actionButton }}
             </button>
-
-            <!-- Tick -->
-            <span *ngIf="stepOneDone" class="text-green-600 font-bold text-lg">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M11 0C4.939 0 0 4.939 0 11C0 17.061 4.939 22 11 22C17.061 22 22 17.061 22 11C22 4.939 17.061 0 11 0ZM16.258 8.47L10.021 14.707C9.867 14.861 9.658 14.949 9.438 14.949C9.218 14.949 9.009 14.861 8.855 14.707L5.742 11.594C5.423 11.275 5.423 10.747 5.742 10.428C6.061 10.109 6.589 10.109 6.908 10.428L9.438 12.958L15.092 7.304C15.411 6.985 15.939 6.985 16.258 7.304C16.577 7.623 16.577 8.14 16.258 8.47Z"
-              fill="#1BAF5D" />
-          </svg>
-            </span>
           </div>
         </div>
 
-        <!-- Step Description (sirf jab active ho aur done na ho) -->
-        <p *ngIf="!stepOneDone" class="text-sm text-gray-500 mt-2">
-          Flip your kill-switch (Channel 7) to the ON position, then press Done.
-        </p>
+
+
       </div>
 
-      <!-- Step 2 -->
-      <div class="p-4 border rounded mt-3">
-        <div class="flex items-center justify-between">
-          <p class="font-medium">Step 2: Flip Kill-Switch OFF</p>
 
-          <div>
-            <!-- Button sirf tab jab step 1 complete ho aur step 2 pending ho -->
-            <button *ngIf="stepOneDone && !stepTwoDone" (click)="markStepTwoDone()"
-              class="px-4 py-2 bg-[#009169] text-white rounded">
-              Done
-            </button>
 
-            <!-- Tick -->
-            <span *ngIf="stepTwoDone" class="text-green-600 font-bold text-lg">
-              <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M11 0C4.939 0 0 4.939 0 11C0 17.061 4.939 22 11 22C17.061 22 22 17.061 22 11C22 4.939 17.061 0 11 0ZM16.258 8.47L10.021 14.707C9.867 14.861 9.658 14.949 9.438 14.949C9.218 14.949 9.009 14.861 8.855 14.707L5.742 11.594C5.423 11.275 5.423 10.747 5.742 10.428C6.061 10.109 6.589 10.109 6.908 10.428L9.438 12.958L15.092 7.304C15.411 6.985 15.939 6.985 16.258 7.304C16.577 7.623 16.577 8.14 16.258 8.47Z"
-              fill="#1BAF5D" />
-          </svg>
-            </span>
-          </div>
-        </div>
-
-        <!-- Step Description -->
-        <p *ngIf="stepOneDone && !stepTwoDone" class="text-sm text-gray-500 mt-2">
-          Now flip your kill-switch back to the OFF position. This should reset the motors.
-        </p>
-      </div>
-
-      <!-- Success Message -->
-      <div *ngIf="isCompleted()" class="p-4 bg-[#effff6] border border-[#1BAF5D] rounded">
-        <p class="font-semibold flex gap-2 text-green-800"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M11 0C4.939 0 0 4.939 0 11C0 17.061 4.939 22 11 22C17.061 22 22 17.061 22 11C22 4.939 17.061 0 11 0ZM16.258 8.47L10.021 14.707C9.867 14.861 9.658 14.949 9.438 14.949C9.218 14.949 9.009 14.861 8.855 14.707L5.742 11.594C5.423 11.275 5.423 10.747 5.742 10.428C6.061 10.109 6.589 10.109 6.908 10.428L9.438 12.958L15.092 7.304C15.411 6.985 15.939 6.985 16.258 7.304C16.577 7.623 16.577 8.14 16.258 8.47Z"
-              fill="#1BAF5D" />
-          </svg>
-          Kill-Switch Configured Successfully!</p>
-        <p class="text-sm text-green-700 ml-7">
-          You can now instantly cut motor power in case of an emergency.
-        </p>
-      </div>
 
 
     </div>
@@ -102,7 +200,9 @@
     <hr />
 
     <!-- Bottom Buttons -->
-    <div class="pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4
+         p-4 border-t bg-white
+         sticky bottom-0 left-0 z-10">
       <button type="button"
         class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
         (click)="onCancelClick()">
@@ -111,14 +211,19 @@
 
       <div class="flex gap-4 w-full md:w-auto">
         <button
-          class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
+          class="border-1 border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
           style="border: 1px solid #009169;" (click)="back.emit()">
           Back
         </button>
-        <button class="bg-[#009169] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#007e57] w-full md:w-auto"
-          (click)="next.emit()">
+
+        <button class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
+          [ngClass]="{
+          'bg-[#009169] hover:bg-[#007e57]': stepEngageDone && stepReleaseDone && stepFinishDone,
+          'bg-[#80c8b4] cursor-not-allowed': !(stepEngageDone && stepReleaseDone && stepFinishDone)
+        }" [disabled]="!(stepEngageDone && stepReleaseDone && stepFinishDone)" (click)="next.emit()">
           Continue
         </button>
+
       </div>
     </div>
   </div>

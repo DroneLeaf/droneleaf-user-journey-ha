@@ -9,20 +9,35 @@
 
     <!-- Main Content Area -->
     <div class="p-6 space-y-6">
-      <!-- Heading -->
-      <h2 class="text-xl font-semibold">Set Up Additional Functional Switches</h2>
-      <p class="text-gray-600">
+      <!-- Heading when not staring  -->
+      <h2 *ngIf="!started" class="text-xl font-semibold">Set Up Additional Functional Switches</h2>
+      <p *ngIf="!started" class="text-gray-600">
         Configure optional switches for advanced flight control. You can skip this setup at any time.
       </p>
 
       <!-- Hardware Note -->
-      <div class="p-4 bg-yellow-50 border border-yellow-400 rounded text-left">
+      <div *ngIf="!started" class="p-4 bg-yellow-50 border border-yellow-400 rounded text-left">
         <p class="font-semibold text-yellow-800">⚠️ Hardware note</p>
         <p class="text-sm text-yellow-700 ml-6">
           Switch A uses a <strong>three-position latching switch (Channel 11)</strong>.
           Switch B uses a <strong>two-position momentary switch (Channel 12)</strong>.
         </p>
       </div>
+
+      <!-- heading when starting  -->
+      <h2 *ngIf="started" class="text-xl font-semibold">Set up Multi‑functional Switch A</h2>
+      <p *ngIf="started" class="text-gray-600">
+        Assign a <span class="font-bold"> 3‑position latching </span>switch to Channel 11. Confirm the three positions
+        in order: <span class="font-bold"> LOW → MID → HIGH.</span>
+      </p>
+
+      <div *ngIf="started" class="p-4 bg-yellow-50 border border-yellow-400 rounded text-left">
+        <p class="font-semibold text-yellow-800">⚠️ Tip</p>
+        <p class="text-sm text-yellow-700 ml-6">
+          The green highlight appears when we detect your current switch position.
+        </p>
+      </div>
+
 
       <!-- START SCREEN -->
       <div *ngIf="!started" class="flex flex-col items-center">
@@ -53,48 +68,92 @@
         </button>
       </div>
 
+
       <!-- STEPS SCREEN -->
-   <!-- STEPS SCREEN -->
-<div *ngIf="started" class="space-y-4 text-left">
-  <div *ngFor="let s of step; let i = index" class="p-3 border rounded">
+      <div *ngIf="started" class="space-y-4 text-left">
 
-    <!-- Step Label -->
-    <div class="flex justify-between items-center">
-      <span>{{ s.label }}</span>
+        <div class="p-4 border border-[#D1DADF] rounded-md space-y-4">
 
-      <!-- Show "Done" button only for active step -->
-      <button *ngIf="i === activeStepIndex && !s.done"
-              class="px-4 py-1 bg-[#009169] text-white rounded"
-              (click)="markDone(i)">Done</button>
+          <!-- Status Boxes -->
+          <div class="border border-[#D1DADF] rounded-md p-4">
+            <!-- Title -->
+            <p class="font-bold mb-2">Current Position Status</p>
 
-      <!-- Tick icon for completed -->
-      <span *ngIf="s.done" class="text-green-600 font-bold">
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M14.9987 0.833984C7.19286 0.833984 0.832031 7.19482 0.832031 15.0007C0.832031 22.8065 7.19286 29.1673 14.9987 29.1673C22.8045 29.1673 29.1654 22.8065 29.1654 15.0007C29.1654 7.19482 22.8045 0.833984 14.9987 0.833984ZM21.7704 11.7423L13.7379 19.7748C13.5395 19.9732 13.2704 20.0865 12.987 20.0865C12.7037 20.0865 12.4345 19.9732 12.2362 19.7748L8.22703 15.7657C7.8162 15.3548 7.8162 14.6748 8.22703 14.264C8.63786 13.8532 9.31786 13.8532 9.7287 14.264L12.987 17.5223L20.2687 10.2407C20.6795 9.82982 21.3595 9.82982 21.7704 10.2407C22.1812 10.6515 22.1812 11.3173 21.7704 11.7423Z" fill="#1BAF5D"/>
-          </svg>
+            <!-- Status Boxes -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <!-- LOW -->
+              <div
+                class="p-4 rounded-md text-center h-36 pt-12 border transition items-center"
+                [ngClass]="{
+                  'border-gray-300 bg-white text-gray-700': !lowConfirmed && currentState !== 'LOW',
+                  'border-[#009169] border-2 bg-gray-50 text-green-700': currentState === 'LOW' || lowConfirmed
+                }"
+              >
+                <p class="font-bold">LOW</p>
+                <p class="text-sm">
+                  {{ lowConfirmed ? 'Confirmed' : (currentState === 'LOW' ? 'Detected' : 'Waiting') }}
+                </p>
+              </div>
 
-      </span>
-    </div>
+              <!-- MID -->
+              <div
+                class="p-4 rounded-md text-center border transition pt-12"
+                [ngClass]="{
+                  'border-gray-300 bg-white text-gray-700': !midConfirmed && currentState !== 'MID',
+                  'border-[#009169] border-2 bg-gray-50 text-green-700': currentState === 'MID' || midConfirmed
+                }"
+              >
+                <p class="font-bold">MID</p>
+                <p class="text-sm">
+                  {{ midConfirmed ? 'Confirmed' : (currentState === 'MID' ? 'Detected' : 'Waiting') }}
+                </p>
+              </div>
 
-    <!-- Step Description -->
-    <p *ngIf="i === activeStepIndex && !s.done"
-       class="text-sm text-gray-500 mt-2">{{ s.description }}</p>
-  </div>
+              <!-- HIGH -->
+              <div
+                class="p-4 rounded-md text-center border transition pt-12"
+                [ngClass]="{
+                  'border-gray-300 bg-white text-gray-700': !highConfirmed && currentState !== 'HIGH',
+                  'border-[#009169] border-2 bg-gray-50 text-green-700': currentState === 'HIGH' || highConfirmed
+                }"
+              >
+                <p class="font-bold">HIGH</p>
+                <p class="text-sm">
+                  {{ highConfirmed ? 'Confirmed' : (currentState === 'HIGH' ? 'Detected' : 'Waiting') }}
+                </p>
+              </div>
+            </div>
+          </div>
 
-  <!-- ✅ Success box now inside same container -->
-  <div *ngIf="finished"
-       class="p-4 bg-green-50 border border-green-400 rounded text-left">
-    <p class="font-semibold flex gap-1 text-green-800">
-      <svg width="20"  viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14.9987 0.833984C7.19286 0.833984 0.832031 7.19482 0.832031 15.0007C0.832031 22.8065 7.19286 29.1673 14.9987 29.1673C22.8045 29.1673 29.1654 22.8065 29.1654 15.0007C29.1654 7.19482 22.8045 0.833984 14.9987 0.833984ZM21.7704 11.7423L13.7379 19.7748C13.5395 19.9732 13.2704 20.0865 12.987 20.0865C12.7037 20.0865 12.4345 19.9732 12.2362 19.7748L8.22703 15.7657C7.8162 15.3548 7.8162 14.6748 8.22703 14.264C8.63786 13.8532 9.31786 13.8532 9.7287 14.264L12.987 17.5223L20.2687 10.2407C20.6795 9.82982 21.3595 9.82982 21.7704 10.2407C22.1812 10.6515 22.1812 11.3173 21.7704 11.7423Z" fill="#1BAF5D"/>
-        </svg>
-         All set!
-    </p>
-    <p class="text-sm text-green-700 ml-6">
-      You can revisit this setup later from your drone's settings.
-    </p>
-  </div>
-</div>
+
+
+          <!-- Step Box -->
+          <div class="p-4 border rounded-md transition" [ngClass]="{ 'border-green-600 bg-gray-50': stepActive }">
+            <p class="font-medium">
+              Step {{ currentStep }} – Move Switch A to {{ currentStepLabel }}, then press Confirm.
+            </p>
+
+            <button class="mt-3 px-4 py-2 rounded-md font-semibold transition" [ngClass]="{
+                'bg-[#009169] text-white hover:bg-[#007e57]': stepActive,
+                'bg-gray-200 text-gray-600 cursor-not-allowed': !stepActive
+              }" [disabled]="!stepActive" (click)="confirmStep()">
+              Confirm {{ currentStepLabel }}
+            </button>
+          </div>
+
+          <!-- Emulate RC (demo) -->
+          <div class="p-4 border rounded-md">
+            <p class="font-medium mb-2">Emulate RC (demo)</p>
+            <div class="flex gap-2">
+              <button class="px-3 py-1 bg-[#F8FAFB] rounded-md" style="border: 1px solid #D1DADF;" (click)="setRC('LOW')">LOW</button>
+              <button class="px-3 py-1 bg-[#F8FAFB] rounded-md" style="border: 1px solid #D1DADF;" (click)="setRC('MID')">MID</button>
+              <button class="px-3 py-1 bg-[#F8FAFB] rounded-md" style="border: 1px solid #D1DADF;" (click)="setRC('HIGH')">HIGH</button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
 
 
       <!-- SUCCESS MESSAGE -->

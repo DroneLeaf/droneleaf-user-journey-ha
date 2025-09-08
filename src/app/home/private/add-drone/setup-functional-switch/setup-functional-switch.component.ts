@@ -12,37 +12,57 @@ export class SetupFunctionalSwitchComponent implements OnInit {
   @Output() back = new EventEmitter<void>();
 
   @Input() steps!: Step[];
-  @Input() currentStepIndex!: number; // comes from parent stepper
+  @Input() currentStepIndex!: number;
 
   cancelModalVisible = false;
   started = false;
+
+  currentState: 'LOW' | 'MID' | 'HIGH' | null = null;
+  currentStep = 1;
+  currentStepLabel: 'LOW' | 'MID' | 'HIGH' | 'DONE' = 'LOW';
+  stepActive = false;
   finished = false;
 
-  // Local step list with description
-  step = [
-    { label: 'Step 1: Switch A - Low', description: 'Make sure Switch A is assigned to Channel 11. Move the switch to the lowest position, then press Done.', done: false },
-    { label: 'Step 2: Switch A - Mid', description: 'Move Switch A to the middle position, then press Done.', done: false },
-    { label: 'Step 3: Switch A - High', description: 'Move Switch A to the highest position, then press Done.', done: false },
-    { label: 'Step 4: Switch B - OFF', description: 'Make sure Switch B is assigned to Channel 12. Keep the switch in the default (OFF) position, then press Done.', done: false },
-    { label: 'Step 5: Switch B - ON', description: 'Move Switch B to the engaged (ON) position, then press Done.', done: false }
-  ];
+  // confirmation flags
+  lowConfirmed = false;
+  midConfirmed = false;
+  highConfirmed = false;
 
-  activeStepIndex = 0;
+  // set RC state
+  setRC(state: 'LOW' | 'MID' | 'HIGH') {
+    this.currentState = state;
+    // check agar RC ka state current step se match hai
+    this.stepActive = state === this.currentStepLabel;
+  }
+
+  // confirm current step
+  confirmStep() {
+    if (!this.stepActive) return;
+
+    if (this.currentStepLabel === 'LOW') {
+      this.lowConfirmed = true;
+      this.currentStep = 2;
+      this.currentStepLabel = 'MID';
+    } else if (this.currentStepLabel === 'MID') {
+      this.midConfirmed = true;
+      this.currentStep = 3;
+      this.currentStepLabel = 'HIGH';
+    } else if (this.currentStepLabel === 'HIGH') {
+      this.highConfirmed = true;
+      this.finished = true;
+      this.currentStepLabel = 'DONE';
+      this.stepActive = false;
+      return;
+    }
+
+    // check next step active hai ya nahi
+    this.stepActive = this.currentState === this.currentStepLabel;
+  }
 
   ngOnInit() {}
 
   onStart() {
     this.started = true;
-  }
-
-  markDone(index: number) {
-    this.step[index].done = true;
-
-    if (index < this.step.length - 1) {
-      this.activeStepIndex = index + 1;
-    } else {
-      this.finished = true;
-    }
   }
 
   onCancelClick() {

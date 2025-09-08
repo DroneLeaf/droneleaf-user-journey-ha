@@ -34,10 +34,11 @@ export type StepType =
   | 'template_type'
   | 'create_template'
   | 'template_form'
+  | 'calibration_overview'
   | 'motor_test'
   | 'set_up_remote_control'
-    | 'create_remote_flow'
-    | 'test_remote_control'
+  | 'create_remote_flow'
+  | 'test_remote_control'
   | 'use_existing_remote'
   | 'existing_template_flow'
   | 'create_remote_flow'
@@ -48,10 +49,10 @@ export type StepType =
   | 'no_flow_outdoors_setup'
   | 'set_up_kill_switch'
   | 'setup_functional_switch'
+  | 'rc-setup-switch-b'
   | 'license-now-or-later'
   | 'license-now'
   | 'licence-flight-setup';
-
 
 export interface StepNode {
   type: StepType;

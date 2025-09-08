@@ -37,6 +37,8 @@ import { SetupFunctionalSwitchComponent } from './private/add-drone/setup-functi
 import { LicenseNowLaterComponent } from './private/add-drone/license-now-later/license-now-later.component';
 import { LicenseNowComponent } from './private/add-drone/license-now/license-now.component';
 import { LicenceFlightSetupComponent } from './private/add-drone/licence-flight-setup/licence-flight-setup.component';
+import { CalibrationOverviewComponent } from './private/add-drone/calibration-overview/calibration-overview.component';
+import { RCSetupSwitchBComponent } from './private/add-drone/rc-setup-switch-b/rc-setup-switch-b.component';
 
 @NgModule({
   imports: [
@@ -86,7 +88,9 @@ import { LicenceFlightSetupComponent } from './private/add-drone/licence-flight-
     SetupFunctionalSwitchComponent,
     LicenseNowLaterComponent,
     LicenseNowComponent,
-    LicenceFlightSetupComponent
+    LicenceFlightSetupComponent,
+    CalibrationOverviewComponent,
+    RCSetupSwitchBComponent
   ],
   exports: [
     AddDroneComponent,
