@@ -43,6 +43,7 @@ export class DroneMoterTestComponent implements OnInit {
     } else if (status === 'all') {
       this.escValue = Math.floor(Math.random() * (1200 - 1100 + 1)) + 1100;
       this.showMessage = true;
+      this.motorTestResult = 'yes';
     }
 
     this.step = 3;

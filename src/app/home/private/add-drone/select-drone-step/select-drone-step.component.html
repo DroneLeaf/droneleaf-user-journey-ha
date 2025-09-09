@@ -1,150 +1,139 @@
-<div class="flex flex-col h-[96vh] bg-white text-black">
+<div class="flex h-[96vh] bg-white text-black">
+  <!-- ✅ LEFT SIDE -->
+  <div class="flex flex-col justify-between flex-1 px-6 py-6">
 
-  <!-- Left Content -->
-  <div class="flex flex-1 flex-col md:flex-row">
-    <div class="flex flex-col flex-1 px-6 py-6 ">
+    <!-- ✅ Top Bar -->
+    <div class="flex justify-between items-center py-4">
+      <img src="../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-16" />
+      <app-help-button></app-help-button>
+    </div>
 
-      <div class="flex justify-between items-center  py-4">
-        <img src="../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-16" />
-        <app-help-button></app-help-button>
-      </div>
-      <!-- Top Header -->
-
+    <!-- ✅ Scrollable Main Content -->
+    <div class="flex-1 overflow-y-auto">
       <div class="mx-auto pt-12">
-
         <div class="mb-5">
           <h2 class="text-2xl font-semibold mb-2">Select a Drone</h2>
-          <p class="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor
+          <p class="text-sm text-gray-600">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
           </p>
         </div>
 
         <!-- Drone Options Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
 
           <!-- Custom Drone -->
           <div (click)="selectOption('custom')" [ngClass]="{
-           'bg-[#f2f9f7] border-[#009169]': selectedDroneOption === 'custom',
-           'border-[#D1DADF]': selectedDroneOption !== 'custom'
-         }"
+              'bg-[#f2f9f7] border-[#009169]': selectedDroneOption === 'custom',
+              'border-[#D1DADF]': selectedDroneOption !== 'custom'
+            }"
             class="border w-full rounded-lg p-6 pt-12 relative flex flex-col items-center text-center cursor-pointer hover:shadow transition">
 
-            <!-- Blue Ribbon -->
             <div class="absolute top-0 left-0 w-full flex justify-center">
-              <div
-                class="bg-[#E5F0FF] text-[#1D4ED8] text-xs w-[16rem] font-normal px-3 py-1 rounded-b-[1.3rem] text-center">
+              <div class="bg-[#E5F0FF] text-[#1D4ED8] text-xs w-[16rem] font-normal px-3 py-1 rounded-b-[1.3rem] text-center">
                 Recommended for Advanced Users <span class="font-bold">ONLY</span>
               </div>
             </div>
 
-            <!-- Image -->
             <img [src]="selectedDroneOption === 'custom'
-          ? '../../../../../assets/svgs/private/custome-drone-active.svg'
-          : '../../../../../assets/svgs/private/custom-crone.svg'" alt="Custom Drone" class="w-10 h-10 mb-4" />
-
+              ? '../../../../../assets/svgs/private/custome-drone-active.svg'
+              : '../../../../../assets/svgs/private/custom-crone.svg'" alt="Custom Drone"
+              class="w-10 h-10 mb-4" />
             <h3 class="font-semibold mb-1">Custom Drone</h3>
             <p class="text-sm text-gray-600">Start from scratch.</p>
           </div>
 
-          <!-- Personal/Organization Template -->
+          <!-- Org Template -->
           <div (click)="selectOption('organization')" [ngClass]="{
-           'bg-[#f2f9f7] border-[#009169]': selectedDroneOption === 'organization',
-           'border-[#D1DADF]': selectedDroneOption !== 'organization'
-         }"
+              'bg-[#f2f9f7] border-[#009169]': selectedDroneOption === 'organization',
+              'border-[#D1DADF]': selectedDroneOption !== 'organization'
+            }"
             class="border w-full rounded-lg p-6 flex flex-col items-center text-center cursor-pointer hover:shadow transition">
 
-            <!-- Image -->
             <img [src]="selectedDroneOption === 'organization'
-          ? '../../../../../assets/svgs/private/create-org-active.svg'
-          : '../../../../../assets/svgs/private/create-or.svg'" alt="Org Template" class="w-10 h-10 mb-4" />
-
+              ? '../../../../../assets/svgs/private/create-org-active.svg'
+              : '../../../../../assets/svgs/private/create-or.svg'" alt="Org Template" class="w-10 h-10 mb-4" />
             <h3 class="font-semibold mb-1">Personal or Organization Template</h3>
             <p class="text-sm text-gray-600">Load from saved templates.</p>
           </div>
 
           <!-- Template Marketplace -->
           <div (click)="selectOption('marketplaceTemplate')" [ngClass]="{
-           'bg-[#f2f9f7] border-[#009169]': selectedDroneOption === 'marketplaceTemplate',
-           'border-[#D1DADF]': selectedDroneOption !== 'marketplaceTemplate'
-         }"
+              'bg-[#f2f9f7] border-[#009169]': selectedDroneOption === 'marketplaceTemplate',
+              'border-[#D1DADF]': selectedDroneOption !== 'marketplaceTemplate'
+            }"
             class="border w-full rounded-lg p-6 flex flex-col items-center text-center cursor-pointer hover:shadow transition">
 
-            <!-- Image -->
             <img [src]="selectedDroneOption === 'marketplaceTemplate'
-          ? '../../../../../assets/svgs/private/template-market.svg'
-          : '../../../../../assets/svgs/private/template-market.svg'" alt="Marketplace" class="w-10 h-10 mb-4" />
-
+              ? '../../../../../assets/svgs/private/template-market.svg'
+              : '../../../../../assets/svgs/private/template-market.svg'" alt="Marketplace" class="w-10 h-10 mb-4" />
             <h3 class="font-semibold mb-1">Template Marketplace</h3>
             <p class="text-sm text-gray-600">Import community or vendor-provided templates.</p>
           </div>
 
           <!-- Drone Marketplace -->
           <div (click)="selectOption('droneMarketplace')" [ngClass]="{
-           'bg-[#f2f9f7] border-[#009169]': selectedDroneOption === 'droneMarketplace',
-           'border-[#D1DADF]': selectedDroneOption !== 'droneMarketplace'
-         }"
+              'bg-[#f2f9f7] border-[#009169]': selectedDroneOption === 'droneMarketplace',
+              'border-[#D1DADF]': selectedDroneOption !== 'droneMarketplace'
+            }"
             class="border w-full rounded-lg p-6 pt-12 relative flex flex-col items-center text-center cursor-pointer hover:shadow transition">
 
-            <!-- Blue Ribbon -->
             <div class="absolute top-0 left-0 w-full flex justify-center">
-              <div
-                class="bg-[#E5F0FF] text-[#1D4ED8] text-xs w-60 font-normal px-3 py-1 rounded-b-[1.3rem] text-center">
+              <div class="bg-[#E5F0FF] text-[#1D4ED8] text-xs w-60 font-normal px-3 py-1 rounded-b-[1.3rem] text-center">
                 Recommended for Beginner Users
               </div>
             </div>
 
-            <!-- Image -->
             <img [src]="selectedDroneOption === 'droneMarketplace'
-          ? '../../../../../assets/svgs/private/drone-marketplease.svg'
-          : '../../../../../assets/svgs/private/drone-marketplease.svg'" alt="Drone Marketplace"
+              ? '../../../../../assets/svgs/private/drone-marketplease.svg'
+              : '../../../../../assets/svgs/private/drone-marketplease.svg'" alt="Drone Marketplace"
               class="w-10 h-10 mb-4" />
-
             <h3 class="font-semibold mb-1">Drone Marketplace</h3>
             <p class="text-sm text-gray-600">Purchase a ready-made drone with hardware.</p>
           </div>
-
         </div>
       </div>
-
-
-     <div class="mt-auto pt-6 sm:mt-[14.5rem]">
-        <hr class="mb-4">
-      <!-- Buttons -->
-
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4 mt-auto">
-        <button type="button"
-          class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
-          (click)="onCancelClick()">
-          Cancel
-        </button>
-
-        <div class="flex gap-4 w-full md:w-auto">
-          <button
-            class="border-1 border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
-            style="border: 1px solid #009169;" (click)="back.emit()">
-            Back
-          </button>
-
-          <button (click)="continue()"
-            [ngClass]="{'bg-[#009169]': selectedDroneOption, 'bg-[#80c8b4] opacity-50 cursor-not-allowed': !selectedDroneOption}"
-            class="font-semibold py-2 px-6 rounded-md text-white">Continue</button>
-        </div>
-      </div>
-     </div>
     </div>
 
-    <!-- Right Stepper Sidebar -->
-    <div class="w-full md:w-96 bg-[#cce9e1] p-6 flex flex-col justify-around">
-      <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
-      <div class="mt-8">
-        <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
-        <p class="text-[16px] text-gray-600">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua.
-        </p>
+    <!-- ✅ Sticky Footer Buttons -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4
+         p-4 border-t bg-white sticky bottom-0 left-0 z-10">
+      <button type="button"
+        class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
+        (click)="onCancelClick()">
+        Cancel
+      </button>
+
+      <div class="flex gap-4 w-full md:w-auto">
+        <button
+          class="border text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
+          style="border: 1px solid #009169;" (click)="back.emit()">
+          Back
+        </button>
+
+        <button (click)="continue()"
+          [disabled]="!selectedDroneOption"
+          class="font-semibold py-2 px-6 rounded-md text-white w-full md:w-auto"
+          [ngClass]="{
+            'bg-[#009169]': selectedDroneOption,
+            'bg-[#80c8b4] opacity-50 cursor-not-allowed': !selectedDroneOption
+          }">
+          Continue
+        </button>
       </div>
     </div>
   </div>
+
+  <!-- ✅ RIGHT SIDE -->
+  <div class="w-full md:w-96 bg-[#cce9e1] p-6 flex flex-col justify-around">
+    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
+    <div class="mt-8">
+      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
+      <p class="text-[16px] text-gray-600">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      </p>
+    </div>
+  </div>
 </div>
-<app-confirm-cancel-model [show]="cancelModalVisible" (confirm)="cancelConfirmed()"
-  (cancel)="cancelDismissed()"></app-confirm-cancel-model>
+
+<app-confirm-cancel-model [show]="cancelModalVisible" (confirm)="cancelConfirmed()" (cancel)="cancelDismissed()">
+</app-confirm-cancel-model>
