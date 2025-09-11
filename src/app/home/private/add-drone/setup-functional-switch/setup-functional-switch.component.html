@@ -1,15 +1,15 @@
-<div class="flex flex-col md:flex-row h-[96vh] text-black">
+<div class="flex flex-col lg:flex-row bg-white text-black">
   <!-- Main Left -->
-  <div class="flex-1 px-6 md:px-6 pt-8 pb-4 flex flex-col justify-between">
+  <div class="flex flex-col flex-1 h-full relative p-10">
     <!-- Top Header -->
-    <div class="flex justify-between items-center py-4">
+    <div class="flex justify-between items-center px-6 py-4">
       <img src="../../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-14" />
       <app-help-button></app-help-button>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="p-6">
-      <!-- Heading when not staring  -->
+    <!-- Main Content Area with padding at bottom for fixed buttons -->
+    <div class="flex-1 overflow-y-auto px-6 pb-24">
+      <!-- Heading when not starting -->
       <h2 *ngIf="!started" class="text-xl font-semibold">Set Up Additional Functional Switches</h2>
       <p *ngIf="!started" class="text-gray-600">
         Configure optional switches for advanced flight control. You can skip this setup at any time.
@@ -27,8 +27,8 @@
       <!-- heading when starting  -->
       <h2 *ngIf="started" class="text-xl font-semibold">Set up Multi‑functional Switch A</h2>
       <p *ngIf="started" class="text-gray-600">
-        Assign a <span class="font-bold"> 3‑position latching </span>switch to Channel 11. Confirm the three positions
-        in order: <span class="font-bold"> LOW → MID → HIGH.</span>
+        Assign a <span class="font-bold"> 3‑position latching </span>switch to Channel 11. Confirm the three positions
+        in order: <span class="font-bold"> LOW → MID → HIGH.</span>
       </p>
 
       <div *ngIf="started" class="p-4 bg-yellow-50 border border-yellow-400 rounded text-left my-3">
@@ -37,7 +37,6 @@
           The green highlight appears when we detect your current switch position.
         </p>
       </div>
-
 
       <!-- START SCREEN -->
       <div *ngIf="!started" class="flex flex-col items-center">
@@ -62,18 +61,14 @@
         <p class="text-gray-500 mt-4">When you're ready, press Start to begin or press skip.</p>
 
         <!-- Skip Button -->
-        <button class="mt-4 px-6 py-2 border border-[#353535] rounded hover:bg-gray-100"
-          style="border: 1px solid #353535;">
+        <button class="mt-4 px-6 py-2 border border-[#353535] rounded hover:bg-gray-100">
           Skip Switch Setup
         </button>
       </div>
 
-
       <!-- STEPS SCREEN -->
       <div *ngIf="started" class="space-y-4 text-left">
-
         <div class="p-4 border border-[#D1DADF] rounded-md space-y-4">
-
           <!-- Status Boxes -->
           <div class="border border-[#D1DADF] rounded-md p-4">
             <!-- Title -->
@@ -125,8 +120,6 @@
             </div>
           </div>
 
-
-
           <!-- Step Box -->
           <div class="p-4 border rounded-md transition" [ngClass]="{ 'border-green-600 bg-gray-50': stepActive }">
             <p class="font-medium">
@@ -151,20 +144,11 @@
             </div>
           </div>
         </div>
-
-
       </div>
-
-
-      <!-- SUCCESS MESSAGE -->
     </div>
 
-
-
-    <hr />
-
-    <!-- Bottom Buttons -->
-    <div class="pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+    <!-- Fixed Bottom Buttons -->
+    <div class="fixed bottom-0 left-0 right-0 lg:right-96 flex flex-col md:flex-row justify-between items-center gap-4 p-4 border-t bg-white z-20 shadow-md">
       <button type="button"
         class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
         (click)="onCancelClick()">
@@ -174,7 +158,8 @@
       <div class="flex gap-4 w-full md:w-auto">
         <button
           class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
-          style="border: 1px solid #009169;" (click)="back.emit()">
+          style="border: 1px solid #009169;"
+          (click)="back.emit()">
           Back
         </button>
         <button class="bg-[#009169] text-white font-semibold py-2 px-6 rounded-md hover:bg-[#007e57] w-full md:w-auto"
@@ -185,18 +170,20 @@
     </div>
   </div>
 
-  <!-- Right Sidebar Stepper -->
-  <div class="w-full md:w-96 bg-[#cce9e1] p-6 flex flex-col justify-between">
-    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
+  <!-- Right Sidebar Stepper - Only this will scroll if needed -->
+  <div class="w-full lg:w-96 bg-[#cce9e1] h-full overflow-y-auto">
+    <div class="p-6 flex flex-col justify-between min-h-full">
+      <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
 
-    <div class="mt-8">
-      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
-        Add A Drone
-      </h4>
-      <p class="text-[16px] text-gray-600">
-        This step ensures your Remote Control is properly configured before
-        finalizing the setup.
-      </p>
+      <div class="mt-8">
+        <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
+          Add A Drone
+        </h4>
+        <p class="text-[16px] text-gray-600">
+          This step ensures your Remote Control is properly configured before
+          finalizing the setup.
+        </p>
+      </div>
     </div>
   </div>
 </div>

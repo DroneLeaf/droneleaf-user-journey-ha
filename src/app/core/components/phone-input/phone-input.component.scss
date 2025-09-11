@@ -1,4 +1,263 @@
-/* Add this in your global styles.css or component CSS */
+/* Phone Input Container - Main wrapper (matching text-input) */
+.phone-input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d1d5db; /* Tailwind's gray-300 - same as text-input */
+  border-radius: 5px; /* Same as text-input */
+  background-color: #FFFFFF;
+  padding: 0;
+  min-height: 2.5rem; /* Same height as text-input */
+  transition: all 0.2s ease; /* Same transition as text-input */
+
+  &:hover {
+    border-color: #9ca3af; /* gray-400 - same as text-input */
+  }
+
+  &:focus-within {
+    border-color: #009169; /* Same green accent as text-input */
+    box-shadow: 0 0 0 2px rgba(0, 145, 105, 0.1); /* Same focus shadow */
+    outline: none;
+  }
+
+  &.error {
+    border-color: #ef4444; /* red-500 - same as text-input */
+
+    &:focus-within {
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1); /* Same error focus shadow */
+    }
+  }
+
+  &.success {
+    border-color: #10b981; /* green-500 - same as text-input */
+
+    &:focus-within {
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1); /* Same success focus shadow */
+    }
+  }
+}
+
+/* Country Selector Section (matching text-input padding exactly) */
+.country-selector {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem 0.5rem 1rem; /* Exact same as text-input ion-input padding */
+  min-height: 2.5rem; /* Ensure consistent height */
+}
+
+.country-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  color: #374151;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.flag {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.dropdown-arrow {
+  transition: transform 0.2s ease;
+  color: #6B7280;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  margin-top: 4px;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  min-width: 280px;
+}
+
+.search-section {
+  padding: 12px;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #FFFFFF;
+  outline: none;
+
+  &:focus {
+    border-color: #3B82F6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  &::placeholder {
+    color: #9CA3AF;
+  }
+}
+
+.countries-list {
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.country-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: #F9FAFB;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.country-flag {
+  margin-right: 12px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.country-name {
+  flex: 1;
+  font-size: 14px;
+  color: #374151;
+  font-weight: 400;
+}
+
+.country-code {
+  font-size: 14px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* Separator (matching text-input height) */
+.separator {
+  width: 1px;
+  height: 20px; /* Adjusted to match text-input height */
+  background-color: #d1d5db; /* Same gray as border */
+  margin: 0 0.5rem; /* Consistent spacing */
+}
+
+/* Country Code Display (matching text-input styling exactly) */
+.country-code-display {
+  padding: 0.5rem 0.75rem; /* Same padding as text-input */
+  font-size: 0.875rem; /* Same font size as text-input (14px) */
+  color: #111827; /* Same color as text-input label */
+  font-weight: 500;
+  white-space: nowrap;
+  min-width: 50px;
+  min-height: 2.5rem; /* Ensure consistent height */
+  display: flex;
+  align-items: center;
+}
+
+/* Phone Input (matching text-input exactly) */
+.phone-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.5rem 1rem 0.5rem 0.5rem; /* Same padding as text-input: py-2 px-3 */
+  font-size: 0.875rem; /* Same font size as text-input (14px) */
+  color: #111827; /* Same text color as text-input */
+  background: transparent;
+  min-height: 2.5rem; /* Ensure consistent height */
+  display: flex;
+  align-items: center;
+
+  &::placeholder {
+    color: #9ca3af;
+    font-style: italic;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+/* Label styling (matching text-input exactly) */
+:host {
+  display: block;
+  margin-bottom: 1rem;
+
+  .text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .font-medium {
+    font-weight: 500;
+  }
+
+  .mb-1 {
+    margin-bottom: 0.25rem;
+  }
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  display: block;
+  color: #111827; /* Tailwind's gray-900 - same as text-input */
+  transition: color 0.2s ease;
+
+  &.required {
+    color: #374151; /* Slightly darker for required fields - same as text-input */
+  }
+
+  .required-asterisk {
+    color: #ef4444; /* Red for asterisk - same as text-input */
+    margin-left: 2px;
+  }
+}
+
+/* Error message styling (matching text-input) */
+.error-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.375rem;
+  font-size: 0.75rem; /* text-xs */
+  color: #ef4444; /* red-500 */
+  margin-top: 0.25rem;
+  line-height: 1.25;
+
+  .error-icon {
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+}
+
+/* Hide scrollbar utility */
 .hide-scrollbar {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -6,4 +265,12 @@
 
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+::ng-deep ion-input .native-input::placeholder {
+  font-style: italic !important;
+}
+
+::ng-deep textarea::placeholder {
+  font-style: italic !important;
 }

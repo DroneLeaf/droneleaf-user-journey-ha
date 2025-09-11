@@ -44,6 +44,8 @@ export class AddDroneComponent implements OnInit {
     { title: 'Perform Flight Setup', completed: false },
     { title: 'Current Indoor Environment?', completed: false },
     { title: 'No Indoor Environment?', completed: false },
+    { title: 'FSAC Kill Switch Setup', completed: false },
+    { title: 'FSAC Flight Process', completed: false },
 
   ];
 
@@ -107,6 +109,8 @@ export class AddDroneComponent implements OnInit {
       case 'perform-fsac-no': return 22;
       case 'no-indoor-enironment':
       case 'perform-fsac-yes':
+      case 'fsac_set_up_kill_switch': return 23;
+      case 'fsac-flight-process': return 24;
       // NO flow steps (if you want them in same stepper)
       case 'no_flow_start': return 1;
       case 'no_flow_indoors_setup':
@@ -144,6 +148,7 @@ export class AddDroneComponent implements OnInit {
     if (this.isWizardFlow(flowOrOption)) {
       this.selectedFlow = flowOrOption;
     }
+
 
     // Update current step
     this.currentStep = stepType;

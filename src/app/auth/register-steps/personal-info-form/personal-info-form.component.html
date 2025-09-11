@@ -41,10 +41,14 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             <app-text-input [control]="personalInfoForm.get('firstName')" [label]="'First Name*'"
-              placeholder="Enter first name" [required]="true"></app-text-input>
+              placeholder="Enter first name" [required]="true"
+              (keypress)="preventNumbers($event)"
+              (paste)="preventNumericPaste($event)"></app-text-input>
             <!-- Last Name -->
             <app-text-input [control]="personalInfoForm.get('lastName')" [label]="'Last Name*'"
-              placeholder="Enter last name" [required]="true"></app-text-input>
+              placeholder="Enter last name" [required]="true"
+              (keypress)="preventNumbers($event)"
+              (paste)="preventNumericPaste($event)"></app-text-input>
           </div>
           <!-- Phone Number -->
           <app-phone-input [control]="phoneControl" [label]="'Phone Number*'" [required]="true"></app-phone-input>
@@ -57,7 +61,7 @@
           </app-text-input>
 
           <app-text-input [control]="personalInfoForm.get('confirmPassword')" type="password"
-            [label]="'Confirm Password*'" placeholder="Re-enter password" [required]="true">
+            [label]="'Re-type password*'" placeholder="Enter password" [required]="true">
           </app-text-input>
 
           <!-- Terms and Marketing -->

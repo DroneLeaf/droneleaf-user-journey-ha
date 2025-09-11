@@ -9,6 +9,20 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+/* Set Roboto as primary font for the entire application */
+:root {
+  --ion-font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+body, html {
+  font-family: 'Roboto', sans-serif;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 :not(pre) > code,
 :not(pre) > kbd,
 :not(pre) > samp{

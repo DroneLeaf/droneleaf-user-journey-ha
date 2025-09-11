@@ -1,15 +1,14 @@
-<div class="flex flex-col md:flex-row h-[96vh] text-black">
+<div class="flex flex-col lg:flex-row bg-white text-black">
   <!-- Main Left -->
-  <div class="flex-1 px-6 md:px-6 pt-8 pb-4 flex flex-col justify-between">
+  <div class="flex flex-col flex-1 h-full relative p-10">
     <!-- Top Header -->
-    <div class="flex justify-between items-center py-4">
+    <div class="flex justify-between items-center px-6 py-4">
       <img src="../../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-14" />
       <app-help-button></app-help-button>
     </div>
 
-    <!-- Main Content Area -->
-
-    <div class="">
+    <!-- Main Content Area with padding at bottom for fixed buttons -->
+    <div class="flex-1 overflow-y-auto px-6 pb-24">
       <!-- Heading -->
       <h2 class="text-xl font-semibold">ESC Calibration Overview</h2>
       <p class="text-gray-600">PWM ESC calibration ensures the ESC interprets the throttle signal range correctly.
@@ -26,7 +25,7 @@
       <!-- Step 1 -->
       <div class="p-4 border rounded">
         <div class="flex items-center justify-between">
-          <p class=" font-bold">Remove All Propellers</p>
+          <p class="font-bold">Remove All Propellers</p>
           <div>
             <button *ngIf="!stepOneDone" (click)="markStepOneDone()" class="px-4 py-2 bg-[#009169] text-white rounded">
               Next
@@ -34,10 +33,10 @@
             <span *ngIf="stepOneDone" class="text-green-600 font-bold text-lg"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M17.0007 2.83398C9.19482 2.83398 2.83398 9.19482 2.83398 17.0007C2.83398 24.8065 9.19482 31.1673 17.0007 31.1673C24.8065 31.1673 31.1673 24.8065 31.1673 17.0007C31.1673 9.19482 24.8065 2.83398 17.0007 2.83398ZM23.7723 13.7423L15.7398 21.7748C15.5415 21.9732 15.2723 22.0865 14.989 22.0865C14.7057 22.0865 14.4365 21.9732 14.2382 21.7748L10.229 17.7657C9.81815 17.3548 9.81815 16.6748 10.229 16.264C10.6398 15.8532 11.3198 15.8532 11.7306 16.264L14.989 19.5223L22.2707 12.2407C22.6815 11.8298 23.3615 11.8298 23.7723 12.2407C24.1832 12.6515 24.1832 13.3173 23.7723 13.7423Z" fill="#1BAF5D"/>
               </svg>
-              </span>
+            </span>
           </div>
         </div>
-        <p *ngIf="!stepOneDone" class="text-sm  mt-2">
+        <p *ngIf="!stepOneDone" class="text-sm mt-2">
           Take off every propeller before connecting power or calibrating. Click <span class="font-bold">Next</span> after confirming props are removed.
         </p>
       </div>
@@ -45,7 +44,7 @@
       <!-- Step 2 -->
       <div class="p-4 border rounded mt-3">
         <div class="flex items-center justify-between">
-          <p class=" font-bold">Power Off ESCs</p>
+          <p class="font-bold">Power Off ESCs</p>
           <div>
             <button *ngIf="stepOneDone && !stepTwoDone" (click)="markStepTwoDone()"
               class="px-4 py-2 bg-[#009169] text-white rounded">
@@ -54,10 +53,10 @@
             <span *ngIf="stepTwoDone" class="text-green-600 font-bold text-lg"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M17.0007 2.83398C9.19482 2.83398 2.83398 9.19482 2.83398 17.0007C2.83398 24.8065 9.19482 31.1673 17.0007 31.1673C24.8065 31.1673 31.1673 24.8065 31.1673 17.0007C31.1673 9.19482 24.8065 2.83398 17.0007 2.83398ZM23.7723 13.7423L15.7398 21.7748C15.5415 21.9732 15.2723 22.0865 14.989 22.0865C14.7057 22.0865 14.4365 21.9732 14.2382 21.7748L10.229 17.7657C9.81815 17.3548 9.81815 16.6748 10.229 16.264C10.6398 15.8532 11.3198 15.8532 11.7306 16.264L14.989 19.5223L22.2707 12.2407C22.6815 11.8298 23.3615 11.8298 23.7723 12.2407C24.1832 12.6515 24.1832 13.3173 23.7723 13.7423Z" fill="#1BAF5D"/>
               </svg>
-              </span>
+            </span>
           </div>
         </div>
-        <p *ngIf="stepOneDone && !stepTwoDone" class="text-sm  mt-2">
+        <p *ngIf="stepOneDone && !stepTwoDone" class="text-sm mt-2">
           Power off the ESCs and keep the Companion Computer running. Click <span class="font-bold">Next</span> once done.
         </p>
       </div>
@@ -65,7 +64,7 @@
       <!-- Step 3 -->
       <div class="p-4 border rounded mt-3">
         <div class="flex items-center justify-between">
-          <p class=" font-bold">Start Calibration</p>
+          <p class="font-bold">Start Calibration</p>
           <div>
             <button *ngIf="stepTwoDone && !stepThreeDone" (click)="markStepThreeDone()"
               class="px-4 py-2 bg-[#009169] text-white rounded">
@@ -74,10 +73,10 @@
             <span *ngIf="stepThreeDone" class="text-green-600 font-bold text-lg"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M17.0007 2.83398C9.19482 2.83398 2.83398 9.19482 2.83398 17.0007C2.83398 24.8065 9.19482 31.1673 17.0007 31.1673C24.8065 31.1673 31.1673 24.8065 31.1673 17.0007C31.1673 9.19482 24.8065 2.83398 17.0007 2.83398ZM23.7723 13.7423L15.7398 21.7748C15.5415 21.9732 15.2723 22.0865 14.989 22.0865C14.7057 22.0865 14.4365 21.9732 14.2382 21.7748L10.229 17.7657C9.81815 17.3548 9.81815 16.6748 10.229 16.264C10.6398 15.8532 11.3198 15.8532 11.7306 16.264L14.989 19.5223L22.2707 12.2407C22.6815 11.8298 23.3615 11.8298 23.7723 12.2407C24.1832 12.6515 24.1832 13.3173 23.7723 13.7423Z" fill="#1BAF5D"/>
               </svg>
-              </span>
+            </span>
           </div>
         </div>
-        <p *ngIf="stepTwoDone && !stepThreeDone" class="text-sm  mt-2">
+        <p *ngIf="stepTwoDone && !stepThreeDone" class="text-sm mt-2">
           We are all set. Press <span class="font-bold">Start</span> to begin the calibration process.
         </p>
       </div>
@@ -85,7 +84,7 @@
       <!-- Step 4 -->
       <div class="p-4 border rounded mt-3">
         <div class="flex items-center justify-between">
-          <p class=" font-bold">Reconnect ESC Power</p>
+          <p class="font-bold">Reconnect ESC Power</p>
           <div>
             <button *ngIf="stepThreeDone && !stepFourDone" (click)="markStepFourDone()"
               class="px-4 py-2 bg-[#009169] text-white rounded">
@@ -94,31 +93,24 @@
             <span *ngIf="stepFourDone" class="text-green-600 font-bold text-lg"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M17.0007 2.83398C9.19482 2.83398 2.83398 9.19482 2.83398 17.0007C2.83398 24.8065 9.19482 31.1673 17.0007 31.1673C24.8065 31.1673 31.1673 24.8065 31.1673 17.0007C31.1673 9.19482 24.8065 2.83398 17.0007 2.83398ZM23.7723 13.7423L15.7398 21.7748C15.5415 21.9732 15.2723 22.0865 14.989 22.0865C14.7057 22.0865 14.4365 21.9732 14.2382 21.7748L10.229 17.7657C9.81815 17.3548 9.81815 16.6748 10.229 16.264C10.6398 15.8532 11.3198 15.8532 11.7306 16.264L14.989 19.5223L22.2707 12.2407C22.6815 11.8298 23.3615 11.8298 23.7723 12.2407C24.1832 12.6515 24.1832 13.3173 23.7723 13.7423Z" fill="#1BAF5D"/>
               </svg>
-              </span>
+            </span>
           </div>
         </div>
-        <p *ngIf="stepThreeDone && !stepFourDone" class="text-sm  mt-2">
+        <p *ngIf="stepThreeDone && !stepFourDone" class="text-sm mt-2">
           Connect power back to the ESCs. Press <span>Confirm</span> after power is restored.
         </p>
       </div>
 
-
       <!-- Success Message -->
       <div *ngIf="stepOneDone" class="p-4 flex justify-center">
-        <button class="bg-[#FF2E2A] text-white font-semibold py-2 px-6 rounded-md  w-full md:w-auto">
+        <button class="bg-[#FF2E2A] text-white font-semibold py-2 px-6 rounded-md w-full md:w-auto">
           Emergency Stop
         </button>
       </div>
-
-
     </div>
 
-    <hr />
-
-    <!-- Bottom Buttons -->
-    <div  class="flex flex-col md:flex-row justify-between items-center gap-4
-    p-4 border-t bg-white
-    sticky bottom-0 left-0 z-10">
+    <!-- Fixed Bottom Buttons -->
+    <div class="fixed bottom-0 left-0 right-0 lg:right-96 flex flex-col md:flex-row justify-between items-center gap-4 p-4 border-t bg-white z-20 shadow-md">
       <button type="button"
         class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
         (click)="onCancelClick()">
@@ -128,34 +120,37 @@
       <div class="flex gap-4 w-full md:w-auto">
         <button
           class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
-          style="border: 1px solid #009169;" (click)="back.emit()">
+          style="border: 1px solid #009169;"
+          (click)="back.emit()">
           Back
         </button>
         <button [disabled]="!isCompleted()"
-        class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
-        [ngClass]="{
-          'bg-[#009169] hover:bg-[#007e57]': isCompleted(),
-          'bg-[#80c8b4] cursor-not-allowed opacity-70': !isCompleted()
-        }"
-        (click)="next.emit()">
-  Continue
-</button>
+          class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
+          [ngClass]="{
+            'bg-[#009169] hover:bg-[#007e57]': isCompleted(),
+            'bg-[#80c8b4] cursor-not-allowed opacity-70': !isCompleted()
+          }"
+          (click)="next.emit()">
+          Continue
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Right Sidebar Stepper -->
-  <div class="w-full md:w-96 bg-[#cce9e1] p-6 flex flex-col justify-between">
-    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
+  <!-- Right Sidebar Stepper - Only this will scroll if needed -->
+  <div class="w-full lg:w-96 bg-[#cce9e1] h-full overflow-y-auto">
+    <div class="p-6 flex flex-col justify-between min-h-full">
+      <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
 
-    <div class="mt-8">
-      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
-        Add A Drone
-      </h4>
-      <p class="text-[16px] text-gray-600">
-        This step ensures your Remote Control is properly configured before
-        finalizing the setup.
-      </p>
+      <div class="mt-8">
+        <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
+          Add A Drone
+        </h4>
+        <p class="text-[16px] text-gray-600">
+          This step ensures your Remote Control is properly configured before
+          finalizing the setup.
+        </p>
+      </div>
     </div>
   </div>
 </div>

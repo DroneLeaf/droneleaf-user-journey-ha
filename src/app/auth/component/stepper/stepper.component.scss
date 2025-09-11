@@ -1,0 +1,64 @@
+/* Stepper styling to match Figma design */
+.stepper-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px; /* Limit width to match Figma */
+  margin: 1.5rem auto;
+  padding: 0 1.5rem;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  position: relative;
+
+  &:last-child {
+    flex: 0 0 auto;
+  }
+}
+
+.step-circle {
+  width: 12px; /* Smaller circle to match Figma */
+  height: 12px;
+  border-radius: 50%;
+  z-index: 10;
+
+  &.active {
+    background-color: #009169;
+    border: none;
+  }
+
+  &.inactive {
+    background-color: white;
+    border: 1px solid #009169; /* Thinner border for inactive circles */
+  }
+}
+
+.step-line {
+  flex: 1;
+  height: 2px; /* Slightly thicker line to match Figma */
+  margin: 0 0.75rem; /* More spacing between circle and line */
+
+  &.active-line {
+    background-color: #009169;
+  }
+
+  &.inactive-line {
+    background-color: #E5E7EB; /* Light gray for inactive lines */
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .stepper-container {
+    padding: 0 1rem;
+  }
+
+  .step-circle {
+    width: 12px;
+    height: 12px;
+  }
+}

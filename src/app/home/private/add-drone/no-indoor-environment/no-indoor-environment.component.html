@@ -1,304 +1,292 @@
 <!-- OUTERMOST: Full screen height -->
-<div class="flex h-[96vh] bg-white text-black">
+<div class="flex flex-col lg:flex-row bg-white text-black">
   <!-- ✅ LEFT SIDE -->
-  <div class="flex flex-col justify-between flex-1 px-6 py-6">
-
+  <div class="flex flex-col flex-1 h-full relative p-10">
     <!-- ✅ Top Bar -->
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center px-6 py-6">
       <img src="../../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-16" />
       <app-help-button></app-help-button>
     </div>
-    <div class="p-4 space-y-4">
-      <div class="text-justify">
-        <h2 class="text-2xl font-semibold mb-2">One-time Instance Indoors Setup</h2>
-        <p class="text-sm text-gray-600 mb-8">
-          Complete these steps once to prepare your indoor environment for autonomous flight.
-        </p>
-      </div>
 
-      <!-- STEP 1 -->
-      <div class="border rounded-md">
-        <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 0">
-          <h3 class="font-semibold">Step 1: Connect Drone to OptiTrack WiFi</h3>
-          <div *ngIf="step1.completed" class="text-green-600 font-bold"> <svg width="24" height="24" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
-                fill="#1BAF5D" />
-            </svg>
-          </div>
+    <!-- ✅ Scrollable Content Area with padding for fixed buttons -->
+    <div class="flex-1 overflow-y-auto px-6 pb-24">
+      <div class="p-4 space-y-4">
+        <div class="text-justify">
+          <h2 class="text-2xl font-semibold mb-2">One-time Instance Indoors Setup</h2>
+          <p class="text-sm text-gray-600 mb-8">
+            Complete these steps once to prepare your indoor environment for autonomous flight.
+          </p>
         </div>
 
-        <div *ngIf="activeStep === 0" class="p-4">
-          <div class="p-4 bg-[#fff6d6] border my-3 border-[#FFC700] rounded">
-            <p>⚠️ Turn on the drone near the motion capture LAN WiFi. Ensure it joins the network used by your OptiTrack
-              system. Confirm once connected.</p>
+        <!-- STEP 1 -->
+        <div class="border rounded-md">
+          <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 0">
+            <h3 class="font-semibold">Step 1: Connect Drone to OptiTrack WiFi</h3>
+            <div *ngIf="step1.completed" class="text-green-600 font-bold"> <svg width="24" height="24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
+                  fill="#1BAF5D" />
+              </svg>
+            </div>
           </div>
 
-          <div class="flex justify-between items-center border p-4 rounded">
-            <div>
-              <h4 class="font-medium">Connection status</h4>
-              <p class="text-sm text-gray-500">This is a mock status for design—replace with real connectivity.</p>
+          <div *ngIf="activeStep === 0" class="p-4">
+            <div class="p-4 bg-[#fff6d6] border my-3 border-[#FFC700] rounded">
+              <p>⚠️ Turn on the drone near the motion capture LAN WiFi. Ensure it joins the network used by your OptiTrack
+                system. Confirm once connected.</p>
             </div>
 
-            <button (click)="handleStep1()" [disabled]="step1.loading || step1.success"
-              class="px-4 py-2 rounded-md text-white font-medium flex items-center gap-2" [ngClass]="{
-                'bg-[#3A3B3E] hover:bg-gray-900': !step1.success,
-                'bg-[#1BAF5D]': step1.success,
-                'opacity-50 cursor-not-allowed': step1.loading
-              }">
-              <span *ngIf="step1.loading" class="flex items-center gap-2">
-                <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                Connecting...
-              </span>
+            <div class="flex justify-between items-center border p-4 rounded">
+              <div>
+                <h4 class="font-medium">Connection status</h4>
+                <p class="text-sm text-gray-500">This is a mock status for design—replace with real connectivity.</p>
+              </div>
 
-              <ng-container *ngIf="!step1.loading && !step1.success">
-                Confirm Connection
-              </ng-container>
+              <button (click)="handleStep1()" [disabled]="step1.loading || step1.success"
+                class="px-4 py-2 rounded-md text-white font-medium flex items-center gap-2" [ngClass]="{
+                  'bg-[#3A3B3E] hover:bg-gray-900': !step1.success,
+                  'bg-[#1BAF5D]': step1.success,
+                  'opacity-50 cursor-not-allowed': step1.loading
+                }">
+                <span *ngIf="step1.loading" class="flex items-center gap-2">
+                  <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  Connecting...
+                </span>
 
-              <ng-container *ngIf="step1.success">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M6.5 0C2.9185 0 0 2.9185 0 6.5C0 10.0815 2.9185 13 6.5 13C10.0815 13 13 10.0815 13 6.5C13 2.9185 10.0815 0 6.5 0ZM9.607 5.005L5.9215 8.6905C5.8305 8.7815 5.707 8.8335 5.577 8.8335C5.447 8.8335 5.3235 8.7815 5.2325 8.6905L3.393 6.851C3.2045 6.6625 3.2045 6.3505 3.393 6.162C3.5815 5.9735 3.8935 5.9735 4.082 6.162L5.577 7.657L8.918 4.316C9.1065 4.1275 9.4185 4.1275 9.607 4.316C9.7955 4.5045 9.7955 4.81 9.607 5.005Z"
-                    fill="white" />
-                </svg>
+                <ng-container *ngIf="!step1.loading && !step1.success">
+                  Confirm Connection
+                </ng-container>
 
-                Connected
-              </ng-container>
-            </button>
-          </div>
-
-          <div *ngIf="step1.success" class="flex justify-end">
-            <button (click)="goNextStep(1)" class="mt-2 px-4 py-2 bg-[#009169] text-white rounded-md">
-              Continue
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 2 -->
-      <div class="border rounded-md">
-        <!-- Step Header -->
-        <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 1">
-          <h3 class="font-semibold">Step 2: Assign Fixed IP</h3>
-          <div *ngIf="step2.completed" class="text-green-600 font-bold">
-            <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
-                fill="#1BAF5D" />
-            </svg>
-          </div>
-        </div>
-
-        <!-- Step Content -->
-        <div *ngIf="activeStep === 1" class="p-4 space-y-4">
-          <!-- Alert -->
-          <div class="p-4 bg-[#fff6d6] border border-[#FFC700] rounded">
-            ⚠️ We'll check the network configuration and assign a fixed IP to your drone for reliable indoor operation.
-          </div>
-
-          <!-- Action Row -->
-          <div class="flex items-center justify-between border p-4 rounded gap-4 flex-wrap">
-            <!-- Left Side Info -->
-            <div>
-              <h4 class="font-medium">Fixed IP</h4>
-              <p class="text-sm text-gray-500">Used by DroneLeaf services to reach the companion computer.</p>
-            </div>
-
-            <!-- Right Side (Button + Status inline) -->
-            <div class="flex items-center gap-4">
-
-              <!-- Loading Spinner (just right of button) -->
-              <span *ngIf="step2.loading" class="flex items-center gap-2 text-gray-600 text-sm font-medium">
-                <span class="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></span>
-                Assigning...
-              </span>
-
-              <!-- Assigned IP (just right of button) -->
-              <span *ngIf="step2.result" class="flex items-center gap-2 text-green-700 text-sm font-medium border border-[#1BAF5D] rounded-full p-3">
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6.66667 0C2.99333 0 0 2.99333 0 6.66667C0 10.34 2.99333 13.3333 6.66667 13.3333C10.34 13.3333 13.3333 10.34 13.3333 6.66667C13.3333 2.99333 10.34 0 6.66667 0ZM9.85333 5.13333L6.07333 8.91333C5.98 9.00667 5.85333 9.06 5.72 9.06C5.58667 9.06 5.46 9.00667 5.36667 8.91333L3.48 7.02667C3.28667 6.83333 3.28667 6.51333 3.48 6.32C3.67333 6.12667 3.99333 6.12667 4.18667 6.32L5.72 7.85333L9.14667 4.42667C9.34 4.23333 9.66 4.23333 9.85333 4.42667C10.0467 4.62 10.0467 4.93333 9.85333 5.13333Z" fill="#1BAF5D"/>
+                <ng-container *ngIf="step1.success">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M6.5 0C2.9185 0 0 2.9185 0 6.5C0 10.0815 2.9185 13 6.5 13C10.0815 13 13 10.0815 13 6.5C13 2.9185 10.0815 0 6.5 0ZM9.607 5.005L5.9215 8.6905C5.8305 8.7815 5.707 8.8335 5.577 8.8335C5.447 8.8335 5.3235 8.7815 5.2325 8.6905L3.393 6.851C3.2045 6.6625 3.2045 6.3505 3.393 6.162C3.5815 5.9735 3.8935 5.9735 4.082 6.162L5.577 7.657L8.918 4.316C9.1065 4.1275 9.4185 4.1275 9.607 4.316C9.7955 4.5045 9.7955 4.81 9.607 5.005Z"
+                      fill="white" />
                   </svg>
 
-                {{ step2.result }}
-              </span>
-              <!-- Action Button -->
-              <button (click)="handleStep2()" [disabled]="step2.loading"
-                class="px-4 py-2 rounded-md text-white font-medium flex items-center gap-2" [ngClass]="{
-                  'bg-[#3A3B3E] hover:bg-gray-900': !step2.success,
-                  'bg-black': step2.success,
-                  'opacity-50 cursor-not-allowed': step2.loading
-                }">
-                <ng-container *ngIf="!step2.success">Assign Fixed IP</ng-container>
-                <ng-container *ngIf="step2.success">
-                  Reassign IP
+                  Connected
                 </ng-container>
               </button>
-
-
             </div>
 
-          </div>
-
-          <!-- Continue -->
-          <div *ngIf="step2.success" class="flex justify-end">
-            <button (click)="goNextStep(2)" class="mt-2 px-4 py-2 bg-[#009169] text-white rounded-md">
-              Continue
-            </button>
-          </div>
-        </div>
-      </div>
-
-
-
-
-      <!-- STEP 3 -->
-      <div class="border rounded-md">
-        <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 2">
-          <h3 class="font-semibold">Step 3: Guide for Rigid Body Definition</h3>
-          <div *ngIf="step3.completed" class="text-green-600 font-bold">   <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
-              fill="#1BAF5D" />
-          </svg></div>
-        </div>
-
-        <div *ngIf="activeStep === 2" class="p-4 space-y-4">
-          <div class="p-3 border border-[#D1DADF] text-sm rounded">
-            <h4 class="font-medium mb-2">Fixed IP</h4>
-            <ul class="list-disc pl-5 space-y-1 text-gray-700">
-              <li>Fix 6 markers or more to the drone in asymmetric arrangement.</li>
-              <li>Place the drone in the flight area.</li>
-              <li>Make the drone level and facing exactly the positive x-axis of the OptiTrack system.</li>
-              <li>Select the markers in the OptiTrack Motive software and define the rigid body.</li>
-              <li>Move the rigid body center to coincide with the propellers plane, and be at the geometric center of the drone.</li>
-              <li>You are all set!</li>
-            </ul>
-          </div>
-
-
-          <div class="flex justify-between items-center border p-4 rounded">
-            <div>
-
-              <p class="text-sm text-gray-500">Confirm once these steps are completed in OptiTrack Motive</p>
-            </div>
-
-            <button (click)="handleStep3()" [disabled]="step3.success"
-              class="px-4 py-2 rounded-md text-white font-medium bg-black hover:bg-gray-900">
-              I have completed this
-            </button>
-          </div>
-
-          <div *ngIf="step3.success" class="flex justify-end">
-            <button (click)="goNextStep(3)" class="mt-2 px-4 py-2 bg-[#009169] text-white rounded-md">
-              Continue
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 4 -->
-      <div class="border rounded-md">
-        <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 3">
-          <h3 class="font-semibold">Step 4: Enter Rigid Body ID</h3>
-          <div *ngIf="step4.completed" class="text-green-600 font-bold"> <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
-              fill="#1BAF5D" />
-          </svg></div>
-        </div>
-
-        <div *ngIf="activeStep === 3" class="p-4 space-y-4">
-
-
-          <div class="border p-4 rounded space-y-2">
-            <!-- Label -->
-            <label class="block font-semibold text-gray-700">
-              Enter the rigid body ID you used in the Motion Capture system
-            </label>
-
-            <!-- Input + Button -->
-            <div class="flex">
-              <input
-                [(ngModel)]="step4.input"
-                type="text"
-                placeholder="e.g. 12"
-                class="border border-gray-300 rounded-l-md p-2 flex-1 focus:outline-none focus:ring-2 bg-white focus:ring-[#009169]"
-              />
-
-              <button
-                (click)="handleStep4()"
-                [disabled]="!step4.input"
-                class="px-4 py-2 rounded-r-md text-white font-medium bg-[#3A3B3E] hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Enter
+            <div *ngIf="step1.success" class="flex justify-end">
+              <button (click)="goNextStep(1)" class="mt-2 px-4 py-2 bg-[#009169] text-white rounded-md">
+                Continue
               </button>
             </div>
           </div>
-
-
-          <div *ngIf="step4.success" class="flex justify-end">
-            <button (click)="goNextStep(4)" class="mt-2 px-4 py-2 bg-[#009169] text-white rounded-md">
-              Continue
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- STEP 5 -->
-      <div class="border rounded-md">
-        <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 4">
-          <h3 class="font-semibold">Step 5: Confirm Rigid Body Streaming</h3>
-          <div *ngIf="step5.completed" class="text-green-600 font-bold"><svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
-              fill="#1BAF5D" />
-          </svg></div>
         </div>
 
-        <div *ngIf="activeStep === 4" class="p-4 space-y-4">
-          <div class="p-3  border border-[#D1DADF] text-sm text-gray-700 rounded">
-            Place the drone in the flight area, I will check the overall motion capture setup...
+        <!-- STEP 2 -->
+        <div class="border rounded-md">
+          <!-- Step Header -->
+          <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 1">
+            <h3 class="font-semibold">Step 2: Assign Fixed IP</h3>
+            <div *ngIf="step2.completed" class="text-green-600 font-bold">
+              <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
+                  fill="#1BAF5D" />
+              </svg>
+            </div>
           </div>
 
-          <div class="flex justify-between items-center border p-4 rounded">
-            <div>
-              <p class="text-sm text-gray-500">Mock streaming check</p>
+          <!-- Step Content -->
+          <div *ngIf="activeStep === 1" class="p-4 space-y-4">
+            <!-- Alert -->
+            <div class="p-4 bg-[#fff6d6] border border-[#FFC700] rounded">
+              ⚠️ We'll check the network configuration and assign a fixed IP to your drone for reliable indoor operation.
             </div>
 
-            <button (click)="handleStep5()" [disabled]="step5.loading"
-              class="px-4 py-2 rounded-md text-white font-medium flex items-center gap-2" [ngClass]="{
-                'bg-[#3A3B3E] hover:bg-gray-900': !step5.success,
-                'bg-[#1BAF5D]': step5.success,
-                'opacity-50 cursor-not-allowed': step5.loading
-              }">
-              <span *ngIf="step5.loading" class="flex items-center gap-2">
-                <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                Checking...
-              </span>
+            <!-- Action Row -->
+            <div class="flex items-center justify-between border p-4 rounded gap-4 flex-wrap">
+              <!-- Left Side Info -->
+              <div>
+                <h4 class="font-medium">Fixed IP</h4>
+                <p class="text-sm text-gray-500">Used by DroneLeaf services to reach the companion computer.</p>
+              </div>
 
-              <ng-container *ngIf="!step5.loading && !step5.success">
-                Check Stream
-              </ng-container>
+              <!-- Right Side (Button + Status inline) -->
+              <div class="flex items-center gap-4">
 
-              <ng-container *ngIf="step5.success">
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M6.5 0C2.9185 0 0 2.9185 0 6.5C0 10.0815 2.9185 13 6.5 13C10.0815 13 13 10.0815 13 6.5C13 2.9185 10.0815 0 6.5 0ZM9.607 5.005L5.9215 8.6905C5.8305 8.7815 5.707 8.8335 5.577 8.8335C5.447 8.8335 5.3235 8.7815 5.2325 8.6905L3.393 6.851C3.2045 6.6625 3.2045 6.3505 3.393 6.162C3.5815 5.9735 3.8935 5.9735 4.082 6.162L5.577 7.657L8.918 4.316C9.1065 4.1275 9.4185 4.1275 9.607 4.316C9.7955 4.5045 9.7955 4.81 9.607 5.005Z" fill="white"/>
+                <!-- Loading Spinner (just right of button) -->
+                <span *ngIf="step2.loading" class="flex items-center gap-2 text-gray-600 text-sm font-medium">
+                  <span class="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></span>
+                  Assigning...
+                </span>
+
+                <!-- Assigned IP (just right of button) -->
+                <span *ngIf="step2.result" class="flex items-center gap-2 text-green-700 text-sm font-medium border border-[#1BAF5D] rounded-full p-3">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.66667 0C2.99333 0 0 2.99333 0 6.66667C0 10.34 2.99333 13.3333 6.66667 13.3333C10.34 13.3333 13.3333 10.34 13.3333 6.66667C13.3333 2.99333 10.34 0 6.66667 0ZM9.85333 5.13333L6.07333 8.91333C5.98 9.00667 5.85333 9.06 5.72 9.06C5.58667 9.06 5.46 9.00667 5.36667 8.91333L3.48 7.02667C3.28667 6.83333 3.28667 6.51333 3.48 6.32C3.67333 6.12667 3.99333 6.12667 4.18667 6.32L5.72 7.85333L9.14667 4.42667C9.34 4.23333 9.66 4.23333 9.85333 4.42667C10.0467 4.62 10.0467 4.93333 9.85333 5.13333Z" fill="#1BAF5D"/>
                   </svg>
 
-                Stream OK
-              </ng-container>
-            </button>
+                  {{ step2.result }}
+                </span>
+                <!-- Action Button -->
+                <button (click)="handleStep2()" [disabled]="step2.loading"
+                  class="px-4 py-2 rounded-md text-white font-medium flex items-center gap-2" [ngClass]="{
+                    'bg-[#3A3B3E] hover:bg-gray-900': !step2.success,
+                    'bg-black': step2.success,
+                    'opacity-50 cursor-not-allowed': step2.loading
+                  }">
+                  <ng-container *ngIf="!step2.success">Assign Fixed IP</ng-container>
+                  <ng-container *ngIf="step2.success">
+                    Reassign IP
+                  </ng-container>
+                </button>
+              </div>
+            </div>
+
+            <!-- Continue -->
+            <div *ngIf="step2.success" class="flex justify-end">
+              <button (click)="goNextStep(2)" class="mt-2 px-4 py-2 bg-[#009169] text-white rounded-md">
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="border rounded-md">
+          <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 2">
+            <h3 class="font-semibold">Step 3: Guide for Rigid Body Definition</h3>
+            <div *ngIf="step3.completed" class="text-green-600 font-bold">   <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
+                fill="#1BAF5D" />
+            </svg></div>
+          </div>
+
+          <div *ngIf="activeStep === 2" class="p-4 space-y-4">
+            <div class="p-3 border border-[#D1DADF] text-sm rounded">
+              <h4 class="font-medium mb-2">Fixed IP</h4>
+              <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                <li>Fix 6 markers or more to the drone in asymmetric arrangement.</li>
+                <li>Place the drone in the flight area.</li>
+                <li>Make the drone level and facing exactly the positive x-axis of the OptiTrack system.</li>
+                <li>Select the markers in the OptiTrack Motive software and define the rigid body.</li>
+                <li>Move the rigid body center to coincide with the propellers plane, and be at the geometric center of the drone.</li>
+                <li>You are all set!</li>
+              </ul>
+            </div>
+
+            <div class="flex justify-between items-center border p-4 rounded">
+              <div>
+                <p class="text-sm text-gray-500">Confirm once these steps are completed in OptiTrack Motive</p>
+              </div>
+
+              <button (click)="handleStep3()" [disabled]="step3.success"
+                class="px-4 py-2 rounded-md text-white font-medium bg-black hover:bg-gray-900">
+                I have completed this
+              </button>
+            </div>
+
+            <div *ngIf="step3.success" class="flex justify-end">
+              <button (click)="goNextStep(3)" class="mt-2 px-4 py-2 bg-[#009169] text-white rounded-md">
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="border rounded-md">
+          <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 3">
+            <h3 class="font-semibold">Step 4: Enter Rigid Body ID</h3>
+            <div *ngIf="step4.completed" class="text-green-600 font-bold"> <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
+                fill="#1BAF5D" />
+            </svg></div>
+          </div>
+
+          <div *ngIf="activeStep === 3" class="p-4 space-y-4">
+            <div class="border p-4 rounded space-y-2">
+              <!-- Label -->
+              <label class="block font-semibold text-gray-700">
+                Enter the rigid body ID you used in the Motion Capture system
+              </label>
+
+              <!-- Input + Button -->
+              <div class="flex">
+                <input
+                  [(ngModel)]="step4.input"
+                  type="text"
+                  placeholder="e.g. 12"
+                  class="border border-gray-300 rounded-l-md p-2 flex-1 focus:outline-none focus:ring-2 bg-white focus:ring-[#009169]"
+                />
+
+                <button
+                  (click)="handleStep4()"
+                  [disabled]="!step4.input"
+                  class="px-4 py-2 rounded-r-md text-white font-medium bg-[#3A3B3E] hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Enter
+                </button>
+              </div>
+            </div>
+
+            <div *ngIf="step4.success" class="flex justify-end">
+              <button (click)="goNextStep(4)" class="mt-2 px-4 py-2 bg-[#009169] text-white rounded-md">
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="border rounded-md">
+          <div class="flex justify-between items-center p-3 bg-gray-50 cursor-pointer" (click)="activeStep = 4">
+            <h3 class="font-semibold">Step 5: Confirm Rigid Body Streaming</h3>
+            <div *ngIf="step5.completed" class="text-green-600 font-bold"><svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.2 15l-4.3-4.3 1.4-1.4 2.9 2.9 6.5-6.5 1.4 1.4-7.9 7.9z"
+                fill="#1BAF5D" />
+            </svg></div>
+          </div>
+
+          <div *ngIf="activeStep === 4" class="p-4 space-y-4">
+            <div class="p-3 border border-[#D1DADF] text-sm text-gray-700 rounded">
+              Place the drone in the flight area, I will check the overall motion capture setup...
+            </div>
+
+            <div class="flex justify-between items-center border p-4 rounded">
+              <div>
+                <p class="text-sm text-gray-500">Mock streaming check</p>
+              </div>
+
+              <button (click)="handleStep5()" [disabled]="step5.loading"
+                class="px-4 py-2 rounded-md text-white font-medium flex items-center gap-2" [ngClass]="{
+                  'bg-[#3A3B3E] hover:bg-gray-900': !step5.success,
+                  'bg-[#1BAF5D]': step5.success,
+                  'opacity-50 cursor-not-allowed': step5.loading
+                }">
+                <span *ngIf="step5.loading" class="flex items-center gap-2">
+                  <span class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  Checking...
+                </span>
+
+                <ng-container *ngIf="!step5.loading && !step5.success">
+                  Check Stream
+                </ng-container>
+
+                <ng-container *ngIf="step5.success">
+                  <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.5 0C2.9185 0 0 2.9185 0 6.5C0 10.0815 2.9185 13 6.5 13C10.0815 13 13 10.0815 13 6.5C13 2.9185 10.0815 0 6.5 0ZM9.607 5.005L5.9215 8.6905C5.8305 8.7815 5.707 8.8335 5.577 8.8335C5.447 8.8335 5.3235 8.7815 5.2325 8.6905L3.393 6.851C3.2045 6.6625 3.2045 6.3505 3.393 6.162C3.5815 5.9735 3.8935 5.9735 4.082 6.162L5.577 7.657L8.918 4.316C9.1065 4.1275 9.4185 4.1275 9.607 4.316C9.7955 4.5045 9.7955 4.81 9.607 5.005Z" fill="white"/>
+                  </svg>
+                  Stream OK
+                </ng-container>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-
-    <hr />
-
-    <!-- ✅ Bottom Buttons -->
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4 mt-5">
+    <!-- ✅ Fixed Bottom Buttons -->
+    <div class="fixed bottom-0 left-0 right-0 lg:right-96 flex flex-col md:flex-row justify-between items-center gap-4 p-4 border-t bg-white z-20 shadow-md">
       <button type="button"
         class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
         (click)="onCancelClick()">
@@ -307,36 +295,39 @@
 
       <div class="flex gap-4 w-full md:w-auto">
         <button
-          class="border-1 border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
-          style="border: 1px solid #009169;" (click)="back.emit()">
+          class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
+          style="border: 1px solid #009169;"
+          (click)="back.emit()">
           Back
         </button>
 
         <button
-        [disabled]="!allStepsCompleted"
-        (click)="next.emit()"
-        class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
-        [ngStyle]="{
-          'background-color': allStepsCompleted ? '#009169' : '#80c8b4'
-        }"
-      >
-        Continue
-      </button>
-
+          [disabled]="!allStepsCompleted"
+          (click)="next.emit()"
+          class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
+          [ngClass]="{
+            'bg-[#009169]': allStepsCompleted,
+            'bg-[#80c8b4] opacity-50 cursor-not-allowed': !allStepsCompleted
+          }"
+        >
+          Continue
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- ✅ Right Stepper Sidebar -->
-  <div class="w-96 bg-[#cce9e1] p-6 flex flex-col justify-around">
-    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"> </app-add-drone-stepper>
+  <!-- ✅ Right Stepper Sidebar - Only this will scroll if needed -->
+  <div class="w-full lg:w-96 bg-[#cce9e1] h-full overflow-y-auto">
+    <div class="p-6 flex flex-col justify-between min-h-full">
+      <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"> </app-add-drone-stepper>
 
-    <div class="mt-8">
-      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
-      <p class="text-[16px] text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua.
-      </p>
+      <div class="mt-8">
+        <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
+        <p class="text-[16px] text-gray-600">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
+        </p>
+      </div>
     </div>
   </div>
 </div>

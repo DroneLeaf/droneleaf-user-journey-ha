@@ -58,7 +58,9 @@ export type StepType =
   | 'perform-fsac-yes'
   | 'perform-fsac-no'
   | 'no-indoor-enironment'
-  | 'flight-operation';
+  | 'flight-operation'
+  | 'fsac-flight-process'
+  | 'fsac_set_up_kill_switch';
 
 export interface StepNode {
   type: StepType;

@@ -1,0 +1,115 @@
+<!-- OUTERMOST: Full screen height -->
+<div class="flex flex-col lg:flex-row bg-white text-black">
+  <!-- ✅ LEFT SIDE -->
+  <div class="flex flex-col flex-1 h-full relative p-10">
+    <!-- ✅ Top Bar -->
+    <div class="flex justify-between items-center px-6 py-4">
+      <img src="../../../../../assets/svgs/private/Group 1597881310.svg"
+           alt="DroneLeaf Logo" class="h-12 sm:h-16" />
+      <app-help-button></app-help-button>
+    </div>
+
+    <!-- ✅ Scrollable Content Area with padding for fixed buttons -->
+    <div class="flex-1 overflow-y-auto px-6 pb-24">
+      <h2 class="text-xl sm:text-2xl font-semibold text-gray-800">FSAC Flight Process</h2>
+      <p class="text-sm sm:text-base text-gray-600 mt-1">
+        Perform the Center of Gravity (CoG) check to ensure your drone is balanced before flight.
+      </p>
+
+      <div class="mt-4 sm:mt-6 border border-gray-200 rounded-lg p-4 sm:p-6">
+        <h3 class="text-lg font-semibold text-gray-800">Center of Gravity (CoG) Check</h3>
+
+        <!-- Warning box -->
+        <div class="mt-4 bg-[#fff6d6] border border-[#FFC700] rounded-md p-3 sm:p-4 flex items-start">
+          <div class="text-yellow-500 mr-3 flex-shrink-0">⚠️</div>
+          <div>
+            <p class="text-sm sm:text-base font-medium">Safety Tip</p>
+            <p class="text-xs sm:text-sm text-gray-700 mt-1">
+              Always remove the propellers before handling or lifting the drone for CoG checks.
+            </p>
+          </div>
+        </div>
+
+        <!-- CoG Diagram and instructions -->
+        <div class="mt-6 flex flex-col md:flex-row">
+          <!-- Diagram -->
+          <div class="w-full md:w-2/5 flex justify-center mb-6 md:mb-0">
+            <div class="relative max-w-[280px] mx-auto">
+              <img src="../../../../../assets/svgs/private/fsac-filght.svg" alt="">
+            </div>
+          </div>
+
+          <!-- Instructions -->
+          <div class="w-full md:w-3/5">
+            <ol class="list-decimal pl-5 space-y-4">
+              <li class="text-sm">
+                <span class="font-semibold">Setup:</span> Place one digital scale under each landing arm (total: 4
+                scales). Ensure all scales are zeroed before placing the drone.
+              </li>
+              <li class="text-sm">
+                <span class="font-semibold">Position the Drone:</span> Place the drone so each arm rests on one scale.
+                Ensure the drone is level and not touching anything else.
+              </li>
+              <li class="text-sm">
+                <span class="font-semibold">Read the Measurements:</span> Observe the displayed weight on all four
+                scales and note the values (front-left, front-right, rear-left, rear-right).
+              </li>
+              <li class="text-sm">
+                <span class="font-semibold">Evaluate Balance:</span> Values should be similar across opposite sides
+                (front = rear, left = rear). A variation of ±5-10% is acceptable.
+              </li>
+              <li class="text-sm">
+                <span class="font-semibold">Interpret Results:</span> If one side is significantly heavier, the CoG is
+                shifted in that direction. Adjust battery/payload until balanced.
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ✅ Fixed Footer -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 p-4 border-t bg-white
+         fixed bottom-0 left-0 right-0 lg:right-96 z-10">
+      <button type="button"
+        class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full sm:w-auto"
+        (click)="onCancelClick()">
+        Cancel
+      </button>
+
+      <div class="flex gap-4 w-full sm:w-auto">
+        <button
+          class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full sm:w-auto" style="border: 1px solid #009169;"
+          (click)="back.emit()">
+          Back
+        </button>
+
+        <button
+          class="text-white font-semibold bg-[#009169] py-2 px-6 rounded-md transition-colors duration-200 w-full sm:w-auto"
+          (click)="next.emit()">
+          Continue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ✅ RIGHT FIXED STEPPER -->
+  <div class="hidden lg:flex w-96 bg-[#cce9e1] p-6 flex-col justify-between overflow-y-auto">
+    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
+
+    <div class="mt-8">
+      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
+        Add A Drone
+      </h4>
+      <p class="text-[16px] text-gray-600">
+        This step ensures your Remote Control is properly configured before
+        finalizing the setup.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<app-confirm-cancel-model [show]="cancelModalVisible"
+  (confirm)="cancelConfirmed()"
+  (cancel)="cancelDismissed()"></app-confirm-cancel-model>

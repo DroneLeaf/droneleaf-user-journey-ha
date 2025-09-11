@@ -1,15 +1,14 @@
-<div class="flex flex-col md:flex-row h-[96vh] text-black">
+<div class="flex flex-col lg:flex-row bg-white text-black">
   <!-- Main Left -->
-  <div class="flex-1 px-6 md:px-6 pt-8 pb-4 flex flex-col justify-between">
+  <div class="flex flex-col flex-1 h-full relative p-10">
     <!-- Top Header -->
-    <div class="flex justify-between items-center py-4">
+    <div class="flex justify-between items-center px-6 py-4">
       <img src="../../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-14" />
       <app-help-button></app-help-button>
     </div>
 
-    <!-- Main Content Area -->
-
-    <div class="">
+    <!-- Main Content Area with padding at bottom for fixed buttons -->
+    <div class="flex-1 overflow-y-auto px-6 pb-24">
       <!-- Heading -->
       <h2 class="text-xl font-semibold">Set Up Your RC Kill-Switch</h2>
       <p class="text-gray-600">This feature lets you instantly cut motor power in emergencies.</p>
@@ -24,8 +23,6 @@
           <li class="text-sm">A latching kill-switch prevents motors from re-arming the moment you let go. Avoid
             momentary switches for this function.</li>
         </ul>
-
-
       </div>
 
       <div class="space-y-6 border border-[#D1DADF] p-5 rounded-md">
@@ -44,7 +41,7 @@
             <!-- Title + Description -->
             <div>
               <p class="text-gray-600 text-sm">
-                Flip your transmitter’s kill-switch. The panel below reflects the live state.
+                Flip your transmitter's kill-switch. The panel below reflects the live state.
               </p>
             </div>
 
@@ -62,7 +59,7 @@
 
               <!-- OFF -->
               <div
-                class="flex items-center justify-center border rounded-lg h--36 cursor-pointer text-xl font-extrabold transition"
+                class="flex items-center justify-center border rounded-lg h-36 cursor-pointer text-xl font-extrabold transition"
                 [ngClass]="{
                   'bg-[#f2f9f7] border-[#009169] text-[#009169]': currentState === 'OFF',
                   'bg-white border-gray-300 text-gray-700': currentState !== 'OFF'
@@ -72,22 +69,19 @@
             </div>
           </div>
 
-
-          <!-- Steps -->
-          <!-- Steps -->
           <!-- Steps -->
           <div class="space-y-4">
             <!-- Step 1 -->
             <div class="p-3 border rounded-md transition" [ngClass]="{
-      'border-[#009169] bg-[#f2f9f7]': stepEngageActive || stepEngageDone,
-      'border-gray-300 bg-white': !stepEngageActive && !stepEngageDone
-    }">
+              'border-[#009169] bg-[#f2f9f7]': stepEngageActive || stepEngageDone,
+              'border-gray-300 bg-white': !stepEngageActive && !stepEngageDone
+            }">
               <div class="flex items-center gap-3">
                 <!-- Number / Tick -->
                 <div class="w-7 h-7 flex items-center justify-center rounded-full text-sm font-semibold" [ngClass]="{
-          'bg-[#009169] text-white': stepEngageActive,
-          'bg-gray-200 text-gray-600': !stepEngageActive && !stepEngageDone
-        }">
+                  'bg-[#009169] text-white': stepEngageActive,
+                  'bg-gray-200 text-gray-600': !stepEngageActive && !stepEngageDone
+                }">
                   <ng-container *ngIf="!stepEngageDone; else tick1">1</ng-container>
                   <ng-template #tick1>
                     <!-- Tick -->
@@ -111,15 +105,15 @@
 
             <!-- Step 2 -->
             <div class="p-3 border rounded-md transition" [ngClass]="{
-      'border-[#009169] bg-[#f2f9f7]': stepReleaseActive || stepReleaseDone,
-      'border-gray-300 bg-white': !stepReleaseActive && !stepReleaseDone
-    }">
+              'border-[#009169] bg-[#f2f9f7]': stepReleaseActive || stepReleaseDone,
+              'border-gray-300 bg-white': !stepReleaseActive && !stepReleaseDone
+            }">
               <div class="flex items-center gap-3">
                 <!-- Number / Tick -->
                 <div class="w-7 h-7 flex items-center justify-center rounded-full text-sm font-semibold" [ngClass]="{
-          'bg-[#009169] text-white': stepReleaseActive,
-          'bg-gray-200 text-gray-600': !stepReleaseActive && !stepReleaseDone
-        }">
+                  'bg-[#009169] text-white': stepReleaseActive,
+                  'bg-gray-200 text-gray-600': !stepReleaseActive && !stepReleaseDone
+                }">
                   <ng-container *ngIf="!stepReleaseDone; else tick2">2</ng-container>
                   <ng-template #tick2>
                     <!-- Tick -->
@@ -143,15 +137,15 @@
 
             <!-- Step 3 -->
             <div class="p-3 border rounded-md transition" [ngClass]="{
-      'border-[#009169] bg-[#f2f9f7]': stepFinishActive || stepFinishDone,
-      'border-gray-300 bg-white': !stepFinishActive && !stepFinishDone
-    }">
+              'border-[#009169] bg-[#f2f9f7]': stepFinishActive || stepFinishDone,
+              'border-gray-300 bg-white': !stepFinishActive && !stepFinishDone
+            }">
               <div class="flex items-center gap-3">
                 <!-- Number / Tick -->
                 <div class="w-7 h-7 flex items-center justify-center rounded-full text-sm font-semibold" [ngClass]="{
-          'bg-[#009169] text-white': stepFinishActive,
-          'bg-gray-200 text-gray-600': !stepFinishActive && !stepFinishDone
-        }">
+                  'bg-[#009169] text-white': stepFinishActive,
+                  'bg-gray-200 text-gray-600': !stepFinishActive && !stepFinishDone
+                }">
                   <ng-container *ngIf="!stepFinishDone; else tick3">3</ng-container>
                   <ng-template #tick3>
                     <!-- Tick -->
@@ -170,13 +164,11 @@
               </div>
             </div>
           </div>
-
-
         </div>
 
         <div class="grid grid-cols-12 gap-4 items-start">
           <!-- Logs Box (6 col) -->
-          <div class="col-span-6 p-4 bg-[#F8FAFB] border border-[#D1DADF] rounded-md text-sm space-y-1 min-h-[100px]">
+          <div class="col-span-12 md:col-span-6 p-4 bg-[#F8FAFB] border border-[#D1DADF] rounded-md text-sm space-y-1 min-h-[100px]">
             <ng-container *ngIf="logs.length > 0; else noLogs">
               <p class="text-[#90A2B9]" *ngFor="let log of logs">{{ log }}</p>
             </ng-container>
@@ -186,7 +178,7 @@
           </div>
 
           <!-- Action Button (6 col) -->
-          <div class="col-span-6 flex items-start">
+          <div class="col-span-12 md:col-span-6 flex items-start">
             <button class="px-5 py-2 rounded font-semibold transition" [ngClass]="{
                 'bg-[#009169] text-white hover:bg-[#007e57]': actionButton === 'Start Verification',
                 'bg-gray-200 text-gray-700 hover:bg-gray-300 cursor-not-allowed': actionButton !== 'Start Verification'
@@ -201,23 +193,11 @@
             </button>
           </div>
         </div>
-
-
-
       </div>
-
-
-
-
-
     </div>
 
-    <hr />
-
-    <!-- Bottom Buttons -->
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4
-         p-4 border-t bg-white
-         sticky bottom-0 left-0 z-10">
+    <!-- Fixed Bottom Buttons -->
+    <div class="fixed bottom-0 left-0 right-0 lg:right-96 flex flex-col md:flex-row justify-between items-center gap-4 p-4 border-t bg-white z-20 shadow-md">
       <button type="button"
         class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
         (click)="onCancelClick()">
@@ -226,35 +206,37 @@
 
       <div class="flex gap-4 w-full md:w-auto">
         <button
-          class="border-1 border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
-          style="border: 1px solid #009169;" (click)="back.emit()">
+          class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
+          style="border: 1px solid #009169;"
+          (click)="back.emit()">
           Back
         </button>
 
         <button class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
           [ngClass]="{
-          'bg-[#009169] hover:bg-[#007e57]': stepEngageDone && stepReleaseDone && stepFinishDone,
-          'bg-[#80c8b4] cursor-not-allowed': !(stepEngageDone && stepReleaseDone && stepFinishDone)
-        }" [disabled]="!(stepEngageDone && stepReleaseDone && stepFinishDone)" (click)="next.emit()">
+            'bg-[#009169] hover:bg-[#007e57]': stepEngageDone && stepReleaseDone && stepFinishDone,
+            'bg-[#80c8b4] cursor-not-allowed': !(stepEngageDone && stepReleaseDone && stepFinishDone)
+          }" [disabled]="!(stepEngageDone && stepReleaseDone && stepFinishDone)" (click)="next.emit()">
           Continue
         </button>
-
       </div>
     </div>
   </div>
 
-  <!-- Right Sidebar Stepper -->
-  <div class="w-full md:w-96 bg-[#cce9e1] p-6 flex flex-col justify-between">
-    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
+  <!-- Right Sidebar Stepper - Only this will scroll if needed -->
+  <div class="w-full lg:w-96 bg-[#cce9e1] h-full overflow-y-auto">
+    <div class="p-6 flex flex-col justify-between min-h-full">
+      <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex"></app-add-drone-stepper>
 
-    <div class="mt-8">
-      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
-        Add A Drone
-      </h4>
-      <p class="text-[16px] text-gray-600">
-        This step ensures your Remote Control is properly configured before
-        finalizing the setup.
-      </p>
+      <div class="mt-8">
+        <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
+          Add A Drone
+        </h4>
+        <p class="text-[16px] text-gray-600">
+          This step ensures your Remote Control is properly configured before
+          finalizing the setup.
+        </p>
+      </div>
     </div>
   </div>
 </div>

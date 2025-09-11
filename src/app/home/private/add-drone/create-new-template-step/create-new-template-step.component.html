@@ -1,67 +1,63 @@
 <!-- OUTERMOST: Full screen height -->
-<div class="flex h-[96vh] bg-white text-black">
+<div class="flex flex-col lg:flex-row bg-white text-black">
   <!-- ✅ LEFT SIDE -->
-  <div class="flex flex-col justify-between flex-1 px-6 py-6">
-
+  <div class="flex flex-col flex-1 h-full relative p-10">
     <!-- ✅ Top Bar -->
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center px-6 py-6">
       <img src="../../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-16" />
       <app-help-button></app-help-button>
     </div>
 
-    <!-- ✅ Centered Content (with auto margin-top & bottom) -->
-    <div class="py-4 ">
-      <h2 class="text-lg font-semibold mb-4">
-        Identify the geometry of the drone, and frame properties
-      </h2>
-      <p class="mb-2 text-gray-700">Select the Geometry of the Drone*</p>
+    <!-- ✅ Scrollable Content Area with padding for fixed buttons -->
+    <div class="flex-1 overflow-y-auto px-6 pb-24">
+      <!-- ✅ Content -->
+      <div class="py-4">
+        <h2 class="text-lg font-semibold mb-4">
+          Identify the geometry of the drone, and frame properties
+        </h2>
+        <p class="mb-2 text-gray-700">Select the Geometry of the Drone*</p>
 
-      <!-- Geometry Selection -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-   <div *ngFor="let option of geometryOptions"
-     (click)="selectGeometry(option)"
-     [ngClass]="{
-       'border-[#009169] bg-[#f2f9f7]': selectedGeometry === option.name
-     }"
-     class="sm:h[12rem] h-auto border rounded-lg p-4 sm:p-[4rem] cursor-pointer text-center hover:shadow-md transition border-gray-300">
-  <img [src]="option.image" [alt]="option.name" class="mx-auto h-16 mb-2">
-  <p class="font-medium text-sm">{{ option.name }}</p>
-</div>
+        <!-- Geometry Selection -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+          <div *ngFor="let option of geometryOptions"
+            (click)="selectGeometry(option)"
+            [ngClass]="{
+              'border-[#009169] bg-[#f2f9f7]': selectedGeometry === option.name
+            }"
+            class="sm:h[12rem] h-auto border rounded-lg p-4 sm:p-[4rem] cursor-pointer text-center hover:shadow-md transition border-gray-300">
+            <img [src]="option.image" [alt]="option.name" class="mx-auto h-16 mb-2">
+            <p class="font-medium text-sm">{{ option.name }}</p>
+          </div>
+        </div>
 
+        <!-- Form Fields -->
+        <form [formGroup]="form" class="grid grid-cols-12 gap-4">
+          <!-- Motor Distance Field (col-span-6) -->
+          <app-text-input [control]="form.get('motorDistance')" label="Distance between the motor & drone center*"
+            placeholder="Distance between the drone center and the motor center" type="number" [required]="true"
+            [showTooltip]="true" tooltipText="Tooltip: Enter the straight-line distance from the center of the drone body (center of gravity) to the center of one motor. This is typically measured in millimeters (mm)."
+            tooltipImage="../../../../../assets/svgs/private/QuadCopter-M2M-Distance copy 1.svg"
+            class="col-span-12 md:col-span-6"></app-text-input>
+
+          <!-- Propeller Ground Distance Field (col-span-6) -->
+          <app-text-input [control]="form.get('propellerGroundDistance')"
+            label="Distance between propeller and the ground*"
+            placeholder="Vertical distance between the propeller disk and the ground" type="number" [required]="true"
+            [showTooltip]="true"
+            tooltipText="This is the vertical clearance between the propeller disk and the ground surface."
+            class="col-span-12 md:col-span-6"></app-text-input>
+
+          <!-- IMU Offset Field (full width / first 6 columns) -->
+          <app-text-input [control]="form.get('imuOffset')" label="Vertical offset of IMU with respect to propeller disk"
+            placeholder="Vertical distance between the propeller disk and the IMU" type="number" [showTooltip]="true"
+            tooltipText="Measure from the propeller disk plane to the IMU sensor center. Positive if above, negative if below."
+            class="col-span-12 md:col-span-6"></app-text-input>
+        </form>
       </div>
-
-      <!-- Form Fields -->
-      <form [formGroup]="form" class="grid grid-cols-12 gap-4">
-        <!-- Motor Distance Field (col-span-6) -->
-        <app-text-input [control]="form.get('motorDistance')" label="Distance between the motor & drone center*"
-          placeholder="Distance between the drone center and the motor center" type="number" [required]="true"
-          [showTooltip]="true" tooltipText="Tooltip:  Enter the straight-line distance from the center of the drone body (center of gravity) to the center of one motor. This is typically measured in millimeters (mm)."
-          tooltipImage="../../../../../assets/svgs/private/QuadCopter-M2M-Distance copy 1.svg"
-          class="col-span-12 md:col-span-6"></app-text-input>
-
-        <!-- Propeller Ground Distance Field (col-span-6) -->
-        <app-text-input [control]="form.get('propellerGroundDistance')"
-          label="Distance between propeller and the ground*"
-          placeholder="Vertical distance between the propeller disk and the ground" type="number" [required]="true"
-          [showTooltip]="true"
-          tooltipText="This is the vertical clearance between the propeller disk and the ground surface."
-          class="col-span-12 md:col-span-6"></app-text-input>
-
-        <!-- IMU Offset Field (full width / first 6 columns) -->
-        <app-text-input [control]="form.get('imuOffset')" label="Vertical offset of IMU with respect to propeller disk"
-          placeholder="Vertical distance between the propeller disk and the IMU" type="number" [showTooltip]="true"
-          tooltipText="Measure from the propeller disk plane to the IMU sensor center. Positive if above, negative if below."
-          class="col-span-12 md:col-span-6"></app-text-input>
-      </form>
-
-
     </div>
 
-    <hr>
-    <!-- ✅ Bottom Buttons -->
-    <div  class="flex flex-col md:flex-row justify-between items-center gap-4
-    p-4 border-t bg-white
-    sticky bottom-0 left-0 z-10">
+    <!-- ✅ Fixed Bottom Buttons -->
+    <div class="fixed bottom-0 left-0 right-0 lg:right-96 flex flex-col md:flex-row justify-between items-center gap-4 p-4 border-t bg-white z-20 shadow-md">
       <button type="button"
         class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
         (click)="onCancelClick()">
@@ -70,42 +66,42 @@
 
       <div class="flex gap-4 w-full md:w-auto">
         <button
-          class="border-1 border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
-          style="border: 1px solid #009169;" (click)="back.emit()">
+          class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
+          style="border: 1px solid #009169;"
+          (click)="back.emit()">
           Back
         </button>
 
-   <button
-  [disabled]="!form.valid || !selectedOption"
-  [ngClass]="{
-    'bg-[#009169]': form.valid && selectedOption,
-    'bg-[#80c8b4] opacity-50 cursor-not-allowed': !form.valid || !selectedOption
-  }"
-  class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
-  (click)="continue()">
-  Continue
-</button>
-
+        <button
+          [disabled]="!form.valid || !selectedOption"
+          [ngClass]="{
+            'bg-[#009169]': form.valid && selectedOption,
+            'bg-[#80c8b4] opacity-50 cursor-not-allowed': !form.valid || !selectedOption
+          }"
+          class="text-white font-semibold py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
+          (click)="continue()">
+          Continue
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- ✅ Right Stepper Sidebar -->
-  <div class="w-96 bg-[#cce9e1] p-6 flex flex-col justify-around">
-    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex">
-    </app-add-drone-stepper>
+  <!-- ✅ Right Stepper Sidebar - Only this will scroll if needed -->
+  <div class="w-full lg:w-96 bg-[#cce9e1] h-full overflow-y-auto">
+    <div class="p-6 flex flex-col justify-between min-h-full">
+      <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex">
+      </app-add-drone-stepper>
 
-
-    <div class="mt-8">
-      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
-      <p class="text-[16px] text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua.
-      </p>
+      <div class="mt-8">
+        <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
+        <p class="text-[16px] text-gray-600">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
+        </p>
+      </div>
     </div>
   </div>
 </div>
-
 
 <app-confirm-cancel-model [show]="cancelModalVisible" (confirm)="cancelConfirmed()"
   (cancel)="cancelDismissed()"></app-confirm-cancel-model>

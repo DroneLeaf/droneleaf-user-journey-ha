@@ -109,6 +109,7 @@ get isInvalid(): boolean {
       if (errors['sequence']) return errors['sequence'];
       if (errors['repeated']) return errors['repeated'];
       if (errors['mismatch']) return 'Passwords do not match.';
+      if (errors['hasNumbers']) return 'Numbers are not allowed in name fields.';
 
       // Catch-all
       const errorKeys = Object.keys(errors);
