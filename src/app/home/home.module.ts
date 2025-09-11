@@ -39,6 +39,9 @@ import { LicenseNowComponent } from './private/add-drone/license-now/license-now
 import { LicenceFlightSetupComponent } from './private/add-drone/licence-flight-setup/licence-flight-setup.component';
 import { CalibrationOverviewComponent } from './private/add-drone/calibration-overview/calibration-overview.component';
 import { RCSetupSwitchBComponent } from './private/add-drone/rc-setup-switch-b/rc-setup-switch-b.component';
+import { FlightSetupComponent } from './private/add-drone/flight-setup/flight-setup.component';
+import { CurrentIndoorEnvironmentComponent } from './private/add-drone/current-indoor-environment/current-indoor-environment.component';
+import { NoIndoorEnvironmentComponent } from './private/add-drone/no-indoor-environment/no-indoor-environment.component';
 
 @NgModule({
   imports: [
@@ -90,7 +93,10 @@ import { RCSetupSwitchBComponent } from './private/add-drone/rc-setup-switch-b/r
     LicenseNowComponent,
     LicenceFlightSetupComponent,
     CalibrationOverviewComponent,
-    RCSetupSwitchBComponent
+    RCSetupSwitchBComponent,
+    FlightSetupComponent,
+    CurrentIndoorEnvironmentComponent,
+    NoIndoorEnvironmentComponent
   ],
   exports: [
     AddDroneComponent,

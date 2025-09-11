@@ -41,6 +41,10 @@ export class AddDroneComponent implements OnInit {
     { title: 'License your drone now or later', completed: false },
     { title: 'License drone now', completed: false },
     { title: 'License Flight Setup', completed: false },
+    { title: 'Perform Flight Setup', completed: false },
+    { title: 'Current Indoor Environment?', completed: false },
+    { title: 'No Indoor Environment?', completed: false },
+
   ];
 
 
@@ -85,7 +89,7 @@ export class AddDroneComponent implements OnInit {
       case 'template_type': return 8;
       case 'create_template': return 9;
       case 'template_form': return 10;
-      case 'calibration_overview': return 11;  // ✅ new step
+      case 'calibration_overview': return 11;
       case 'motor_test': return 12;
       case 'set_up_remote_control':
       case 'create_remote_flow':
@@ -97,6 +101,12 @@ export class AddDroneComponent implements OnInit {
       case 'license-now-or-later': return 17;
       case 'license-now': return 18;
       case 'licence-flight-setup': return 19;
+      case 'perform_filght_setup': return 20;
+      case 'flight-operation':
+      case "perform-fsac": return 21;
+      case 'perform-fsac-no': return 22;
+      case 'no-indoor-enironment':
+      case 'perform-fsac-yes':
       // NO flow steps (if you want them in same stepper)
       case 'no_flow_start': return 1;
       case 'no_flow_indoors_setup':

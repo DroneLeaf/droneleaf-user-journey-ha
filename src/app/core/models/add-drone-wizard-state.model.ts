@@ -52,7 +52,13 @@ export type StepType =
   | 'rc-setup-switch-b'
   | 'license-now-or-later'
   | 'license-now'
-  | 'licence-flight-setup';
+  | 'licence-flight-setup'
+  | 'perform_filght_setup'
+  | 'perform-fsac'
+  | 'perform-fsac-yes'
+  | 'perform-fsac-no'
+  | 'no-indoor-enironment'
+  | 'flight-operation';
 
 export interface StepNode {
   type: StepType;

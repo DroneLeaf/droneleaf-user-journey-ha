@@ -237,7 +237,7 @@
         <!-- licence-flight-setup -->
         <ng-container *ngIf="currentStep === 'licence-flight-setup'">
           <app-licence-flight-setup [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
-            (next)="navigateTo('use_existing_remote')" (cancel)="handleStepCancel()" (back)="goBack()">
+            (next)="navigateTo('perform_filght_setup')" (cancel)="handleStepCancel()" (back)="goBack()">
           </app-licence-flight-setup>
         </ng-container>
         <!-- USE EXISTING REMOTE -->
@@ -250,6 +250,32 @@
     (back)="goBack()"
   >
   </app-use-existing-remote> -->
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 'perform_filght_setup'">
+          <app-flight-setup [steps]="steps" [currentStepIndex]="getCurrentStepIndex()" (next)="
+      navigateTo(
+        $event === 'perform_fsac' ? 'perform-fsac' : 'flight-operation',
+        $event
+      )
+    " (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-flight-setup>
+        </ng-container>
+        <ng-container *ngIf="currentStep === 'perform-fsac'">
+          <app-current-indoor-environment
+            [steps]="steps"
+            [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo($event === 'yes' ? 'perform-fsac-yes' : 'perform-fsac-no', $event)"
+            (cancel)="handleStepCancel()"
+            (back)="goBack()"
+          >
+          </app-current-indoor-environment>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 'perform-fsac-no'">
+          <app-no-indoor-environment [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('perform_filght_setup')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-no-indoor-environment>
         </ng-container>
 
         <!-- No flow  -->
