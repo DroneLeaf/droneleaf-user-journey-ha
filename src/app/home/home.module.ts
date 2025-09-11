@@ -42,6 +42,8 @@ import { RCSetupSwitchBComponent } from './private/add-drone/rc-setup-switch-b/r
 import { FlightSetupComponent } from './private/add-drone/flight-setup/flight-setup.component';
 import { CurrentIndoorEnvironmentComponent } from './private/add-drone/current-indoor-environment/current-indoor-environment.component';
 import { NoIndoorEnvironmentComponent } from './private/add-drone/no-indoor-environment/no-indoor-environment.component';
+import { IndoorPreFlightProcessComponent } from './private/add-drone/indoor-pre-flight-process/indoor-pre-flight-process.component';
+import { FsacFlightProcessComponent } from './private/add-drone/fsac-flight-process/fsac-flight-process.component';
 
 @NgModule({
   imports: [
@@ -96,7 +98,9 @@ import { NoIndoorEnvironmentComponent } from './private/add-drone/no-indoor-envi
     RCSetupSwitchBComponent,
     FlightSetupComponent,
     CurrentIndoorEnvironmentComponent,
-    NoIndoorEnvironmentComponent
+    NoIndoorEnvironmentComponent,
+    IndoorPreFlightProcessComponent,
+    FsacFlightProcessComponent
   ],
   exports: [
     AddDroneComponent,

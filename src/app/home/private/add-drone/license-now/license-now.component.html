@@ -1,179 +1,175 @@
 <!-- OUTERMOST: Full screen height -->
-<div class="flex h-[96vh] bg-white text-black">
+<div class="flex flex-col lg:flex-row bg-white text-black">
   <!-- ✅ LEFT SIDE -->
-  <div class="flex flex-col justify-between flex-1 px-6 py-6">
-
+  <div class="flex flex-col flex-1 h-full relative p-10">
     <!-- ✅ Top Bar -->
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center px-6 py-6">
       <img src="../../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-16" />
       <app-help-button></app-help-button>
     </div>
 
+    <!-- ✅ Scrollable Content Area with padding for fixed buttons -->
+    <div class="flex-1 overflow-y-auto px-6 pb-24">
+      <!-- ✅ Centered Content -->
+      <div class="flex flex-col justify-center items-center px-4 ">
+        <!-- Show Checkout Form -->
+        <div *ngIf="!licenseActivated" class="w-full max-w-md">
+          <!-- Title + Description (outside card) -->
+          <div class="mb-6">
+            <h2 class="text-lg font-semibold text-gray-900">
+              License your drone now or later
+            </h2>
+            <p class="text-sm text-gray-500">
+              Lorem ipsum dolor sit amet, consectetur adipiscing
+            </p>
+          </div>
 
-    <!-- ✅ Centered Content -->
-    <div class="flex flex-col justify-center items-center px-4">
-      <!-- Show Checkout Form -->
-      <div *ngIf="!licenseActivated" class="w-full max-w-md">
-        <!-- Title + Description (outside card) -->
-        <div class="mb-6">
-          <h2 class="text-lg font-semibold text-gray-900">
-            License your drone now or later
-          </h2>
-          <p class="text-sm text-gray-500">
-            Lorem ipsum dolor sit amet, consectetur adipiscing
-          </p>
-        </div>
+          <!-- Checkout Card -->
+          <div
+            class="w-full bg-white shadow-md rounded-lg p-6 border border-[#D1DADF]"
+          >
+            <h3 class="font-semibold text-gray-700 mb-3">Checkout</h3>
 
-        <!-- Checkout Card -->
-        <div
-          class="w-full bg-white shadow-md rounded-lg p-6 border border-[#D1DADF]"
-        >
-          <h3 class="font-semibold text-gray-700 mb-3">Checkout</h3>
+            <!-- Product Row -->
+            <div class="flex items-center justify-between pb-4 mb-4">
+              <div class="flex items-center space-x-3">
+                <img src="../../../../../assets//svgs/private/check-out.svg" alt="" />
+                <div>
+                  <p class="font-medium text-gray-900">Drone License for a Year</p>
+                  <p class="text-sm text-gray-500">Lorem Ipsum</p>
+                </div>
+              </div>
+              <span class="font-semibold text-gray-800">AED {{ price }}</span>
+            </div>
 
-          <!-- Product Row -->
-          <div class="flex items-center justify-between pb-4 mb-4">
-            <div class="flex items-center space-x-3">
-              <img src="../../../../../assets//svgs/private/check-out.svg" alt="" />
-              <div>
-                <p class="font-medium text-gray-900">Drone License for a Year</p>
-                <p class="text-sm text-gray-500">Lorem Ipsum</p>
+            <!-- Promo Code -->
+            <div class="mt-2">
+              <label class="text-[#3A3B3E] text-lg mr-2">Promo Code</label>
+              <div
+                class="flex items-center border border-[#D1DADF] rounded-md overflow-hidden w-full"
+              >
+                <input
+                  type="text"
+                  [(ngModel)]="promoCode"
+                  class="flex-1 px-4 py-3 bg-white text-sm outline-none"
+                  placeholder="Enter Promo code"
+                />
+
+                <button
+                  (click)="applyPromo()"
+                  class="flex items-center text-[#009169] text-sm px-4 py-3 h-full transition disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  Apply
+                </button>
               </div>
             </div>
-            <span class="font-semibold text-gray-800">AED {{ price }}</span>
-          </div>
 
-          <!-- Promo Code -->
-          <div class="mt-2">
-            <label class="text-[#3A3B3E] text-lg mr-2">Promo Code</label>
-            <div
-              class="flex items-center border border-[#D1DADF] rounded-md overflow-hidden w-full"
-            >
-              <input
-                type="text"
-                [(ngModel)]="promoCode"
-                class="flex-1 px-4 py-3 bg-white text-sm outline-none"
-                placeholder="Enter Promo code"
-              />
+            <!-- Price Summary -->
+            <div class="mt-6">
+              <div class="flex justify-between text-sm text-[#3A3B3E] mb-4 mt-4">
+                <span>Subtotal</span>
+                <span class="font-bold">AED {{ subtotal }}</span>
+              </div>
 
-              <button
-                (click)="applyPromo()"
-                class="flex items-center text-[#009169] text-sm px-4 py-3 h-full transition disabled:opacity-60 disabled:cursor-not-allowed"
+              <div
+                *ngIf="discount > 0"
+                class="flex justify-between text-[#3A3B3E] text-sm mb-2"
               >
-                Apply
-              </button>
-            </div>
-          </div>
-
-          <!-- Price Summary -->
-          <div class="mt-6">
-            <div class="flex justify-between text-sm text-[#3A3B3E] mb-4 mt-4">
-              <span>Subtotal</span>
-              <span class="font-bold">AED {{ subtotal }}</span>
+                <span>Promo Code ({{ promoCode }})</span>
+                <span class="font-bold">-AED {{ discount }}</span>
+              </div>
             </div>
 
+            <hr />
             <div
-              *ngIf="discount > 0"
-              class="flex justify-between text-[#3A3B3E] text-sm mb-2"
+              class="flex justify-between text-base font-semibold mt-4 mb-4 text-gray-900"
             >
-              <span>Promo Code ({{ promoCode }})</span>
-              <span class="font-bold">-AED {{ discount }}</span>
+              <span>Total</span>
+              <span>AED {{ total }}</span>
             </div>
-          </div>
 
-          <hr />
+            <!-- Checkout Button -->
+            <button
+              (click)="checkout()"
+              [disabled]="loading"
+              class="w-full mt-6 bg-[#009169] text-white py-3 rounded-md font-medium transition flex justify-center items-center"
+            >
+              <ng-container *ngIf="!loading"> Checkout </ng-container>
+              <ng-container *ngIf="loading">
+                <svg
+                  class="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+              </ng-container>
+            </button>
+          </div>
+        </div>
+
+        <!-- ✅ License Activated Screen -->
+        <div
+          *ngIf="licenseActivated"
+          class="flex flex-col items-center justify-center text-center mt-12 w-full max-w-2xl"
+        >
           <div
-            class="flex justify-between text-base font-semibold mt-4 mb-4 text-gray-900"
+            class="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 mb-4"
           >
-            <span>Total</span>
-            <span>AED {{ total }}</span>
+            <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M30.5 0C13.6945 0 0 13.6945 0 30.5C0 47.3055 13.6945 61 30.5 61C47.3055 61 61 47.3055 61 30.5C61 13.6945 47.3055 0 30.5 0ZM45.079 23.485L27.7855 40.7785C27.3585 41.2055 26.779 41.4495 26.169 41.4495C25.559 41.4495 24.9795 41.2055 24.5525 40.7785L15.921 32.147C15.0365 31.2625 15.0365 29.7985 15.921 28.914C16.8055 28.0295 18.2695 28.0295 19.154 28.914L26.169 35.929L41.846 20.252C42.7305 19.3675 44.1945 19.3675 45.079 20.252C45.9635 21.1365 45.9635 22.57 45.079 23.485Z" fill="#1BAF5D"/>
+            </svg>
           </div>
 
-          <!-- Checkout Button -->
-          <button
-            (click)="checkout()"
-            [disabled]="loading"
-            class="w-full mt-6 bg-[#009169] text-white py-3 rounded-md font-medium transition flex justify-center items-center"
-          >
-            <ng-container *ngIf="!loading"> Checkout </ng-container>
-            <ng-container *ngIf="loading">
-              <svg
-                class="animate-spin h-5 w-5 text-white"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <circle
-                  class="opacity-25"
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  stroke-width="4"
-                ></circle>
-                <path
-                  class="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                ></path>
-              </svg>
-            </ng-container>
-          </button>
+          <h2 class="text-xl font-semibold text-gray-900 mb-2">License Activated</h2>
+          <p class="text-gray-600 mb-6">
+            Would you like to license this drone and fly or go back home?
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button
+              class="bg-[#353535] text-white px-6 py-2 rounded-md hover:bg-gray-900"
+              (click)='onCancelClick()'
+            >
+              Go Back Home
+            </button>
+            <button
+              (click)="this.next.emit()"
+              class="bg-[#009169] text-white px-6 py-2 rounded-md hover:bg-green-700"
+            >
+              Continue to Flight
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- ✅ License Activated Screen -->
       <div
         *ngIf="licenseActivated"
-        class="flex flex-col items-center justify-center text-center mt-12 w-full max-w-2xl"
+        class="mt-8 w-full border border-[#FFC700] bg-[#fff6d6] rounded-md p-4 text-sm text-gray-700 flex items-start gap-2"
       >
-        <div
-          class="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 mb-4"
-        >
-        <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M30.5 0C13.6945 0 0 13.6945 0 30.5C0 47.3055 13.6945 61 30.5 61C47.3055 61 61 47.3055 61 30.5C61 13.6945 47.3055 0 30.5 0ZM45.079 23.485L27.7855 40.7785C27.3585 41.2055 26.779 41.4495 26.169 41.4495C25.559 41.4495 24.9795 41.2055 24.5525 40.7785L15.921 32.147C15.0365 31.2625 15.0365 29.7985 15.921 28.914C16.8055 28.0295 18.2695 28.0295 19.154 28.914L26.169 35.929L41.846 20.252C42.7305 19.3675 44.1945 19.3675 45.079 20.252C45.9635 21.1365 45.9635 22.57 45.079 23.485Z" fill="#1BAF5D"/>
-          </svg>
-
-        </div>
-
-        <h2 class="text-xl font-semibold text-gray-900 mb-2">License Activated</h2>
-        <p class="text-gray-600 mb-6">
-          Would you like to license this drone and fly or go back home?
+        <span class="text-yellow-500">⚠️</span>
+        <p>
+          <strong>Note for users:</strong><br />
+          If you go back home, your license will remain active but won't be assigned to this drone yet. To fly, you'll need to assign the license to the specific drone you want later from your Drone Library
         </p>
-
-        <div class="flex flex-col sm:flex-row gap-4">
-          <button
-            class="bg-[#353535] text-white px-6 py-2 rounded-md hover:bg-gray-900"
-            (click)='onCancelClick()'
-          >
-            Go Back Home
-          </button>
-          <button
-          (click)="this.next.emit()"
-            class="bg-[#009169] text-white px-6 py-2 rounded-md hover:bg-green-700"
-          >
-            Continue to Flight
-          </button>
-        </div>
-
-        <!-- Note -->
-
       </div>
     </div>
 
-
-    <div
-    *ngIf="licenseActivated"
-    class="mt-8 w-full border border-[#FFC700] bg-[#fff6d6] rounded-md p-4 text-sm text-gray-700 flex items-start gap-2"
-  >
-    <span class="text-yellow-500">⚠️</span>
-    <p>
-      <strong>Note for users:</strong><br />
-      If you go back home, your license will remain active but won’t be assigned to this drone yet. To fly, you’ll need to assign the license to the specific drone you want later from your Drone Library
-    </p>
-  </div>
-  <!-- ✅ Bottom Buttons -->
-  <hr *ngIf="!licenseActivated" class="relative top-[5rem]">
-  <div *ngIf="!licenseActivated" class="flex flex-col md:flex-row justify-between items-center gap-4 mt-5">
+    <!-- ✅ Fixed Bottom Buttons - Only show if license is not activated -->
+    <div *ngIf="!licenseActivated" class="fixed bottom-0 left-0 right-0 lg:right-96 flex flex-col md:flex-row justify-between items-center gap-4 p-4 border-t bg-white z-20 shadow-md">
       <button type="button"
         class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
         (click)="onCancelClick()">
@@ -182,35 +178,36 @@
 
       <div class="flex gap-4 w-full md:w-auto">
         <button
-          class="border-1 border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
-          style="border: 1px solid #009169;" (click)="back.emit()">
+          class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
+          style="border: 1px solid #009169;"
+          (click)="back.emit()">
           Back
         </button>
 
         <button class="text-white font-semibold bg-[#353535] py-2 px-6 rounded-md transition-colors duration-200 w-full md:w-auto"
-        (click)="onCancelClick()">
+          (click)="onCancelClick()">
           Skip for now
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ✅ Right Stepper Sidebar -->
-  <div class="w-96 bg-[#cce9e1] p-6 flex flex-col justify-around">
-    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex">
-    </app-add-drone-stepper>
+  <!-- ✅ Right Stepper Sidebar - Only this will scroll if needed -->
+  <div class="w-full lg:w-96 bg-[#cce9e1] h-full overflow-y-auto">
+    <div class="p-6 flex flex-col justify-between min-h-full">
+      <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex">
+      </app-add-drone-stepper>
 
-
-    <div class="mt-8">
-      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
-      <p class="text-[16px] text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua.
-      </p>
+      <div class="mt-8">
+        <h4 class="text-[22px] font-semibold text-gray-800 mb-1">Add A Drone</h4>
+        <p class="text-[16px] text-gray-600">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+          magna aliqua.
+        </p>
+      </div>
     </div>
   </div>
 </div>
-
 
 <app-confirm-cancel-model [show]="cancelModalVisible" (confirm)="cancelConfirmed()"
   (cancel)="cancelDismissed()"></app-confirm-cancel-model>

@@ -19,8 +19,8 @@ export class PersonalInfoFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router) {
     this.personalInfoForm = this.fb.group(
       {
-        firstName: ['', [Validators.required, Validators.minLength(2)]],
-        lastName: ['', [Validators.required, Validators.minLength(2)]],
+        firstName: ['', [Validators.required, Validators.minLength(2), this.noNumbersValidator]],
+        lastName: ['', [Validators.required, Validators.minLength(2), this.noNumbersValidator]],
         phone: [
           '',
           [Validators.required, Validators.pattern(/^[0-9]{10,15}$/)],
@@ -100,6 +100,32 @@ export class PersonalInfoFormComponent implements OnInit {
       this.formSubmitted.emit();
     } else {
       this.personalInfoForm.markAllAsTouched();
+    }
+  }
+
+  // Custom validator to prevent numbers in name fields
+  noNumbersValidator(control: any) {
+    if (!control.value) return null;
+
+    const hasNumbers = /\d/.test(control.value);
+    return hasNumbers ? { hasNumbers: true } : null;
+  }
+
+  // Method to prevent numbers on keypress
+  preventNumbers(event: KeyboardEvent): void {
+    const charCode = event.charCode;
+    // Allow letters, spaces, and special characters but not numbers (48-57)
+    if (charCode >= 48 && charCode <= 57) {
+      event.preventDefault();
+    }
+  }
+
+  // Method to prevent numeric paste
+  preventNumericPaste(event: ClipboardEvent): void {
+    const pastedText = event.clipboardData?.getData('text') || '';
+    // Check if pasted text contains numbers
+    if (/\d/.test(pastedText)) {
+      event.preventDefault();
     }
   }
 }

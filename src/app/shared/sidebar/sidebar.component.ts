@@ -63,6 +63,12 @@ export class SidebarComponent implements OnInit {
         activeIconPath: '../../../assets/svgs/private/folder-open-active.png',
       },
       {
+        label: 'Environment Library',
+        link: '/drone-library',
+        iconPath: '../../../assets/svgs/private/flash.svg',
+        activeIconPath: '',
+      },
+      {
         label: 'Mission Management',
         link: '/missions',
         iconPath: '../../../assets/svgs/private/directbox-notif.svg',
@@ -72,6 +78,12 @@ export class SidebarComponent implements OnInit {
         label: 'AI Dojo',
         link: '/reports',
         iconPath: '../../../assets/svgs/private/main-component.png',
+        activeIconPath: '',
+      },
+      {
+        label: 'User Profile',
+        link: '/reports',
+        iconPath: '../../../assets/svgs/private/profile-2user.svg',
         activeIconPath: '',
       },
     ];

@@ -3,60 +3,46 @@
     {{ label }}
   </label>
 
-  <div class="relative flex items-center gap-2 border rounded-md px-2 py-2 bg-white" [class.border-red-500]="isInvalid"
-    [class.border-green-500]="isValid">
-    <!-- Country dropdown button -->
-    <div class="relative" #dropdownRef>
-      <button type="button" (click)="toggleDropdown()" class="flex items-center gap-1 text-sm">
-        <span>{{ selectedCountry?.flag || '🌐' }}</span>
-        <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg"
-          class="transition-transform duration-200 ease-in-out" [ngClass]="{ 'rotate-180': showDropdown }">
-          <path
-            d="M1 1.44159C1 1.55453 1.04708 1.66748 1.14191 1.75336L5.65782 5.87074C5.84684 6.04309 6.1533 6.04309 6.34232 5.87074L10.8582 1.75336C11.0473 1.58101 11.0473 1.3016 10.8582 1.12926C10.6692 0.956914 10.3628 0.956914 10.1737 1.12926L5.99976 4.93488L1.82579 1.12926C1.63676 0.956914 1.3303 0.956914 1.14128 1.12926C1.04709 1.21572 1 1.32866 1 1.44159Z"
-            fill="#3A3B3E" stroke="#3A3B3E" stroke-width="0.745578" />
+  <div class="phone-input-container" [class.error]="isInvalid" [class.success]="isValid">
+    <!-- Country Selector Section -->
+    <div class="country-selector" #dropdownRef>
+      <button type="button" (click)="toggleDropdown()" class="country-button">
+        <span class="flag">{{ selectedCountry.flag || '🇦🇪' }}</span>
+        <svg class="dropdown-arrow" [class.rotated]="showDropdown" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1.44159C1 1.55453 1.04708 1.66748 1.14191 1.75336L5.65782 5.87074C5.84684 6.04309 6.1533 6.04309 6.34232 5.87074L10.8582 1.75336C11.0473 1.58101 11.0473 1.3016 10.8582 1.12926C10.6692 0.956914 10.3628 0.956914 10.1737 1.12926L5.99976 4.93488L1.82579 1.12926C1.63676 0.956914 1.3303 0.956914 1.14128 1.12926C1.04709 1.21572 1 1.32866 1 1.44159Z" fill="#3A3B3E"/>
         </svg>
       </button>
 
-
-      <div *ngIf="showDropdown" class="absolute z-50 mt-1 w-64 bg-white shadow-lg rounded-md border border-gray-200">
-        <div class="p-2 border-b">
+      <!-- Dropdown Menu -->
+      <div *ngIf="showDropdown" class="dropdown-menu">
+        <div class="search-section">
           <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange($event)"
-            placeholder="Search country..." class="w-full p-1 text-sm border rounded bg-white"
+            placeholder="Search country..." class="search-input"
             [ngModelOptions]="{ standalone: true }" />
         </div>
-        <div class="max-h-60 overflow-y-auto hide-scrollbar">
+        <div class="countries-list">
           <div *ngFor="let country of filteredCountries" (click)="onCountryChange(country)"
-            class="flex items-center p-2 hover:bg-gray-100 cursor-pointer">
-            <span class="mr-2">{{ country.flag }}</span>
-            <span class="text-sm flex-1">{{ country.name }}</span>
-            <span class="text-sm text-gray-500">{{ country.dial_code }}</span>
+            class="country-item">
+            <span class="country-flag">{{ country.flag }}</span>
+            <span class="country-name">{{ country.name }}</span>
+            <span class="country-code">{{ country.dial_code }}</span>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Country Code -->
-    <span class="text-sm">{{ selectedCountry?.dial_code }}</span>
+    <!-- Separator -->
+    <div class="separator"></div>
 
-    <!-- Phone Input -->
+    <!-- Country Code Display -->
+    <div class="country-code-display">
+      {{ selectedCountry.dial_code }}
+    </div>
+
+    <!-- Phone Number Input -->
     <input type="tel" [formControl]="control" placeholder="Enter phone number"
-      class="flex-1 text-sm outline-none px-2 bg-white" (keypress)="allowOnlyNumbers($event)"
-      (paste)="preventNonNumericPaste($event)" />
-
-
-    <!-- Validation icon -->
-    <!-- <div class="absolute right-3 top-1/2 transform -translate-y-1/2" *ngIf="control?.touched">
-      <ion-icon
-        *ngIf="showError"
-        name="alert-circle"
-        class="text-red-500 text-lg">
-      </ion-icon>
-      <ion-icon
-        *ngIf="isValid"
-        name="checkmark-circle"
-        class="text-green-500 text-lg">
-      </ion-icon>
-    </div> -->
+      class="phone-input" (keypress)="allowOnlyNumbers($event)"
+      (paste)="preventNonNumericPaste($event)" maxlength="15" />
   </div>
 
   <!-- Error messages -->

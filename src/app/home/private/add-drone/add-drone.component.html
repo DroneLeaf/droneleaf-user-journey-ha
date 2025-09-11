@@ -5,7 +5,7 @@
   <div
     class="w-full max-w-[110rem] h-full bg-white shadow-xl rounded-xl overflow-hidden flex flex-col transform transition-all duration-300 ease-out animate-slideUp">
     <!-- Step Layout -->
-    <div class="flex flex-col md:flex-row flex-1">
+    <div class="flex flex-col md:flex-row flex-1 overflow-y-auto">
       <div class="flex flex-col flex-1 overflow-y-auto">
         <!-- INITIAL STEP (STEP ONE) -->
         <!-- INITIAL STEP (STEP ONE) -->
@@ -262,13 +262,9 @@
           </app-flight-setup>
         </ng-container>
         <ng-container *ngIf="currentStep === 'perform-fsac'">
-          <app-current-indoor-environment
-            [steps]="steps"
-            [currentStepIndex]="getCurrentStepIndex()"
+          <app-current-indoor-environment [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
             (next)="navigateTo($event === 'yes' ? 'perform-fsac-yes' : 'perform-fsac-no', $event)"
-            (cancel)="handleStepCancel()"
-            (back)="goBack()"
-          >
+            (cancel)="handleStepCancel()" (back)="goBack()">
           </app-current-indoor-environment>
         </ng-container>
 
@@ -276,6 +272,26 @@
           <app-no-indoor-environment [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
             (next)="navigateTo('perform_filght_setup')" (cancel)="handleStepCancel()" (back)="goBack()">
           </app-no-indoor-environment>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 'perform-fsac-yes'">
+          <app-indoor-pre-flight-process [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('fsac_set_up_kill_switch')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-indoor-pre-flight-process>
+        </ng-container>
+
+        <!-- FSAC YES FLOW Kill Switch -->
+        <ng-container *ngIf="currentStep === 'fsac_set_up_kill_switch'">
+          <app-setup-kill-swtich [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('fsac-flight-process')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-setup-kill-swtich>
+        </ng-container>
+
+
+        <ng-container *ngIf="currentStep === 'fsac-flight-process'">
+          <app-fsac-flight-process [steps]="steps" [currentStepIndex]="getCurrentStepIndex()"
+            (next)="navigateTo('perform_filght_setup')" (cancel)="handleStepCancel()" (back)="goBack()">
+          </app-fsac-flight-process>
         </ng-container>
 
         <!-- No flow  -->

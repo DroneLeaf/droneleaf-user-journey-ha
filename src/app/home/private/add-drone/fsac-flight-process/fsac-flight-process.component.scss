@@ -1,0 +1,31 @@
+// Additional custom styles for CoG diagram
+.cog-diagram {
+  position: relative;
+
+  .drone-center {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .weight-box {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Responsive adjustments for the diagram
+@media screen and (max-width: 640px) {
+  .cog-diagram {
+    transform: scale(0.9);
+    transform-origin: center center;
+  }
+
+  .instruction-text {
+    font-size: 14px;
+  }
+}
+
+// Make sure arrows are properly positioned on very small screens
+@media screen and (max-width: 380px) {
+  .comparison-arrows {
+    transform: scale(0.85);
+  }
+}

@@ -1,16 +1,16 @@
 <!-- OUTERMOST -->
-<div class="flex h-screen bg-white text-black">
+<div class="flex flex-col lg:flex-row bg-white text-black">
   <!-- ✅ LEFT SIDE -->
-  <div class="flex flex-col flex-1 px-6 py-6">
+  <div class="flex flex-col flex-1 h-full relative p-10">
     <!-- ✅ Top Bar -->
-    <div class="flex justify-between items-center">
+    <div class="flex justify-between items-center px-6 py-6">
       <img src="../../../../../assets/svgs/private/Group 1597881310.svg" alt="DroneLeaf Logo" class="h-16" />
       <app-help-button></app-help-button>
     </div>
 
-    <!-- ✅ Scrollable Content -->
-    <div class="flex-1 overflow-y-auto py-4 pb-5">
-      <div class="mx-auto p-4 space-y-6">
+    <!-- ✅ Scrollable Content with padding at bottom for fixed buttons -->
+    <div class="flex-1 overflow-y-auto px-6 pb-24">
+      <div class="mx-auto space-y-6">
         <!-- ✅ Step 1: Motor Startup Check -->
         <div class="bg-white shadow rounded-lg p-4 sm:p-6 border" *ngIf="step >= 1">
           <h2 class="text-lg font-semibold">Perform Motor Start Up Check</h2>
@@ -18,7 +18,7 @@
             Verify minimum ESC command for Motor Operation.
           </p>
           <p class="mt-2">
-            We’re almost ready to go. First let’s verify that all motors can
+            We're almost ready to go. First let's verify that all motors can
             start together with a minimum throttle command.
           </p>
 
@@ -75,7 +75,6 @@
           </p>
 
           <!-- Slider + Value -->
-
           <div class="mt-4">
             <label for="escSlider" class="font-semibold text-gray-800">Current Value:
               <span class="font-bold">{{ escValue }}</span></label>
@@ -95,7 +94,7 @@
           </div>
 
           <!-- Buttons -->
-          <div class="mt-6 flex justify-between gap-4">
+          <div class="mt-6 flex flex-col sm:flex-row justify-between gap-4">
             <button (click)="setMotorStatus('none')"
               class="w-full bg-gray-800 text-white font-semibold py-3 rounded-md hover:bg-gray-900 transition-colors duration-200">
               None of the motors are spinning
@@ -113,20 +112,17 @@
           </div>
 
           <div
-          *ngIf="showMessage"
-          class="mt-4 p-3 rounded-md bg-green-100 text-green-800 font-medium"
-        >
-          Motors are spinning! Your ESC minimum command has been confirmed!
+            *ngIf="showMessage"
+            class="mt-4 p-3 rounded-md bg-green-100 text-green-800 font-medium"
+          >
+            Motors are spinning! Your ESC minimum command has been confirmed!
+          </div>
         </div>
-
-        </div>
-
-
       </div>
     </div>
 
-    <!-- ✅ Bottom Buttons -->
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4 p-5 border-t bg-white">
+    <!-- ✅ Fixed Bottom Buttons -->
+    <div class="fixed bottom-0 left-0 right-0 lg:right-96 flex flex-col md:flex-row justify-between items-center gap-4 p-4 border-t bg-white z-20 shadow-md">
       <button type="button"
         class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700 w-full md:w-auto"
         (click)="onCancelClick()">
@@ -135,8 +131,9 @@
 
       <div class="flex gap-4 w-full md:w-auto">
         <button
-          class="border-1 border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
-          style="border: 1px solid #009169" (click)="back.emit()">
+          class="border border-[#009169] text-gray-700 font-semibold py-2 px-6 rounded-md hover:bg-gray-100 w-full md:w-auto"
+          style="border: 1px solid #009169;"
+          (click)="back.emit()">
           Back
         </button>
 
@@ -152,19 +149,21 @@
     </div>
   </div>
 
-  <!-- ✅ Right Stepper Sidebar -->
-  <div class="w-96 bg-[#cce9e1] p-6 flex flex-col justify-start overflow-y-auto">
-    <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex">
-    </app-add-drone-stepper>
+  <!-- ✅ Right Stepper Sidebar - Only this will scroll if needed -->
+  <div class="w-full lg:w-96 bg-[#cce9e1] h-full overflow-y-auto">
+    <div class="p-6 flex flex-col justify-between min-h-full">
+      <app-add-drone-stepper [steps]="steps" [currentStepIndex]="currentStepIndex">
+      </app-add-drone-stepper>
 
-    <div class="mt-8">
-      <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
-        Add A Drone
-      </h4>
-      <p class="text-[16px] text-gray-600">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua.
-      </p>
+      <div class="mt-8">
+        <h4 class="text-[22px] font-semibold text-gray-800 mb-1">
+          Add A Drone
+        </h4>
+        <p class="text-[16px] text-gray-600">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
     </div>
   </div>
 </div>
