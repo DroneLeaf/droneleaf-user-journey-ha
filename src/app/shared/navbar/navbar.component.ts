@@ -17,7 +17,7 @@ export class NavbarComponent  implements OnInit {
   constructor(private layoutService: LayoutService) { }
 
   ngOnInit() {
-     const savedInfo = localStorage.getItem('register.personalInfo');
+     const savedInfo = localStorage.getItem('register.personalInfo') || localStorage.getItem('business.info');
     if (savedInfo) {
       const info = JSON.parse(savedInfo);
       const first = info.firstName || '';

@@ -64,7 +64,7 @@ export class SidebarComponent implements OnInit {
       },
       {
         label: 'Environment Library',
-        link: '/drone-library',
+        link: '/environment-library',
         iconPath: '../../../assets/svgs/private/flash.svg',
         activeIconPath: '',
       },

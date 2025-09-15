@@ -12,19 +12,21 @@ openDropdown: string | null = null;
   constructor(private toastService: ToastService) { }
 showAddDroneModal = false;
   ngOnInit() {
-  const shouldShowToast = sessionStorage.getItem('showSuccessToast');
+    // Check for success toast flag
+    const shouldShowToast = sessionStorage.getItem('showSuccessToast');
 
-  if (shouldShowToast === 'true') {
-    this.toastService.show({
-      title: 'Successfully Registered!',
-      message: 'Your account has been successfully registered',
-      type: 'success',
-      position: 'top-center',
-    });
-    sessionStorage.removeItem('showSuccessToast');
-  }
+    if (shouldShowToast === 'true') {
+      this.toastService.show({
+        title: 'Successfully Registered!',
+        message: 'Your account has been successfully registered',
+        type: 'success',
+        position: 'top-center',
+      });
+      sessionStorage.removeItem('showSuccessToast');
+    }
 
-      const savedInfo = localStorage.getItem('business.info');
+    // Load user info from localStorage
+    const savedInfo = localStorage.getItem('business.info');
     if (savedInfo) {
       const info = JSON.parse(savedInfo);
       const first = info.firstName || '';

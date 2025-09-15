@@ -73,8 +73,8 @@ export class CompanyDetailComponent implements OnInit {
 
   goToBusniessDashboard() {
     // ✅ Assume business registered successfully
-    this.authService.login('business'); // 🔥 Login & set role properly
-    this.router.navigate(['/business-dashboard']);
+    // this.authService.login('business'); // 🔥 Login & set role properly
+    // this.router.navigate(['/business-dashboard']);
   }
 
   goToLogin() {
@@ -90,7 +90,14 @@ export class CompanyDetailComponent implements OnInit {
       );
 
       this.formSubmitted.emit();
+
+      // Use the same approach as personal registration - set sessionStorage flag
       sessionStorage.setItem('showSuccessToast', 'true');
+
+      // Login as business user
+      this.authService.login('business');
+
+      // Navigate to business dashboard
       this.router.navigate(['/business-dashboard']);
     } else {
       this.finalForm.markAllAsTouched();
