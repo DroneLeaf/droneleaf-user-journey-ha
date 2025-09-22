@@ -7,6 +7,8 @@ import { DroneLibraryComponent } from './home/private/drone-library/drone-librar
 import { BusinessDashboardComponent } from './home/business/business-dashboard/business-dashboard.component';
 import { AddDroneComponent } from './home/private/add-drone/add-drone.component';
 import { DroneLinraryComponent } from './home/business/drone-linrary/drone-linrary.component';
+import { MissionManagementComponent } from './home/private/mission-management/mission-management.component';
+import { ViewDroneProfileComponent } from './home/private/view-drone-profile/view-drone-profile.component';
 
 const routes: Routes = [
   // ✅ Auth & Registration Routes
@@ -35,6 +37,14 @@ const routes: Routes = [
       {
         path:'business-drone-library',
         component:DroneLinraryComponent
+      },
+      {
+        path:'mission-management',
+        component:MissionManagementComponent
+      },
+      {
+        path:'view-drone-profile',
+        component:ViewDroneProfileComponent
       },
       {
         path: '',

@@ -1,0 +1,123 @@
+<div class="mission-container text-black">
+  <div class="mission-section">
+    <div class="mission-profile">
+      <h2>Mission Profile</h2>
+
+      <div class="inline-form-group">
+        <div class="mission-name-field">
+          <app-text-input
+            [control]="missionNameControl"
+            label="Mission Name*"
+
+            placeholder="Enter mission name"
+          ></app-text-input>
+        </div>
+
+        <div class="drone-select-field">
+          <app-select-input
+            [control]="selectedDroneControl"
+            label="Select a drone*"
+            [options]="droneOptions"
+            placeholder="Select Drone"
+          ></app-select-input>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <app-text-input
+          [control]="missionDescriptionControl"
+          label="Mission Description*"
+          placeholder="Add mission description..."
+          [textarea]="false"
+        ></app-text-input>
+      </div>
+    </div>
+
+    <div class="sdk-editor">
+      <div class="editor-header">
+        <div class="editor-title">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.19 2H7.81C4.17 2 2 4.17 2 7.81V16.18C2 19.83 4.17 22 7.81 22H16.18C19.82 22 21.99 19.83 21.99 16.19V7.81C22 4.17 19.83 2 16.19 2ZM9.94 13.27C9.26 14.29 8.32 15.12 7.22 15.67C7.12 15.72 7 15.75 6.89 15.75C6.61 15.75 6.35 15.6 6.22 15.34C6.03 14.97 6.18 14.52 6.56 14.33C7.43 13.9 8.17 13.24 8.7 12.44C8.88 12.17 8.88 11.83 8.7 11.56C8.16 10.76 7.42 10.1 6.56 9.67C6.18 9.49 6.03 9.04 6.22 8.66C6.4 8.29 6.85 8.14 7.22 8.33C8.32 8.88 9.26 9.71 9.94 10.73C10.46 11.5 10.46 12.5 9.94 13.27ZM17 15.75H13C12.59 15.75 12.25 15.41 12.25 15C12.25 14.59 12.59 14.25 13 14.25H17C17.41 14.25 17.75 14.59 17.75 15C17.75 15.41 17.41 15.75 17 15.75Z" fill="#001D15"/>
+            </svg>
+
+          <span>Leaf SDK – Python Editor</span>
+        </div>
+      </div>
+      <div class="editor-content">
+        <div class="file-tab">
+          <div class="file-icon py">.py</div>
+          <div class="file-name">mission.py</div>
+        </div>
+        <div class="code-editor">
+          <div class="code-container" #editorContainer></div>
+        </div>
+      </div>
+
+      <div class="editor-tabs">
+        <div class="tab active">Validation Console</div>
+        <div class="tab notes">Notes</div>
+      </div>
+
+      <div class="console-output" [ngClass]="{'loading': isValidating, 'success': validationSuccess, 'error': validationError}">
+        <div *ngIf="!isValidating && !validationSuccess && !validationError" class="validation-prompt" (click)="validateScript()">
+          Run validation to see results.
+        </div>
+        <div *ngIf="isValidating" class="loading-spinner">
+          <div class="spinner"></div>
+          <span>Validating...</span>
+        </div>
+        <div *ngIf="validationSuccess" class="success-message">
+          Script approved. You can now create a template or upload this mission.
+        </div>
+        <div *ngIf="validationError" class="error-message">
+          <ng-container *ngIf="hasErrors">
+            <div class="error-title">Python syntax errors detected:</div>
+            <ul class="error-list">
+              <li *ngFor="let error of errorDetails" class="error-item">
+                <span class="error-line">Line {{error.line}}:</span> {{error.message}}
+              </li>
+            </ul>
+          </ng-container>
+          <ng-container *ngIf="!hasErrors">
+            No standalone launcher found. Add `if __name__ == "__main__": leaf.run(run_mission)` to run locally.
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="editor-footer">
+        <div class="status">
+          Status: <span [ngClass]="{'needs-validation': !validationSuccess && !validationError, 'validated': validationSuccess, 'error': validationError}">
+            {{validationStatus}}
+          </span>
+        </div>
+        <div class="action-buttons">
+          <button class="btn validate" (click)="validateScript()">Validate Script</button>
+          <button class="btn create" [disabled]="!validationSuccess" (click)="createMissionTemplate()">Create Mission Template</button>
+          <button class="btn upload" [disabled]="!validationSuccess" (click)="uploadMission()">Upload Mission</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="templates-section">
+    <div class="editor-header">
+      <div class="editor-title">
+        <span>Validated Mission Templates</span>
+      </div>
+    </div>
+    <div class="search-container">
+      <input type="text" placeholder="Search Templates.." [(ngModel)]="searchQuery" class="search-input">
+    </div>
+
+    <div class="templates-list">
+      <div class="template-card" *ngFor="let template of filteredTemplates">
+        <div class="template-info">
+          <h3>{{template.name}}</h3>
+          <div class="template-date">{{template.date}}</div>
+          <div class="template-badge">Validated</div>
+        </div>
+        <button class="btn run-mission">Run Mission</button>
+      </div>
+    </div>
+  </div>
+</div>
