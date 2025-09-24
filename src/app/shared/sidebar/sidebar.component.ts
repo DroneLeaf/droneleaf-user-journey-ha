@@ -64,15 +64,15 @@ export class SidebarComponent implements OnInit {
       },
       {
         label: 'Environment Library',
-        link: '/drone-library',
+        link: '/environment-library',
         iconPath: '../../../assets/svgs/private/flash.svg',
         activeIconPath: '',
       },
       {
         label: 'Mission Management',
-        link: '/missions',
+        link: '/mission-management',
         iconPath: '../../../assets/svgs/private/directbox-notif.svg',
-        activeIconPath: '',
+        activeIconPath: '../../../assets/svgs/private/mission-management-active.svg',
       },
       {
         label: 'AI Dojo',
@@ -102,6 +102,12 @@ export class SidebarComponent implements OnInit {
         activeIconPath: '../../../assets/svgs/private/folder-open-active.png',
       },
       {
+        label: 'Environment Library',
+        link: '/environment-library',
+        iconPath: '../../../assets/svgs/private/flash.svg',
+        activeIconPath: '',
+      },
+      {
         label: 'Mission Management',
         link: '/fleet',
         iconPath: '../../../assets/svgs/private/directbox-notif.svg',
@@ -119,12 +125,7 @@ export class SidebarComponent implements OnInit {
         iconPath: '../../../assets/svgs/private/profile-2user.png',
         activeIconPath: '',
       },
-      {
-        label: 'User Management',
-        link: '/settings',
-        iconPath: '../../../assets/svgs/business/people.svg',
-        activeIconPath: '',
-      },
+
     ];
 
     this.sidebarItems =

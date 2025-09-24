@@ -44,6 +44,8 @@ import { CurrentIndoorEnvironmentComponent } from './private/add-drone/current-i
 import { NoIndoorEnvironmentComponent } from './private/add-drone/no-indoor-environment/no-indoor-environment.component';
 import { IndoorPreFlightProcessComponent } from './private/add-drone/indoor-pre-flight-process/indoor-pre-flight-process.component';
 import { FsacFlightProcessComponent } from './private/add-drone/fsac-flight-process/fsac-flight-process.component';
+import { MissionManagementComponent } from './private/mission-management/mission-management.component';
+import { ViewDroneProfileComponent } from './private/view-drone-profile/view-drone-profile.component';
 
 @NgModule({
   imports: [
@@ -100,7 +102,9 @@ import { FsacFlightProcessComponent } from './private/add-drone/fsac-flight-proc
     CurrentIndoorEnvironmentComponent,
     NoIndoorEnvironmentComponent,
     IndoorPreFlightProcessComponent,
-    FsacFlightProcessComponent
+    FsacFlightProcessComponent,
+    MissionManagementComponent,
+    ViewDroneProfileComponent
   ],
   exports: [
     AddDroneComponent,

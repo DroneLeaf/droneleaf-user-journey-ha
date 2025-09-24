@@ -1,0 +1,97 @@
+// Custom styles for the tabs
+ul {
+  li {
+    button {
+      position: relative;
+      transition: all 0.2s ease;
+      font-family: 'Rubik', sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 100%;
+      letter-spacing: 0%;
+    }
+  }
+}
+
+// Active tab styling
+.border-green-600 {
+  border-color: #009169;
+}
+
+.text-green-600 {
+  color: #009169;
+}
+
+// Button styling
+.bg-green-600 {
+  background-color: #009169;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  ul {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+// Custom table styles for rounded corners
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+
+  thead {
+    background-color: #fafafc;
+  }
+
+  th {
+    border-top: 1px solid #D1DADF;
+    border-bottom: 1px solid #D1DADF;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 500;
+    color: #3A3B3E;
+  }
+
+  th:first-child {
+    border-left: 1px solid #D1DADF;
+    border-top-left-radius: 8px;
+  }
+
+  th:last-child {
+    border-right: 1px solid #D1DADF;
+    border-top-right-radius: 8px;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #D1DADF;
+    background-color: white;
+  }
+
+  td:first-child {
+    // border-left: 1px solid #D1DADF;
+  }
+
+  td:last-child {
+    // border-right: 1px solid #D1DADF;
+  }
+
+  tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 4px;
+  }
+
+  tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 4px;
+  }
+}

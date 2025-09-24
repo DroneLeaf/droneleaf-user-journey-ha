@@ -1,0 +1,313 @@
+<div class="w-full text-black p-4 md:p-6">
+  <!-- Two separate sections in a responsive grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6 bg-white border border-[#D1DADF] rounded-lg p-4">
+    <!-- Left Section - Yellow border in the image -->
+    <div class="p-4 bg-white relative">
+      <div class="flex flex-col gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <h2 class="text-2xl font-medium">DL-Indoor-01</h2>
+          <span class="px-2 py-0.5 bg-[#dcfce7] border border-[#A4F4D0] text-[#008236] text-xs rounded-full">Ready to Fly</span>
+          <span class="px-2 py-0.5 bg-[#ECFEFF] border border-[#A2F4FD] text-[#0f7d9b] text-xs rounded-full">Licensed</span>
+          <span class="px-2 py-0.5 bg-[#dcfce7] border border-[#A4F4D0] text-[#008236] text-xs rounded-full">Connected</span>
+        </div>
+
+        <div class="text-sm text-gray-600">
+          <div class="flex flex-wrap gap-x-2 gap-y-1">
+            <div>
+              <span class="text-[#001D15] text-base">Template:</span> <span class="text-[#001D15] font-medium ml-1 text-base">Indoor Hover - v1</span>
+            </div>
+            <div>
+              <span class="text-[#001D15] text-base">• Application:</span> <span class="text-[#001D15] font-medium ml-1 text-base">Research</span>
+            </div>
+            <div>
+              <span class="text-[#001D15] text-base">• Machine ID:</span> <span class="text-[#001D15] font-medium ml-1 text-base">MCN-7539-ALP2</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-2">
+          <div class="flex justify-between bg-[#FAFAFC] rounded-lg p-2 border border-[#D1DADF]">
+            <span class="text-[18px] text-[#81878D]">Environment</span>
+            <span class="text-[18px] text-[#001D15] font-medium">Indoors</span>
+          </div>
+          <div class="flex justify-between bg-[#FAFAFC] rounded-lg p-2 border border-[#D1DADF]">
+            <span class="text-[18px] text-[#81878D]">Status</span>
+            <span class="text-[18px] text-[#001D15] font-medium">Ready to Fly</span>
+          </div>
+          <div class="flex justify-between bg-[#FAFAFC] rounded-lg p-2 border border-[#D1DADF]">
+            <span class="text-[18px] text-[#81878D]">License</span>
+            <span class="text-[18px] text-[#001D15] font-medium">Active</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section - Red border in the image -->
+    <div class="border border-[#D1DADF] rounded-lg p-4 max-w-md bg-[#fafafc]">
+      <h3 class="text-lg font-medium mb-2">Flight Environment</h3>
+      <div class="flex gap-2 mt-1">
+        <button class="px-4 py-2 bg-[#009169] text-white rounded text-sm">Indoors</button>
+        <button class="px-4 py-2  text-gray-700 rounded text-sm" style="border: 1px solid #D1DADF;">Outdoors</button>
+      </div>
+      <p class="text-gray-500 mt-3">Lorem ipsum dolor sit amet, consectetur</p>
+    </div>
+  </div>
+
+  <!-- Drone Details Section -->
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+    <div class="border rounded-xl p-4 bg-white border-[#D1DADF]">
+      <h3 class="text-[16px] text-gray-500 mb-1">Instance Name</h3>
+      <p class="font-medium text-[20px]">DL-Indoor-01</p>
+    </div>
+    <div class="border rounded-xl p-4 bg-white border-[#D1DADF]">
+      <h3 class="text-[16px] text-gray-500 mb-1">Setup</h3>
+      <p class="font-medium text-[20px]">Indoors</p>
+    </div>
+    <div class="border rounded-xl p-4 bg-white border-[#D1DADF]">
+      <h3 class="text-[16px] text-gray-500 mb-1">Status</h3>
+      <p class="font-medium text-[20px]">Ready to Fly</p>
+    </div>
+    <div class="border rounded-xl p-4 bg-white border-[#D1DADF]">
+      <h3 class="text-[16px] text-gray-500 mb-1">License</h3>
+      <p class="font-medium text-[20px]">Active</p>
+    </div>
+  </div>
+
+  <!-- Tabs Section -->
+  <div class="mb-6 rounded-lg">
+    <div class="border-b">
+      <ul class="flex flex-wrap -mb-px pb-4">
+        <li class="mr-2">
+          <button (click)="setActiveTab('overview')"
+            class="inline-block py-3 px-4 font-medium text-xl rounded-md"
+            [ngClass]="activeTab === 'overview' ? 'bg-[#009169] text-white' : 'text-[#3A3B3E]'">
+            Overview
+          </button>
+        </li>
+        <li class="mr-2">
+          <button (click)="setActiveTab('flights')"
+            class="inline-block py-3 px-4 font-medium text-xl rounded-md"
+            [ngClass]="activeTab === 'flights' ? 'bg-[#009169] text-white' : 'text-[#3A3B3E]'">
+            Flights
+          </button>
+        </li>
+        <li class="mr-2">
+          <button (click)="setActiveTab('rc')"
+            class="inline-block py-3 px-4 font-medium text-xl rounded-md"
+            [ngClass]="activeTab === 'rc' ? 'bg-[#009169] text-white' : 'text-[#3A3B3E]'">
+            RC
+          </button>
+        </li>
+        <li class="mr-2">
+          <button (click)="setActiveTab('environments')"
+            class="inline-block py-3 px-4 font-medium text-xl rounded-md"
+            [ngClass]="activeTab === 'environments' ? 'bg-[#009169] text-white' : 'text-[#3A3B3E]'">
+            Environments
+          </button>
+        </li>
+        <li class="mr-2">
+          <button (click)="setActiveTab('general')"
+            class="inline-block py-3 px-4 font-medium text-xl rounded-md"
+            [ngClass]="activeTab === 'general' ? 'bg-[#009169] text-white' : 'text-[#3A3B3E]'">
+            General
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class=" py-4">
+    <div *ngIf="activeTab === 'overview'" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Status Summary -->
+      <div class="bg-white rounded-xl p-4 border border-[#D1DADF]" >
+        <h3 class="font-medium text-[18px] mb-3">Status Summary</h3>
+        <div class="space-y-2">
+          <div class="flex justify-between">
+            <span class="text-[#3A3B3E] text-[16px]">Connection</span>
+            <span class=" text-[16px] font-medium">Connected</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-[#3A3B3E] text-[16px]">Environment</span>
+            <span class=" text-[16px] font-medium">Indoors (Motion Capture)</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-[#3A3B3E] text-[16px]">Template</span>
+            <span class=" text-[16px] font-medium">Indoor Hover - v1</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-[#3A3B3E] text-[16px]">Application</span>
+            <span class=" text-[16px] font-medium">Research</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="bg-white rounded-xl p-4 border border-[#D1DADF]" >
+        <h3 class="font-medium text-[18px] mb-3">Quick Actions</h3>
+        <div class="flex flex-wrap gap-2">
+          <button class="px-4 py-2 bg-[#f1f5f9] border border-gray-300 rounded-md text-[16px] font-medium">Mission Management</button>
+          <button class="px-4 py-2 bg-[#f1f5f9] border border-gray-300 rounded-md text-[16px] font-medium">Bind RC</button>
+          <button class="px-4 py-2 bg-[#f1f5f9] border border-gray-300 rounded-md text-[16px] font-medium">View License</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'flights'" class="py-4">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-medium text-[20px]">Flight Log</h3>
+        <span class="text-gray-500 text-[16px]">Total: {{ flightLogs.length }}</span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Start</th>
+              <th>Duration</th>
+              <th>Type</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let log of flightLogs">
+              <td>{{ log.id }}</td>
+              <td>{{ log.start }}</td>
+              <td>{{ log.duration }}</td>
+              <td>{{ log.type }}</td>
+              <td >{{ log.result }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'rc'" class="py-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Bound RC Section -->
+        <div class="bg-white rounded-xl p-6 border border-[#D1DADF]">
+          <h3 class="font-medium text-[20px] mb-4">Bound RC</h3>
+          <div class="space-y-3">
+            <div>
+              <span class="text-[#3A3B3E] text-[16px]">Model:</span>
+              <span class="text-[16px] font-medium ml-2">{{ remoteControl.model }}</span>
+            </div>
+            <div>
+              <span class="text-[#3A3B3E] text-[16px]">Protocol:</span>
+              <span class="text-[16px] font-medium ml-2">{{ remoteControl.protocol }}</span>
+            </div>
+            <div>
+              <span class="text-[#3A3B3E] text-[16px]">Last Sync:</span>
+              <span class="text-[16px] font-medium ml-2">{{ remoteControl.lastSync }}</span>
+            </div>
+          </div>
+          <div class="mt-6 flex gap-3">
+            <button (click)="rebindRC()" class="px-4 py-2 bg-[#f1f5f9] border border-gray-300 rounded-md text-[16px] font-medium">Rebind</button>
+            <button (click)="testChannels()" class="px-4 py-2 bg-[#f1f5f9] border border-gray-300 rounded-md text-[16px] font-medium">Test Channels</button>
+          </div>
+        </div>
+
+        <!-- RC Notes Section -->
+        <div class="bg-white rounded-xl p-6 border border-[#D1DADF]">
+          <h3 class="font-medium text-[20px] mb-4">RC Notes</h3>
+          <p class="text-[16px] text-[#3A3B3E]">{{ rcNotes }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'environments'" class="py-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Indoors - Motion Capture Section -->
+        <div class="bg-white rounded-xl p-6 border border-[#D1DADF]">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-medium text-[20px]">Indoors - Motion Capture</h3>
+            <span class="text-gray-500 text-[16px]">Selected</span>
+          </div>
+
+          <div class="space-y-3 mb-6">
+            <div>
+              <span class="text-[#3A3B3E] text-[16px]">System:</span>
+              <span class="text-[16px] font-medium ml-2">{{ indoorEnvironment.system }}</span>
+            </div>
+            <div>
+              <span class="text-[#3A3B3E] text-[16px]">Rigid body ID:</span>
+              <span class="text-[16px] font-medium ml-2">{{ indoorEnvironment.rigidBodyId }}</span>
+            </div>
+            <div>
+              <span class="text-[#3A3B3E] text-[16px]">Calibration:</span>
+              <span class="text-[16px] font-medium ml-2">{{ indoorEnvironment.calibration }} ({{ indoorEnvironment.calibrationDate }})</span>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <button (click)="viewSetup()" class="px-4 py-2 bg-[#f1f5f9] border border-gray-300 rounded-md text-[16px]">View Setup</button>
+            <button (click)="recalibrate()" class="px-4 py-2 bg-[#f1f5f9] border border-gray-300 rounded-md text-[16px]">Recalibrate</button>
+          </div>
+        </div>
+
+        <!-- Outdoors - GNSS Section -->
+        <div class="bg-white rounded-xl p-6 border border-[#D1DADF]">
+          <h3 class="font-medium text-[20px] mb-4">Outdoors - GNSS</h3>
+
+          <div *ngIf="!hasOutdoorSetup" class="mb-6">
+            <p class="text-[16px] text-[#3A3B3E] mb-3">No outdoor setup detected for this instance.</p>
+
+            <button (click)="startOutdoorSetup()" class="px-4 py-2 bg-[#f1f5f9] border border-gray-300 rounded-md text-[16px] font-medium">Start Outdoor Setup</button>
+
+            <p class=" text-gray-500 mt-3">Setup may require re-learning unless outdoor parts already exist</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'general'" class="py-4">
+      <div class="bg-white rounded-xl p-6 border border-[#D1DADF]">
+        <h3 class="font-medium text-[20px] mb-6">General Info</h3>
+
+        <div class="flex flex-col md:flex-row mb-4">
+          <div class="flex-1">
+            <div class="mb-4 md:mb-0">
+              <span class="text-[#3A3B3E] text-[16px]">Created:</span>
+              <span class="text-[16px] font-medium ml-2">{{ generalInfo.created }}</span>
+            </div>
+          </div>
+
+          <div class="flex-1 text-left md:text-center">
+            <div class="mb-4 md:mb-0">
+              <span class="text-[#3A3B3E] text-[16px]">Creator:</span>
+              <span class="text-[16px] font-medium ml-2">{{ generalInfo.creator }}</span>
+            </div>
+          </div>
+
+          <div class="flex-1 text-left md:text-right">
+            <div>
+              <span class="text-[#3A3B3E] text-[16px]">Instance ID:</span>
+              <span class="text-[16px] font-medium ml-2">{{ generalInfo.instanceId }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row">
+          <div class="flex-1">
+            <div class="mb-4 md:mb-0">
+              <span class="text-[#3A3B3E] text-[16px]">Firmware:</span>
+              <span class="text-[16px] font-medium ml-2">{{ generalInfo.firmware }}</span>
+            </div>
+          </div>
+
+          <div class="flex-1 text-left md:text-center">
+            <div>
+              <span class="text-[#3A3B3E] text-[16px]">SDK:</span>
+              <span class="text-[16px] font-medium ml-2">{{ generalInfo.sdk }}</span>
+            </div>
+          </div>
+
+          <div class="flex-1">
+            <!-- Empty div to maintain layout -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
